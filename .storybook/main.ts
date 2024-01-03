@@ -3,6 +3,7 @@ import type { StorybookConfig } from "@storybook/react-webpack5";
 import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
 
 const config: StorybookConfig = {
+  typescript: { reactDocgen: false },
   stories: [
     "../components/**/*.mdx",
     "../components/**/*.stories.@(js|jsx|mjs|ts|tsx)",
