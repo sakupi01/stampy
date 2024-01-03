@@ -2,8 +2,6 @@
 to: <%= abs_path %>/<%= component_name %>.stories.ts
 ---
 import { Meta, StoryObj } from '@storybook/react'
-import { within } from '@storybook/testing-library'
-
 import { <%= component_name %> } from './<%= component_name %>';
 
 <% if (have_props) { -%>
@@ -26,7 +24,5 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-  },
+  args: {},
 };
