@@ -117,6 +117,8 @@ const tokens = createTokens({
     "accent--click": "#DF7861",
     "destructive--background": "#EF4444",
     "destructive--click": "#DC2626",
+    "light--background": "#fff",
+    "dark--background": "#000",
     "text--dark": "#030A12CF",
     "text--subtle": "#64748B",
     "text--light": "#fff",

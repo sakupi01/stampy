@@ -1,3 +1,4 @@
+import { MaterialBoxshadow } from "@/constants/MaterialBoxshadow";
 import { Form as DefaultForm, FormProps, Spinner } from "tamagui";
 import { StyledButton } from "../StyledButton";
 import { StyledButtonProps } from "../StyledButton/StyledButton";
@@ -30,6 +31,7 @@ export function StyledForm({
       backgroundColor={formProps.backgroundColor || "$background--light"}
       borderColor={formProps.borderColor || "transparent"}
       padding={formProps.padding || 25}
+      boxShadow={formProps.boxShadow || MaterialBoxshadow}
     >
       {children}
       <DefaultForm.Trigger asChild disabled={status !== "off"}>
