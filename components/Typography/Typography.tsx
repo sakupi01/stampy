@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { GetProps, SizableText, styled } from "tamagui";
 
-const Paragraph = styled(SizableText, {
+export const Paragraph = styled(SizableText, {
   name: "Paragraph",
   tag: "p",
   userSelect: "auto",
@@ -96,7 +96,7 @@ type TypographyProps = {
     | "large"
     | "medium"
     | "small";
-  children: string;
+  children?: SizableTextProps["children"];
 } & SizableTextProps;
 
 const typographyMap = {

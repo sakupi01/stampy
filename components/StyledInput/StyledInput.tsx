@@ -1,4 +1,4 @@
-import { Medium } from "@/components/typography";
+import { Typography } from "@/components/Typography";
 import {
   Input as DefaultInput,
   InputProps,
@@ -39,15 +39,18 @@ export function StyledInput({
   ...props
 }: StyledInputProps) {
   return (
-    <YStack space={6}>
+    <YStack space={6} width={"100%"}>
       <Label htmlFor={id} {...labelProps}>
-        <Medium color="$text--dark">{label}</Medium>
+        <Typography type="medium" color="$text--dark">
+          {label}
+        </Typography>
       </Label>
       <Input
         id={id}
         placeholder={placeholderValue}
         defaultValue={defaultValue}
         secureTextEntry={isPassword}
+        width={"100%"}
         {...props}
       />
     </YStack>

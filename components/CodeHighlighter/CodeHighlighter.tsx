@@ -1,6 +1,6 @@
 import { useThemeColor } from "@/components/CodeHighlighter/hooks/useThemeColor";
-import { Paragraph } from "@/components/typography";
 import { GetProps, SizableText, XStack, styled } from "tamagui";
+import { Paragraph } from "../Typography";
 
 type ParagraphProps = GetProps<typeof SizableText>;
 const MonoSpan = styled(Paragraph, {

@@ -19,8 +19,7 @@
     "storybook:generate": "sb-rn-get-stories",
     "storybook:watch": "sb-rn-watcher",
     "build:storybook": "storybook build",
-    "precommit": "lint-staged",
-    "postinstall": "bun run check:typecheck"
+    "precommit": "lint-staged"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -29,6 +28,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
+    "@hookform/resolvers": "^3.3.3",
     "@react-navigation/native": "^6.0.2",
     "@storybook/addon-ondevice-backgrounds": "^6.5.7",
     "@storybook/addon-ondevice-notes": "^6.5.7",
@@ -43,11 +43,13 @@
     "expo-web-browser": "~12.3.2",
     "react": "18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.49.2",
     "react-native": "0.72.6",
     "react-native-gesture-handler": "~2.12.0",
     "react-native-screens": "~3.22.0",
     "react-native-web": "^0.19.10",
-    "tamagui": "^1.81.4"
+    "tamagui": "^1.81.4",
+    "valibot": "^0.25.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

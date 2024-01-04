@@ -108,7 +108,7 @@ export type SpaceMonoFont = typeof spaceMonoFont;
 const tokens = createTokens({
   ...baseToken,
   color: {
-    "stroke-dark": "#0F172A",
+    "stroke--dark": "#0F172A",
     "primary--background": "#B2C4B2",
     "primary--click": "#8BAC8B",
     "secondary--background": "rgba(232, 230, 227, 0.52)",
