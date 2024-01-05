@@ -19,7 +19,8 @@
     "storybook:generate": "sb-rn-get-stories",
     "storybook:watch": "sb-rn-watcher",
     "build:storybook": "storybook build",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "chromatic": "npx chromatic --project-token=CHROMATIC_PROJECT_TOKEN --build-script-name build:storybook"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -100,5 +101,7 @@
   "resolutions": {
     "react-refresh": "~0.14.0"
   },
-  "private": true
+  "private": true,
+  "readme": "ERROR: No README data found!",
+  "_id": "stampy@1.0.0"
 }

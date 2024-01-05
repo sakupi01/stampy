@@ -6,9 +6,6 @@ const StyledButton = styled(Button, {
   name: "StyledButton",
   testID: "StyledButton",
   borderRadius: 16,
-  borderStyle: "dashed",
-  borderWidth: 1,
-  borderColor: "$stroke--dark",
   // @ts-ignore
   fontWeight: "$medium",
   variants: {
@@ -22,7 +19,6 @@ const StyledButton = styled(Button, {
         },
         pressStyle: {
           backgroundColor: "$primary--click",
-          borderStyle: "solid",
         },
       },
       secondary: {
@@ -34,7 +30,6 @@ const StyledButton = styled(Button, {
         },
         pressStyle: {
           backgroundColor: "$secondary--click",
-          borderStyle: "solid",
         },
       },
       accent: {
@@ -50,7 +45,6 @@ const StyledButton = styled(Button, {
         },
         pressStyle: {
           backgroundColor: "$accent--click",
-          borderStyle: "solid",
         },
       },
       destructive: {
@@ -58,7 +52,6 @@ const StyledButton = styled(Button, {
         color: "$text--light",
         pressStyle: {
           backgroundColor: "$destructive--click",
-          borderStyle: "solid",
         },
       },
     },
