@@ -1,8 +1,13 @@
+import { readFileSync } from "fs";
 import type { Config } from "jest";
+import { parse } from "jsonc-parser";
+import * as t from "ts-jest";
+const { compilerOptions } = parse(readFileSync("./tsconfig.json").toString());
 
 const config: Config = {
+  verbose: true,
   preset: "jest-expo",
-  setupFilesAfterEnv: ["@testing-library/jest-native/extend-expect"],
+  // setupFilesAfterEnv: ["@testing-library/jest-native/extend-expect"],
   moduleFileExtensions: ["ts", "tsx", "js"],
   transform: {
     "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
@@ -28,6 +33,9 @@ const config: Config = {
     "!**/babel.config.js",
     "!**/jest.setup.js",
   ],
+  moduleNameMapper: t.pathsToModuleNameMapper(compilerOptions.paths, {
+    prefix: "<rootDir>/",
+  }),
 };
 
 export default config;

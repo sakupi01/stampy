@@ -7,7 +7,7 @@ describe("<StyledTabs />", () => {
     const snapshot = renderer
       .create(
         <TamaguiProvider config={config}>
-          <StyledTabs />
+          <StyledTabs.Tabs />
         </TamaguiProvider>,
       )
       .toJSON();

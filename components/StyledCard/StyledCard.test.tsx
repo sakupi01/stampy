@@ -7,7 +7,7 @@ describe("<StyledCard />", () => {
     const snapshot = renderer
       .create(
         <TamaguiProvider config={config}>
-          <StyledCard />
+          <StyledCard.Card />
         </TamaguiProvider>,
       )
       .toJSON();

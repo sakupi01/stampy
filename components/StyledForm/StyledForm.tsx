@@ -34,7 +34,7 @@ export function StyledForm({
       boxShadow={formProps.boxShadow || MaterialBoxshadow}
     >
       {children}
-      <DefaultForm.Trigger asChild disabled={status !== "off"}>
+      <DefaultForm.Trigger asChild disabled={isSubmitting || isSubmitted}>
         <StyledButton
           icon={
             isSubmitting || isSubmitted
@@ -46,7 +46,6 @@ export function StyledForm({
                 )
               : undefined
           }
-          disabled={isSubmitting || isSubmitted}
           {...buttonProps}
         >
           {buttonLabel}

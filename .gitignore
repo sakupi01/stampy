@@ -45,3 +45,5 @@ coverage
 **/__snapshots__
 
 INFO.md
+
+.jest
