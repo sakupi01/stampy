@@ -108,7 +108,7 @@ export type SpaceMonoFont = typeof spaceMonoFont;
 const tokens = createTokens({
   ...baseToken,
   color: {
-    "stroke--dark": "#0F172A",
+    "stroke--dark": "rgba(3, 10, 18, 0.81)",
     "primary--background": "#B2C4B2",
     "primary--click": "#8BAC8B",
     "secondary--background": "rgba(232, 230, 227, 0.52)",
@@ -123,6 +123,12 @@ const tokens = createTokens({
     "text--subtle": "#64748B",
     "text--light": "#fff",
     "text--destructive": "#EF4444",
+  },
+  zIndex: {
+    0: 0,
+    1: 1,
+    2: 2,
+    3: 3,
   },
 });
 const config = createTamagui({
