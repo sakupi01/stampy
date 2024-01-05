@@ -1,4 +1,6 @@
 import { MaterialBoxshadow } from "@/constants/MaterialBoxshadow";
+// biome-ignore lint/nursery/noUnusedImports: <explanation>
+import React from "react";
 import { XStack, XStackProps } from "tamagui";
 
 type BadgeProps = {
