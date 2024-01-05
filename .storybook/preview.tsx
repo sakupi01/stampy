@@ -1,4 +1,6 @@
 import type { Preview } from "@storybook/react";
+// biome-ignore lint/nursery/noUnusedImports: <explanation>
+import React from "react";
 import { TamaguiProvider } from "tamagui";
 import config from "../tamagui.config";
 const preview: Preview = {
