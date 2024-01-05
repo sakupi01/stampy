@@ -47,3 +47,5 @@ coverage
 INFO.md
 
 .jest
+
+stoybook-static
