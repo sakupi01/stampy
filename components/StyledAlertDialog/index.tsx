@@ -1,0 +1,1 @@
+export { StyledAlertDialog } from "./StyledAlertDialog";
