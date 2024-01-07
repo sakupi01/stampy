@@ -1,12 +1,17 @@
 import { StyleSheet } from "react-native";
 
 import { StyledInput } from "@/components/StyledInput";
+import { selectWordByKey } from "@/libs/AsyncStorage/Word/state";
+import { useAppSelector } from "@/libs/AsyncStorage/store";
 import EditScreenInfo from "../../components/EditScreenInfo";
 import { StyledAlertDialog } from "../../components/StyledAlertDialog/StyledAlertDialog";
 import { StyledButton } from "../../components/StyledButton";
 import { Text, View } from "../../components/Themed";
 
 export default function TabTwoScreen() {
+  const readyStampLabel = useAppSelector((state) =>
+    selectWordByKey(state, "stampy.word.ready.stamp"),
+  );
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Tab Two</Text>
@@ -22,8 +27,7 @@ export default function TabTwoScreen() {
         cancelButton={<StyledButton type="secondary">キャンセル</StyledButton>}
         // @ts-ignore
         actionButton={<StyledButton type="primary">はい</StyledButton>}
-        // biome-ignore lint/style/noUnusedTemplateLiteral: <explanation>
-        description={`スタンプをもらう\n準備ができましたか？`}
+        description={`${readyStampLabel}`}
       >
         <StyledInput
           id="message"

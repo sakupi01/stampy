@@ -9,8 +9,10 @@ import { SplashScreen } from "expo-router";
 import { Link, Tabs } from "expo-router";
 import { useEffect } from "react";
 import { Pressable, useColorScheme } from "react-native";
+import { Provider } from "react-redux";
 import { TamaguiProvider } from "tamagui";
 import Colors from "../constants/Colors";
+import { store } from "../libs/AsyncStorage/store";
 import config from "../tamagui.config";
 
 /**
@@ -72,67 +74,74 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <TamaguiProvider config={config}>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Tabs
-          screenOptions={{
-            tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-          }}
+    <Provider store={store}>
+      <TamaguiProvider config={config}>
+        <ThemeProvider
+          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
         >
-          <Tabs.Screen
-            // file name to refer to
-            name="home"
-            options={{
-              title: "Home",
-              href: "home",
-              tabBarIcon: ({ color }) => (
-                <TabBarIcon name="code" color={color} />
-              ),
-              headerRight: () => (
-                <Link href="/modal" asChild>
-                  <Pressable>
-                    {({ pressed }) => (
-                      <FontAwesome
-                        name="info-circle"
-                        size={25}
-                        color={Colors[colorScheme ?? "light"].text}
-                        style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                      />
-                    )}
-                  </Pressable>
-                </Link>
-              ),
+          <Tabs
+            screenOptions={{
+              tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
             }}
-          />
-          <Tabs.Screen
-            // file name to refer to
-            name="two"
-            options={{
-              title: "Tab Two",
-              href: "two",
-              tabBarIcon: ({ color }) => (
-                <TabBarIcon name="code" color={color} />
-              ),
-            }}
-          />
-          {/**
-           * リダイレクト用の index は Bottom Tabs で表示しない
-           * - https://docs.expo.dev/router/advanced/tabs/#hiding-a-tab
-           */}
-          <Tabs.Screen
-            name="index"
-            options={{
-              href: null,
-            }}
-          />
-          <Tabs.Screen
-            name="[...missing]"
-            options={{
-              href: null,
-            }}
-          />
-        </Tabs>
-      </ThemeProvider>
-    </TamaguiProvider>
+          >
+            <Tabs.Screen
+              // file name to refer to
+              name="home"
+              options={{
+                title: "Home",
+                href: "home",
+                tabBarIcon: ({ color }) => (
+                  <TabBarIcon name="code" color={color} />
+                ),
+                headerRight: () => (
+                  <Link href="/modal" asChild>
+                    <Pressable>
+                      {({ pressed }) => (
+                        <FontAwesome
+                          name="info-circle"
+                          size={25}
+                          color={Colors[colorScheme ?? "light"].text}
+                          style={{
+                            marginRight: 15,
+                            opacity: pressed ? 0.5 : 1,
+                          }}
+                        />
+                      )}
+                    </Pressable>
+                  </Link>
+                ),
+              }}
+            />
+            <Tabs.Screen
+              // file name to refer to
+              name="two"
+              options={{
+                title: "Tab Two",
+                href: "two",
+                tabBarIcon: ({ color }) => (
+                  <TabBarIcon name="code" color={color} />
+                ),
+              }}
+            />
+            {/**
+             * リダイレクト用の index は Bottom Tabs で表示しない
+             * - https://docs.expo.dev/router/advanced/tabs/#hiding-a-tab
+             */}
+            <Tabs.Screen
+              name="index"
+              options={{
+                href: null,
+              }}
+            />
+            <Tabs.Screen
+              name="[...missing]"
+              options={{
+                href: null,
+              }}
+            />
+          </Tabs>
+        </ThemeProvider>
+      </TamaguiProvider>
+    </Provider>
   );
 }
