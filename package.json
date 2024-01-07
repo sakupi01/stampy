@@ -7,13 +7,14 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "clear": "expo start --clear",
     "test:unit": "jest --config jest.config.ts",
     "test": "bun run test:unit",
     "check:format": "bunx @biomejs/biome format **/*.ts **/*.tsx --write",
     "check:lint": "bunx @biomejs/biome lint **/*.ts **/*.tsx",
     "check:typecheck": "tsc --noEmit",
     "check:lint-format": "bunx @biomejs/biome check --apply **/*.ts **/*.tsx",
-    "check": "bun run check:typecheck & bun run check:lint-format \"./\"",
+    "check": "bun run check:typecheck & bun run check:lint-format",
     "ui:gen": "npx hygen generate new",
     "storybook": "storybook dev -p 6006",
     "storybook:generate": "sb-rn-get-stories",
@@ -23,7 +24,7 @@
     "chromatic": "npx chromatic --project-token=CHROMATIC_PROJECT_TOKEN --build-script-name build:storybook"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
+    "*.{ts,tsx}": [
       "bun run check"
     ]
   },
@@ -81,6 +82,7 @@
     "@types/react": "~18.2.14",
     "@types/react-test-renderer": "^18.0.7",
     "babel-loader": "^8.3.0",
+    "babel-plugin-module-resolver": "^5.0.0",
     "babel-plugin-react-native-web": "^0.19.10",
     "chromatic": "^10.2.0",
     "husky": "^8.0.3",
