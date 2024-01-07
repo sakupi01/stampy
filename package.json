@@ -13,7 +13,7 @@
     "check:lint": "bunx @biomejs/biome lint **/*.ts **/*.tsx",
     "check:typecheck": "tsc --noEmit",
     "check:lint-format": "bunx @biomejs/biome check --apply **/*.ts **/*.tsx",
-    "check": "bun run check:typecheck & bun run check:lint-format",
+    "check": "bun run check:typecheck & bun run check:lint-format \"./\"",
     "ui:gen": "npx hygen generate new",
     "storybook": "storybook dev -p 6006",
     "storybook:generate": "sb-rn-get-stories",
