@@ -35,7 +35,7 @@ const interFont = createFont({
   },
   weight: {
     light: "300",
-    medium: "500",
+    medium: "400",
     bold: "600",
     extraBold: "800",
   },
@@ -50,12 +50,63 @@ const interFont = createFont({
   // (native) swap out fonts by face/style
   face: {
     300: { normal: "InterLight", italic: "InterItalic" },
-    500: { normal: "Inter", italic: "InterItalic" },
+    400: { normal: "Inter", italic: "InterItalic" },
     600: { normal: "InterBold" },
     800: { normal: "InterExtraBold" },
   },
 });
 export type InterFont = typeof interFont;
+const zenKakuGothicNewFont = createFont({
+  family: "ZenKakuGothicNew",
+  size: {
+    h1: 48,
+    h2: 30,
+    h3: 24,
+    h4: 20,
+    ui: 14,
+    large: 18,
+    medium: 16,
+    small: 12,
+    true: 16,
+  },
+  color: {
+    dark: "$text--dark",
+    subtle: "$text--subtle",
+    color: "$color",
+  },
+  lineHeight: {
+    h1: 48,
+    h2: 36,
+    h3: 32,
+    h4: 28,
+    ui: 20,
+    large: 28,
+    medium: 24,
+    small: 20,
+  },
+  weight: {
+    light: "300",
+    medium: "400",
+    bold: "700",
+    extraBold: "900",
+  },
+  letterSpacing: {
+    0: 0,
+    1: -1.2,
+    2: -0.75,
+    3: -0.6,
+    4: -0.5,
+    true: 0,
+  },
+  // (native) swap out fonts by face/style
+  face: {
+    300: { normal: "ZenKakuGothicNewLight", italic: "ZenKakuGothicNewItalic" },
+    400: { normal: "ZenKakuGothicNew", italic: "ZenKakuGothicNewItalic" },
+    700: { normal: "ZenKakuGothicNewBold" },
+    900: { normal: "ZenKakuGothicNewExtraBold" },
+  },
+});
+export type ZenKakuGothicNewFont = typeof zenKakuGothicNewFont;
 const spaceMonoFont = createFont({
   family: "SpaceMono",
   size: {
@@ -136,8 +187,8 @@ const config = createTamagui({
   ...baseConfig,
   fonts: {
     // for tamagui, heading and body are assumed
-    heading: interFont,
-    body: interFont,
+    heading: zenKakuGothicNewFont,
+    body: zenKakuGothicNewFont,
     span: spaceMonoFont,
   },
   defaultFont: "body",

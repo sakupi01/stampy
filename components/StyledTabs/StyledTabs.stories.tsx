@@ -5,6 +5,7 @@ import { useTabsState } from "./hooks/useTabsState";
 import { SignInForm, SignUpForm } from "./utils/formsMock";
 const meta = {
   title: "StyledTabs",
+  // @ts-ignore
   component: StyledTabs.Tabs,
   tags: ["autodocs"],
   parameters: {
@@ -17,6 +18,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+  // @ts-ignore
   args: {},
   decorators: [
     (Story) => (

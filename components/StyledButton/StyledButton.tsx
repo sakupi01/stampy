@@ -12,10 +12,11 @@ const StyledButton = styled(Button, {
     type: {
       primary: {
         backgroundColor: "$primary--background",
-        color: "$text--light",
+        color: "$text--dark",
         onHoverIn: {
+          // @ts-ignore
           backgroundColor: "$primary--background",
-          color: "$text--light",
+          color: "$text--dark",
         },
         pressStyle: {
           backgroundColor: "$primary--click",
@@ -25,6 +26,7 @@ const StyledButton = styled(Button, {
         backgroundColor: "$secondary--background",
         color: "$text--dark",
         onHoverIn: {
+          // @ts-ignore
           backgroundColor: "$secondary--background",
           color: "$text--dark",
         },
@@ -36,10 +38,12 @@ const StyledButton = styled(Button, {
         backgroundColor: "$accent--background",
         color: "$text--dark",
         onFocusIn: {
+          // @ts-ignore
           backgroundColor: "$secondary--background",
           color: "$text--dark",
         },
         onHoverIn: {
+          // @ts-ignore
           backgroundColor: "$accent--background",
           color: "$text--dark",
         },
@@ -66,6 +70,7 @@ const StyledButton = styled(Button, {
     },
   } as const,
   defaultVariants: {
+    // @ts-ignore
     type: "primary",
   },
 });
