@@ -93,8 +93,19 @@ function RootLayoutNav() {
                 tabBarIcon: ({ color }) => (
                   <TabBarIcon name="code" color={color} />
                 ),
+              }}
+            />
+            <Tabs.Screen
+              // file name to refer to
+              name="two"
+              options={{
+                title: "Tab Two",
+                href: "two",
+                tabBarIcon: ({ color }) => (
+                  <TabBarIcon name="code" color={color} />
+                ),
                 headerRight: () => (
-                  <Link href="/modal" asChild>
+                  <Link href="/two/modal" asChild>
                     <Pressable>
                       {({ pressed }) => (
                         <FontAwesome
@@ -109,17 +120,6 @@ function RootLayoutNav() {
                       )}
                     </Pressable>
                   </Link>
-                ),
-              }}
-            />
-            <Tabs.Screen
-              // file name to refer to
-              name="two"
-              options={{
-                title: "Tab Two",
-                href: "two",
-                tabBarIcon: ({ color }) => (
-                  <TabBarIcon name="code" color={color} />
                 ),
               }}
             />
