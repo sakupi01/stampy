@@ -4,8 +4,11 @@ import { StampNode } from "@/types";
 import React from "react";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import Svg, { Path } from "react-native-svg";
+import { YStack } from "tamagui";
+import { StampWrapper } from "../StampWrapper/StampWrapper";
 import { StyledAlertDialog } from "../StyledAlertDialog/StyledAlertDialog";
 import { StyledButton } from "../StyledButton";
+import { StyledInput } from "../StyledInput/StyledInput";
 import { Typography } from "../Typography/Typography";
 import { drawEdges } from "./utils/drawEdges";
 import { getPositionedNode } from "./utils/positionedNode";
@@ -44,6 +47,9 @@ export const StampCard = ({
   );
   const closeMessage = useAppSelector((state) =>
     selectWordByKey(state, "stampy.word.close"),
+  );
+  const messageLabel = useAppSelector((state) =>
+    selectWordByKey(state, "stampy.word.message.label"),
   );
   const columns = fixedWidth / 2.6;
   const rows = fixedHeight / (stampNodes.length / 2.6);
@@ -98,8 +104,15 @@ export const StampCard = ({
                 }
                 description={nthDay + givenStampMessage}
               >
-                <Typography>{stamp}</Typography>
-                <Typography type="large">{message}</Typography>
+                <YStack gap={20} alignItems="center">
+                  <StampWrapper stamp={stamp} />
+                  <StyledInput
+                    label={messageLabel}
+                    defaultValue={message}
+                    id={`${stampId}-hitokoto`}
+                    isDisabled
+                  />
+                </YStack>
               </StyledAlertDialog>
             </Node>
           );

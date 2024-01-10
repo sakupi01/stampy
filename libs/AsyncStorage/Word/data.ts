@@ -17,6 +17,7 @@ export const WORD_DICTIONARY = {
   "stampy.word.ready.stamp": "スタンプをもらう\n準備ができましたか？",
   "stampy.word.close": "閉じる",
   "stampy.word.given.stamp": "日目にもらったスタンプ",
+  "stampy.word.message.label": "ひとことメッセージ",
 } as const satisfies Record<string, string>;
 
 export type WordDictionaryKeys = keyof typeof WORD_DICTIONARY;
