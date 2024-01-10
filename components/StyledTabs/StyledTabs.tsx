@@ -96,12 +96,9 @@ const StyledTab = styled(DefaultTabs.Tab, {
   hoverStyle: {
     backgroundColor: "$secondary--background",
     borderRadius: 6,
-    borderWidth: 1,
-    borderStyle: "dashed",
-    borderColor: "$stroke--dark",
   },
   focusStyle: {
-    backgroundColor: "$accent--background",
+    backgroundColor: "$secondary--click",
     borderRadius: 6,
     borderWidth: 1,
     borderStyle: "dashed",
@@ -125,7 +122,7 @@ const Tab = ({
     <StyledTab
       value={value}
       backgroundColor={
-        currentTab === value ? "$accent--background" : "transparent"
+        currentTab === value ? "$secondary--click" : "transparent"
       }
       borderRadius={currentTab === value ? 6 : 0}
       borderWidth={currentTab === value ? 1 : 0}
@@ -205,7 +202,7 @@ const TabsRovingIndicator = ({
         opacity: 0,
       }}
       {...(active && {
-        backgroundColor: "$accent--background",
+        backgroundColor: "$secondary--click",
         opacity: 0.6,
       })}
       {...props}

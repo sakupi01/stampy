@@ -11,7 +11,10 @@
   	"typescript.tsdk": "node_modules/typescript/lib",
 	"cSpell.words": [
 		"autodocs",
+		"biomejs",
+		"bunx",
 		"Pressable",
+		"stampy",
 		"Tamagui",
 		"valibot"
 	],

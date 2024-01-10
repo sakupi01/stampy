@@ -49,4 +49,4 @@ INFO.md
 .jest
 
 build-storybook.log
-**/stoybook-static/**/*
+storybook-static

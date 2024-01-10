@@ -9,6 +9,7 @@ type StyledFormProps = {
   isSubmitting?: boolean;
   isSubmitted?: boolean;
   buttonLabel?: string;
+  // @ts-ignore
   buttonProps?: Omit<StyledButtonProps, "children" | "ref">;
 } & Omit<FormProps, "onSubmit">;
 export function StyledForm({

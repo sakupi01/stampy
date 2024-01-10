@@ -18,7 +18,7 @@ export function StyledAlertDialog({
   ...props
 }: StyledAlertDialogProps) {
   return (
-    <AlertDialog native>
+    <AlertDialog>
       <AlertDialog.Trigger asChild>{triggerButton}</AlertDialog.Trigger>
       <AlertDialog.Portal>
         <AlertDialog.Overlay

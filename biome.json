@@ -23,6 +23,6 @@
     },
     "files": {
         "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
-        "ignore": ["**/stoybook-static/**/*"]
+        "ignore": ["**/stoybook-static/**/*", "**/node_modules/**/*"]
       }
 }
