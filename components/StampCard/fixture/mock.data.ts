@@ -17,3 +17,8 @@ export const MockStampNodes: StampNode[] = [
     y: 0,
   })),
 ];
+
+export const FIXTURE = {
+  WIDTH: 300,
+  HEIGHT: 500,
+};
