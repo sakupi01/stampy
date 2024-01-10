@@ -58,7 +58,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "@biomejs/biome": "1.4.1",
+    "@biomejs/biome": "1.5.1",
     "@react-native-async-storage/async-storage": "^1.21.0",
     "@react-native-community/datetimepicker": "^7.6.2",
     "@react-native-community/slider": "^4.5.0",
