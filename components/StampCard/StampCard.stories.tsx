@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { StyledCard } from "../StyledCard/StyledCard";
 import { StampCard } from "./StampCard";
-import { MockStampNodes } from "./fixture/mock.data";
+import { FIXTURE, MockStampNodes } from "./fixture/mock.data";
 
 const meta = {
   title: "StampCard",
@@ -15,11 +15,6 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
-
-const FIXTURE = {
-  WIDTH: 300,
-  HEIGHT: 500,
-};
 
 export const Default: Story = {
   args: {
