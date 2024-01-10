@@ -1,4 +1,4 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { FontAwesome } from "@expo/vector-icons";
 import {
   DarkTheme,
   DefaultTheme,
@@ -6,9 +6,9 @@ import {
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { SplashScreen } from "expo-router";
-import { Link, Tabs } from "expo-router";
+import { Tabs } from "expo-router";
 import { useEffect } from "react";
-import { Pressable, useColorScheme } from "react-native";
+import { useColorScheme } from "react-native";
 import { Provider } from "react-redux";
 import { TamaguiProvider } from "tamagui";
 import Colors from "../constants/Colors";
@@ -82,13 +82,13 @@ function RootLayoutNav() {
           <Tabs
             screenOptions={{
               tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+              headerShown: false,
             }}
           >
             <Tabs.Screen
               // file name to refer to
               name="home"
               options={{
-                title: "Home",
                 href: "home",
                 tabBarIcon: ({ color }) => (
                   <TabBarIcon name="code" color={color} />
@@ -103,23 +103,6 @@ function RootLayoutNav() {
                 href: "two",
                 tabBarIcon: ({ color }) => (
                   <TabBarIcon name="code" color={color} />
-                ),
-                headerRight: () => (
-                  <Link href="/two/modal" asChild>
-                    <Pressable>
-                      {({ pressed }) => (
-                        <FontAwesome
-                          name="info-circle"
-                          size={25}
-                          color={Colors[colorScheme ?? "light"].text}
-                          style={{
-                            marginRight: 15,
-                            opacity: pressed ? 0.5 : 1,
-                          }}
-                        />
-                      )}
-                    </Pressable>
-                  </Link>
                 ),
               }}
             />

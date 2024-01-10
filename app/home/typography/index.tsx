@@ -1,19 +1,17 @@
 import { StyleSheet } from "react-native";
 
-import EditScreenInfo from "../../../components/EditScreenInfo";
 import { Text, View } from "../../../components/Themed";
 import { Typography } from "../../../components/Typography";
 
 export default function TabOneScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Home - Detail</Text>
+      <Text style={styles.title}>Typography</Text>
       <View
         style={styles.separator}
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
       <Typography type="h1">あいうえお</Typography>
       <Typography type="h2">あいうえお</Typography>
       <Typography type="h3">あいうえお</Typography>
@@ -32,6 +30,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    gap: 10,
   },
   title: {
     fontSize: 20,
