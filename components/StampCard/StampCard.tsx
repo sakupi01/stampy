@@ -18,6 +18,7 @@ export type StampCardProps = {
   stampNodes: StampNode[];
   fixedHeight: number;
   fixedWidth: number;
+  isEditable?: boolean;
 };
 
 const Node = ({
@@ -32,6 +33,7 @@ export const StampCard = ({
   stampNodes,
   fixedHeight,
   fixedWidth,
+  isEditable = false,
 }: StampCardProps) => {
   const yesMessage = useAppSelector((state) =>
     selectWordByKey(state, "stampy.word.ok"),
@@ -64,6 +66,19 @@ export const StampCard = ({
         width: "100%",
       }}
     >
+      {!isEditable && (
+        <View
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            zIndex: 1,
+            height: "110%",
+            width: "110%",
+          }}
+        />
+      )}
+
       {/* biome-ignore lint/style/noCommaOperator: <explanation> */}
       <Svg style={(StyleSheet.absoluteFill, { width: "100%", height: "100%" })}>
         <Path
