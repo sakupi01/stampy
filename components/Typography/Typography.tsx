@@ -32,7 +32,7 @@ const H2 = styled(Heading, {
   tag: "h2",
   size: "$h2",
   lineHeight: "$h2",
-  fontWeight: "$bold",
+  fontWeight: "$medium",
   letterSpacing: "$2",
 });
 
@@ -41,7 +41,7 @@ const H3 = styled(Heading, {
   tag: "h3",
   size: "$h3",
   lineHeight: "$h3",
-  fontWeight: "$bold",
+  fontWeight: "$medium",
   letterSpacing: "$3",
 });
 
@@ -50,7 +50,7 @@ const H4 = styled(Heading, {
   tag: "h4",
   size: "$h4",
   lineHeight: "$h4",
-  fontWeight: "$bold",
+  fontWeight: "$medium",
   letterSpacing: "$4",
 });
 

@@ -1,4 +1,3 @@
-import { MaterialBoxshadow } from "@/constants/MaterialBoxshadow";
 import React from "react";
 import {
   Card as DefaultCard,
@@ -10,22 +9,33 @@ import {
 type StyledCardProps = {
   children?: React.ReactNode;
   bordered?: boolean;
+  isBouncy?: boolean;
 } & CardProps;
-function Card({ children, bordered = true, ...props }: StyledCardProps) {
+
+function Card({
+  children,
+  bordered = true,
+  isBouncy = true,
+  ...props
+}: StyledCardProps) {
   return (
     <DefaultCard
       unstyled
-      minWidth="270px" // for small mobile screens
-      maxWidth="320px" // for large mobile screens
-      minHeight="400px" // for small mobile screens
-      maxHeight="473px" // for large mobile screens
-      boxShadow={MaterialBoxshadow}
+      minWidth={270} // for small mobile screens
+      maxWidth={320} // for large mobile screens
+      minHeight={250} // for small mobile screens
+      maxHeight={300} // for large mobile screens
       borderRadius={6}
       borderColor={bordered ? "$stroke--dark" : "transparent"}
       borderStyle="solid"
       borderWidth={2}
       display="flex"
       flexDirection="column"
+      overflow="hidden"
+      animation={isBouncy ? "bouncy" : ""}
+      scale={isBouncy ? 0.9 : 1}
+      hoverStyle={isBouncy ? { scale: 0.925 } : {}}
+      pressStyle={isBouncy ? { scale: 0.925 } : {}}
       {...props}
     >
       {children}
@@ -34,12 +44,17 @@ function Card({ children, bordered = true, ...props }: StyledCardProps) {
 }
 
 type ThumbnailProps = {
-  url: string;
+  url?: string;
+  children?: React.ReactNode;
 } & CardHeaderProps;
-function Thumbnail({ url, ...props }: ThumbnailProps) {
+function Thumbnail({ url, children, ...props }: ThumbnailProps) {
   return (
     <DefaultCard.Header unstyled width="100%" flex={1} padding={1} {...props}>
-      <Image source={{ uri: url }} width="100%" height="100%" />
+      {children ? (
+        children
+      ) : (
+        <Image source={{ uri: url }} width="100%" height="100%" />
+      )}
     </DefaultCard.Header>
   );
 }
@@ -53,7 +68,8 @@ function StyledFooter({ children, ...props }: StyledFooterProps) {
       unstyled
       width="100%"
       backgroundColor="$light--background"
-      borderRadius={6}
+      borderBottomLeftRadius={6}
+      borderBottomRightRadius={6}
       padding={17}
       gap={8}
       {...props}

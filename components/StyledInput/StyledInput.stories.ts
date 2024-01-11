@@ -32,3 +32,12 @@ export const PasswordInput: Story = {
     isPassword: true,
   },
 };
+export const DisabledInput: Story = {
+  args: {
+    label: "Label",
+    placeholder: "Placeholder",
+    defaultValue: "Value",
+    id: "id",
+    isDisabled: true,
+  },
+};

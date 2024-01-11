@@ -1,19 +1,11 @@
+import Providers from "@/libs/providers";
 import { FontAwesome } from "@expo/vector-icons";
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { SplashScreen } from "expo-router";
 import { Tabs } from "expo-router";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
-import { Provider } from "react-redux";
-import { TamaguiProvider } from "tamagui";
 import Colors from "../constants/Colors";
-import { store } from "../libs/AsyncStorage/store";
-import config from "../tamagui.config";
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -74,57 +66,47 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <Provider store={store}>
-      <TamaguiProvider config={config}>
-        <ThemeProvider
-          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-        >
-          <Tabs
-            screenOptions={{
-              tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-              headerShown: false,
-            }}
-          >
-            <Tabs.Screen
-              // file name to refer to
-              name="home"
-              options={{
-                href: "home",
-                tabBarIcon: ({ color }) => (
-                  <TabBarIcon name="code" color={color} />
-                ),
-              }}
-            />
-            <Tabs.Screen
-              // file name to refer to
-              name="two"
-              options={{
-                title: "Tab Two",
-                href: "two",
-                tabBarIcon: ({ color }) => (
-                  <TabBarIcon name="code" color={color} />
-                ),
-              }}
-            />
-            {/**
-             * リダイレクト用の index は Bottom Tabs で表示しない
-             * - https://docs.expo.dev/router/advanced/tabs/#hiding-a-tab
-             */}
-            <Tabs.Screen
-              name="index"
-              options={{
-                href: null,
-              }}
-            />
-            <Tabs.Screen
-              name="[...missing]"
-              options={{
-                href: null,
-              }}
-            />
-          </Tabs>
-        </ThemeProvider>
-      </TamaguiProvider>
-    </Provider>
+    <Providers colorScheme={colorScheme}>
+      <Tabs
+        screenOptions={{
+          tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+          headerShown: false,
+        }}
+      >
+        <Tabs.Screen
+          // file name to refer to
+          name="home"
+          options={{
+            href: "home",
+            tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          // file name to refer to
+          name="two"
+          options={{
+            title: "Tab Two",
+            href: "two",
+            tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          }}
+        />
+        {/**
+         * リダイレクト用の index は Bottom Tabs で表示しない
+         * - https://docs.expo.dev/router/advanced/tabs/#hiding-a-tab
+         */}
+        <Tabs.Screen
+          name="index"
+          options={{
+            href: null,
+          }}
+        />
+        <Tabs.Screen
+          name="[...missing]"
+          options={{
+            href: null,
+          }}
+        />
+      </Tabs>
+    </Providers>
   );
 }

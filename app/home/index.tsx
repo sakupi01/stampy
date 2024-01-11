@@ -12,6 +12,7 @@ export default function Home() {
         darkColor="rgba(255,255,255,0.1)"
       />
       <Link href="/home/typography">Typography</Link>
+      <Link href="/home/stampcard/">StampCard</Link>
     </View>
   );
 }

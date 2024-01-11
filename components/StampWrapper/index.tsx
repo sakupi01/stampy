@@ -1,0 +1,1 @@
+export { StampWrapper } from "./StampWrapper";

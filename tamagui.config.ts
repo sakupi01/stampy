@@ -168,6 +168,8 @@ const tokens = createTokens({
     "accent--click": "#DF7861",
     "destructive--background": "#EF4444",
     "destructive--click": "#DC2626",
+    "ghost--background": "#DDDDDD",
+    "ghost--click": "#BCC1C7",
     "light--background": "#fff",
     "dark--background": "#000",
     "text--dark": "#030A12CF",
@@ -193,6 +195,7 @@ const config = createTamagui({
   },
   defaultFont: "body",
   tokens,
+  animations: animations,
   themes: {
     ...baseTheme,
     uiText: {

@@ -1,6 +1,4 @@
 import { Meta, StoryObj } from "@storybook/react";
-// biome-ignore lint/nursery/noUnusedImports: <explanation>
-import React from "react";
 import { Badge } from "./Badge";
 
 const meta = {
