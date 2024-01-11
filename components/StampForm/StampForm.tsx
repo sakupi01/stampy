@@ -7,6 +7,7 @@ import { YStack } from "tamagui";
 import { StampSelector } from "../StampSelector/StampSelector";
 import { StyledForm } from "../StyledForm";
 import { StyledInput } from "../StyledInput";
+import { StyledTextArea } from "../StyledTextArea";
 import { Typography } from "../Typography";
 export type StampFormProps = {
   user: {
@@ -89,23 +90,36 @@ export const StampForm = ({
           rules={{
             required: true,
           }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <StyledInput
-              id="message"
-              label={isLastDay ? kansouLabel : messageLabel}
-              placeholder={
-                isLastDay ? "最後までがんばった相手へ" : "がんばった相手へ"
-              }
-              onChange={onChange}
-              value={value}
-              onBlur={onBlur}
-            />
-          )}
+          render={({ field: { onChange, onBlur, value } }) => {
+            if (isLastDay) {
+              return (
+                <StyledTextArea
+                  id="message"
+                  label={kansouLabel}
+                  placeholder={"最後までがんばった相手へ"}
+                  onChange={onChange}
+                  value={value}
+                  onBlur={onBlur}
+                  height={100}
+                />
+              );
+            }
+            return (
+              <StyledInput
+                id="message"
+                label={messageLabel}
+                placeholder={"がんばった相手へ"}
+                onChange={onChange}
+                value={value}
+                onBlur={onBlur}
+              />
+            );
+          }}
           name="message"
         />
         {isLastDay && (
           <Typography type="small" color="$text--subtle" textAlign="left">
-            ※完走レターはいつもより長めのメッセージを送れます。
+            ※完走レターでいつもより長めのメッセージを送ってみましょう！
           </Typography>
         )}
         {errors.message && (
