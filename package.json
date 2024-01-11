@@ -52,7 +52,7 @@
     "react-native": "0.73.2",
     "react-native-gesture-handler": "~2.14.0",
     "react-native-screens": "~3.29.0",
-    "react-native-svg": "13.9.0",
+    "react-native-svg": "^14.1.0",
     "react-native-web": "^0.19.10",
     "react-redux": "^9.0.4",
     "tamagui": "^1.81.4",

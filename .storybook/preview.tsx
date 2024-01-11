@@ -1,5 +1,8 @@
 import type { Preview } from "@storybook/react";
-import Providers from "../libs/providers";
+// biome-ignore lint/nursery/noUnusedImports: <explanation>
+import React from "react";
+import { TamaguiProvider } from "tamagui";
+import config from "../tamagui.config";
 const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: "^on[A-Z].*" },
@@ -12,11 +15,11 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <Providers colorScheme={"light"}>
+      <TamaguiProvider config={config}>
         <div style={{ margin: "3em" }}>
           <Story />
         </div>
-      </Providers>
+      </TamaguiProvider>
     ),
   ],
 };

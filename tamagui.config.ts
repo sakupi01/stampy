@@ -1,4 +1,3 @@
-import { createAnimations } from "@tamagui/animations-react-native";
 import { config as baseConfig } from "@tamagui/config";
 import { createMedia } from "@tamagui/react-native-media-driver";
 import { shorthands } from "@tamagui/shorthands";
@@ -136,25 +135,25 @@ const spaceMonoFont = createFont({
   },
 });
 
-const animations = createAnimations({
-  bouncy: {
-    type: "spring",
-    damping: 10,
-    mass: 0.9,
-    stiffness: 100,
-  },
-  lazy: {
-    type: "spring",
-    damping: 20,
-    stiffness: 60,
-  },
-  quick: {
-    type: "spring",
-    damping: 20,
-    mass: 1.2,
-    stiffness: 250,
-  },
-});
+// const animations = createAnimations({
+//   bouncy: {
+//     type: "spring",
+//     damping: 10,
+//     mass: 0.9,
+//     stiffness: 100,
+//   },
+//   lazy: {
+//     type: "spring",
+//     damping: 20,
+//     stiffness: 60,
+//   },
+//   quick: {
+//     type: "spring",
+//     damping: 20,
+//     mass: 1.2,
+//     stiffness: 250,
+//   },
+// });
 export type SpaceMonoFont = typeof spaceMonoFont;
 const tokens = createTokens({
   ...baseToken,
@@ -195,7 +194,7 @@ const config = createTamagui({
   },
   defaultFont: "body",
   tokens,
-  animations: animations,
+  // animations: animations,
   themes: {
     ...baseTheme,
     uiText: {
