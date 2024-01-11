@@ -84,7 +84,7 @@ export const StampForm = ({
         )}
       </YStack>
 
-      <YStack alignItems="flex-start">
+      <YStack alignItems="flex-start" width="100%">
         <Controller
           control={control}
           rules={{
@@ -100,7 +100,7 @@ export const StampForm = ({
                   onChange={onChange}
                   value={value}
                   onBlur={onBlur}
-                  height={100}
+                  minHeight={100}
                 />
               );
             }
@@ -119,7 +119,7 @@ export const StampForm = ({
         />
         {isLastDay && (
           <Typography type="small" color="$text--subtle" textAlign="left">
-            ※完走レターでいつもより長めのメッセージを送ってみましょう！
+            ※いつもより長めのメッセージでこれまでの頑張りを褒めてあげましょう！
           </Typography>
         )}
         {errors.message && (
