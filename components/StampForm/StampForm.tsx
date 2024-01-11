@@ -20,8 +20,8 @@ export type StampFormProps = {
 export const StampForm = ({
   user,
   currentDay,
-  buttonLabel,
-  isLastDay,
+  buttonLabel = "送る",
+  isLastDay = false,
 }: StampFormProps) => {
   const messageLabel = useAppSelector((state) =>
     selectWordByKey(state, "stampy.word.message.label"),
