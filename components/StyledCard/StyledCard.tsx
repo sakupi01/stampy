@@ -33,7 +33,7 @@ function Card({
       flexDirection="column"
       overflow="hidden"
       animation={isBouncy ? "bouncy" : ""}
-      scale={isBouncy && 0.9}
+      scale={isBouncy ? 0.9 : 1}
       hoverStyle={isBouncy ? { scale: 0.925 } : {}}
       pressStyle={isBouncy ? { scale: 0.925 } : {}}
       {...props}
