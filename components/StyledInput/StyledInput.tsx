@@ -25,7 +25,7 @@ const Input = styled(DefaultInput, {
 type StyledInputProps = InputProps & {
   label: string;
   placeholderValue?: string;
-  defaultValue: string;
+  defaultValue?: string;
   isDisabled?: boolean;
   disableAutoComplete?: boolean;
   isPassword?: boolean;
@@ -33,7 +33,7 @@ type StyledInputProps = InputProps & {
 export function StyledInput({
   label,
   placeholderValue,
-  defaultValue,
+  defaultValue = "",
   id,
   isPassword,
   labelProps,

@@ -55,6 +55,7 @@
     "react-native-svg": "13.9.0",
     "react-native-web": "^0.19.10",
     "react-redux": "^9.0.4",
+    "rn-emoji-keyboard": "^1.6.0",
     "tamagui": "^1.81.4",
     "valibot": "^0.25.0"
   },

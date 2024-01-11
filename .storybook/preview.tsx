@@ -1,5 +1,8 @@
 import type { Preview } from "@storybook/react";
-import Providers from "../libs/providers";
+import { Provider } from "react-redux";
+import { TamaguiProvider } from "tamagui";
+import { store } from "../libs/AsyncStorage/store";
+import config from "../tamagui.config";
 const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: "^on[A-Z].*" },
@@ -12,11 +15,13 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <Providers colorScheme={"light"}>
-        <div style={{ margin: "3em" }}>
-          <Story />
-        </div>
-      </Providers>
+      <Provider store={store}>
+        <TamaguiProvider config={config}>
+          <div style={{ margin: "3em" }}>
+            <Story />
+          </div>
+        </TamaguiProvider>
+      </Provider>
     ),
   ],
 };
