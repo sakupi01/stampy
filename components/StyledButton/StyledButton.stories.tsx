@@ -1,6 +1,5 @@
 // @ts-nocheck
 import { Meta, StoryObj } from "@storybook/react";
-import { Fragment } from "react";
 import { StyledButton } from "./StyledButton";
 
 const meta = {
@@ -13,19 +12,17 @@ const meta = {
   argTypes: {},
   decorators: [
     (Story) => (
-      <Fragment>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            height: "100%",
-          }}
-        >
-          <Story />
-        </div>
-      </Fragment>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        <Story />
+      </div>
     ),
   ],
 } satisfies Meta<typeof StyledButton>;

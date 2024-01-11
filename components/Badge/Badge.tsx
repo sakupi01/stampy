@@ -1,5 +1,3 @@
-// biome-ignore lint/nursery/noUnusedImports: <explanation>
-import React from "react";
 import { XStack, XStackProps } from "tamagui";
 import { ShadowProperties } from "../../constants/MaterialBoxshadow";
 import { Typography } from "../Typography/Typography";

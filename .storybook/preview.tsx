@@ -1,6 +1,4 @@
 import type { Preview } from "@storybook/react";
-// biome-ignore lint/nursery/noUnusedImports: <explanation>
-import React from "react";
 import Providers from "../libs/providers";
 const preview: Preview = {
   parameters: {

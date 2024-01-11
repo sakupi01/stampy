@@ -1,6 +1,4 @@
 import { Meta, StoryObj } from "@storybook/react";
-// biome-ignore lint/nursery/noUnusedImports: <explanation>
-import React, { Fragment } from "react";
 import { Badge } from "./Badge";
 
 const meta = {
@@ -13,19 +11,17 @@ const meta = {
   argTypes: {},
   decorators: [
     (Story) => (
-      <Fragment>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            height: "100%",
-          }}
-        >
-          <Story />
-        </div>
-      </Fragment>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        <Story />
+      </div>
     ),
   ],
 } satisfies Meta<typeof Badge>;
