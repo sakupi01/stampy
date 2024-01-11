@@ -40,10 +40,9 @@ export const StampForm = ({
   return (
     <StyledForm
       maxWidth={300}
+      width="100%"
       alignItems="center"
       buttonLabel={buttonLabel}
-      borderColor="$stroke--dark"
-      borderWidth={2}
       // @ts-ignore
       buttonProps={{
         type: "primary",
@@ -54,12 +53,6 @@ export const StampForm = ({
         console.log("Submitted! :", data);
       })}
     >
-      <Typography type="large" textAlign="center">
-        {user.name}に送る
-        <br />
-        {isLastDay ? "最終日のスタンプ" : `${currentDay}日目のスタンプ`}
-      </Typography>
-
       <YStack alignItems="center">
         <Controller
           control={control}

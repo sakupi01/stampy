@@ -30,7 +30,11 @@ export const StampSelector = ({ setValue, ...props }: StampSelectorProps) => {
       <TextInput
         {...props}
         value={result}
-        style={{ visibility: "hidden" }}
+        style={{
+          visibility: "hidden", // web
+          opacity: 0,
+          height: 0, // native
+        }}
         editable={false}
       />
       <EmojiPicker

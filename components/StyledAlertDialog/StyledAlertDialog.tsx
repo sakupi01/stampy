@@ -71,7 +71,11 @@ export function StyledAlertDialog({
             {children}
             <XStack space="$3" justifyContent="center">
               <AlertDialog.Cancel asChild>{cancelButton}</AlertDialog.Cancel>
-              <AlertDialog.Action asChild>{actionButton}</AlertDialog.Action>
+              {actionButton ? (
+                <AlertDialog.Action asChild>{actionButton}</AlertDialog.Action>
+              ) : (
+                ""
+              )}
             </XStack>
           </YStack>
         </AlertDialog.Content>
