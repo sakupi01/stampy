@@ -195,6 +195,7 @@ const config = createTamagui({
   },
   defaultFont: "body",
   tokens,
+  animations: animations,
   themes: {
     ...baseTheme,
     uiText: {
