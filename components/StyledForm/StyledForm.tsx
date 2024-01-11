@@ -24,7 +24,7 @@ export function StyledForm({
   return (
     <DefaultForm
       alignItems={formProps.alignItems || "center"}
-      minWidth={formProps.minWidth || 300}
+      minWidth={formProps.minWidth || 280}
       gap={formProps.gap || 16}
       onSubmit={onSubmitAction}
       borderWidth={formProps.borderWidth || 1}
@@ -33,6 +33,7 @@ export function StyledForm({
       borderColor={formProps.borderColor || "transparent"}
       padding={formProps.padding || 25}
       boxShadow={formProps.boxShadow || MaterialBoxshadow}
+      {...formProps}
     >
       {children}
       <DefaultForm.Trigger asChild disabled={isSubmitting || isSubmitted}>

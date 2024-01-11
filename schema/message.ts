@@ -1,6 +1,7 @@
 import { Output, object } from "valibot";
-import { messageSchema } from "./schema";
+import { messageSchema, stampSchema } from "./schema";
 const MessageFormSchema = object({
+  stamp: stampSchema,
   message: messageSchema,
 });
 

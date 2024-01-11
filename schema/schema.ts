@@ -42,10 +42,16 @@ const ImageSchema = blob("Please select an image file.", [
   maxSize(1024 * 1024 * 10, "10MB 以下の画像ファイルを選択してください"),
 ]);
 
+const stampSchema: StringSchema<string> = string([
+  minLength(1, "入力が必須の項目です"),
+  // emoji("絵文字を選択してください"),
+]);
+
 export {
   emailSchema,
   userNameSchema,
   passwordSchema,
   messageSchema,
   ImageSchema,
+  stampSchema,
 };
