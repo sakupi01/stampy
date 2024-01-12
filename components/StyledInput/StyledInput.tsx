@@ -26,6 +26,7 @@ type StyledInputProps = InputProps & {
   label: string;
   placeholderValue?: string;
   defaultValue: string;
+  isDisabled?: boolean;
   disableAutoComplete?: boolean;
   isPassword?: boolean;
 } & { labelProps?: Omit<LabelProps, "children" | "ref"> };
@@ -36,12 +37,13 @@ export function StyledInput({
   id,
   isPassword,
   labelProps,
+  isDisabled,
   ...props
 }: StyledInputProps) {
   return (
     <YStack space={6} width={"100%"}>
       <Label htmlFor={id} {...labelProps}>
-        <Typography type="medium" color="$text--dark">
+        <Typography type="ui" color="$text--dark">
           {label}
         </Typography>
       </Label>
@@ -51,6 +53,10 @@ export function StyledInput({
         defaultValue={defaultValue}
         secureTextEntry={isPassword}
         width={"100%"}
+        editable={!isDisabled}
+        disabled={isDisabled}
+        focusable={!isDisabled}
+        aria-disabled={isDisabled}
         {...props}
       />
     </YStack>

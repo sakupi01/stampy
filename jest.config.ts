@@ -11,6 +11,7 @@ const config: Config = {
   moduleFileExtensions: ["ts", "tsx", "js"],
   transform: {
     "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
+    "node_modules/react-redux/dist/.+.(j|t)sx?$": "ts-jest",
     "\\.(ts)$": "ts-jest",
     "^.+\\.tsx?$": "babel-jest",
   },
@@ -23,7 +24,7 @@ const config: Config = {
     },
   },
   transformIgnorePatterns: [
-    "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)",
+    "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg|react-redux)",
   ],
   collectCoverage: true,
   collectCoverageFrom: [

@@ -1,7 +1,6 @@
-import { MaterialBoxshadow } from "@/constants/MaterialBoxshadow";
-// biome-ignore lint/nursery/noUnusedImports: <explanation>
-import React from "react";
 import { XStack, XStackProps } from "tamagui";
+import { ShadowProperties } from "../../constants/MaterialBoxshadow";
+import { Typography } from "../Typography/Typography";
 
 type BadgeProps = {
   label?: string;
@@ -15,18 +14,18 @@ export const Badge = ({
   return (
     <XStack
       display="inline-flex"
-      paddingTop="7px"
-      paddingRight="13px"
-      paddingBottom="7px"
-      paddingLeft="13px"
+      paddingTop={7}
+      paddingRight={13}
+      paddingBottom={7}
+      paddingLeft={13}
       alignItems="center"
       gap={10}
       borderRadius={6}
       backgroundColor={backgroundColor}
-      boxShadow={MaterialBoxshadow}
+      {...ShadowProperties}
       {...props}
     >
-      {label}
+      <Typography type="medium">{label}</Typography>
     </XStack>
   );
 };
