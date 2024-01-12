@@ -1,11 +1,11 @@
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 
 import { Badge } from "@/components/Badge";
-import { StampCard } from "@/components/StampCard";
-import { MockStampNodes } from "@/components/StampCard/fixture/mock.data";
 import { StyledCard } from "@/components/StyledCard";
+import { Typography } from "@/components/Typography";
+import { StampCard } from "@/ui/StampCard";
+import { MockStampNodes } from "@/ui/StampCard/fixture/mock.data";
 import { Avatar, XStack } from "tamagui";
-import { Typography } from "../../../components/Typography";
 
 export default function StampCardScreen() {
   return (

@@ -1,14 +1,15 @@
+import { StampSelector } from "@/components//StampSelector/StampSelector";
+import { StyledForm } from "@/components/StyledForm";
+import { StyledInput } from "@/components/StyledInput";
+import { StyledTextArea } from "@/components/StyledTextArea";
+import { Typography } from "@/components/Typography/Typography";
 import { selectWordByKey } from "@/libs/AsyncStorage/Word/state";
 import { useAppSelector } from "@/libs/AsyncStorage/store";
 import { MessageFormSchema, MessageFormType } from "@/schema/message";
 import { valibotResolver } from "@hookform/resolvers/valibot";
 import { Controller, FieldValues, useForm } from "react-hook-form";
 import { YStack } from "tamagui";
-import { StampSelector } from "../StampSelector/StampSelector";
-import { StyledForm } from "../StyledForm";
-import { StyledInput } from "../StyledInput";
-import { StyledTextArea } from "../StyledTextArea";
-import { Typography } from "../Typography";
+
 export type StampFormProps = {
   user: {
     name: string;

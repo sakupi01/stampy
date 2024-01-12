@@ -1,14 +1,14 @@
 import { StyleSheet } from "react-native";
 
+import EditScreenInfo from "@/components/EditScreenInfo";
+import { StyledAlertDialog } from "@/components/StyledAlertDialog/StyledAlertDialog";
+import { StyledButton } from "@/components/StyledButton";
 import { StyledInput } from "@/components/StyledInput";
+import { Text, View } from "@/components/Themed";
 import { Typography } from "@/components/Typography";
 import { selectWordByKey } from "@/libs/AsyncStorage/Word/state";
 import { useAppSelector } from "@/libs/AsyncStorage/store";
-import EditScreenInfo from "../../components/EditScreenInfo";
-import { StampForm } from "../../components/StampForm/StampForm";
-import { StyledAlertDialog } from "../../components/StyledAlertDialog/StyledAlertDialog";
-import { StyledButton } from "../../components/StyledButton";
-import { Text, View } from "../../components/Themed";
+import { StampForm } from "@/ui/StampForm/StampForm";
 
 export default function TabTwoScreen() {
   const readyStampLabel = useAppSelector((state) =>
