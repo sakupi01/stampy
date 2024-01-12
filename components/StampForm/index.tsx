@@ -1,0 +1,1 @@
+export { StampForm } from "./StampForm";

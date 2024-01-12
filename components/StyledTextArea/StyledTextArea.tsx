@@ -1,16 +1,16 @@
 import { Typography } from "@/components/Typography";
 import {
-  Input as DefaultInput,
-  InputProps,
   Label,
   LabelProps,
+  TextArea as DefaultTextArea,
+  TextAreaProps,
   YStack,
   styled,
 } from "tamagui";
 
-const Input = styled(DefaultInput, {
-  name: "StyledTextInput",
-  tag: "input",
+const TextArea = styled(DefaultTextArea, {
+  name: "StyledTextArea",
+  tag: "textarea",
   height: 40,
   width: "100%",
   borderRadius: 6,
@@ -22,7 +22,7 @@ const Input = styled(DefaultInput, {
   color: "$text--dark",
   fontSize: "$3",
 });
-type StyledInputProps = InputProps & {
+type StyledTextAreaProps = TextAreaProps & {
   label: string;
   placeholderValue?: string;
   defaultValue?: string;
@@ -30,7 +30,7 @@ type StyledInputProps = InputProps & {
   disableAutoComplete?: boolean;
   isPassword?: boolean;
 } & { labelProps?: Omit<LabelProps, "children" | "ref"> };
-export function StyledInput({
+export function StyledTextArea({
   label,
   placeholderValue,
   defaultValue = "",
@@ -39,7 +39,7 @@ export function StyledInput({
   labelProps,
   isDisabled,
   ...props
-}: StyledInputProps) {
+}: StyledTextAreaProps) {
   return (
     <YStack space={6} width={"100%"}>
       <Label htmlFor={id} {...labelProps}>
@@ -47,7 +47,7 @@ export function StyledInput({
           {label}
         </Typography>
       </Label>
-      <Input
+      <TextArea
         id={id}
         placeholder={placeholderValue}
         defaultValue={defaultValue}

@@ -1,9 +1,11 @@
 import { StyleSheet } from "react-native";
 
 import { StyledInput } from "@/components/StyledInput";
+import { Typography } from "@/components/Typography";
 import { selectWordByKey } from "@/libs/AsyncStorage/Word/state";
 import { useAppSelector } from "@/libs/AsyncStorage/store";
 import EditScreenInfo from "../../components/EditScreenInfo";
+import { StampForm } from "../../components/StampForm/StampForm";
 import { StyledAlertDialog } from "../../components/StyledAlertDialog/StyledAlertDialog";
 import { StyledButton } from "../../components/StyledButton";
 import { Text, View } from "../../components/Themed";
@@ -12,6 +14,8 @@ export default function TabTwoScreen() {
   const readyStampLabel = useAppSelector((state) =>
     selectWordByKey(state, "stampy.word.ready.stamp"),
   );
+  const user = { name: "saku" };
+  const currentDay = 5;
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Tab Two</Text>
@@ -34,6 +38,18 @@ export default function TabTwoScreen() {
           label="ひとことメッセージ"
           defaultValue="お疲れさま！"
         />
+      </StyledAlertDialog>
+      <StyledAlertDialog
+        triggerButton={<StyledButton>Trigger</StyledButton>}
+        // @ts-ignore
+        cancelButton={
+          <Typography type="small" underlined>
+            今はやめておく
+          </Typography>
+        }
+        description={` ${user.name}に送る${"\n"}${currentDay}日目のスタンプ`}
+      >
+        <StampForm user={user} currentDay={currentDay} />
       </StyledAlertDialog>
     </View>
   );

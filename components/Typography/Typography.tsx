@@ -97,6 +97,7 @@ type TypographyProps = {
     | "medium"
     | "small";
   children?: SizableTextProps["children"];
+  underlined?: boolean;
 } & SizableTextProps;
 
 const typographyMap = {
@@ -116,11 +117,17 @@ export function Typography({
   type = "medium",
   color = "$text--dark",
   children,
+  underlined = false,
   ...props
 }: TypographyProps) {
   const Component = typographyMap[type];
   return (
-    <Component color={color} {...props}>
+    <Component
+      color={color}
+      {...props}
+      textDecorationLine={underlined ? "underline" : "unset"}
+      underlineColor={color}
+    >
       {children}
     </Component>
   );
