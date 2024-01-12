@@ -1,3 +1,5 @@
+// biome-ignore lint/nursery/noUnusedImports: <explanation>
+import React from "react";
 import { Button, GetProps } from "tamagui";
 
 import { styled } from "tamagui"; // or '@tamagui/core'

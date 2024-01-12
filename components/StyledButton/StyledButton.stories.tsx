@@ -12,23 +12,6 @@ const meta = {
     layout: "fullscreen",
   },
   argTypes: {},
-  decorators: [
-    (Story) => (
-      <Fragment>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            height: "100%",
-          }}
-        >
-          <Story />
-        </div>
-      </Fragment>
-    ),
-  ],
 } satisfies Meta<typeof StyledButton>;
 
 export default meta;
