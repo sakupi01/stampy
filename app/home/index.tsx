@@ -13,6 +13,7 @@ export default function Home() {
       />
       <Link href="/home/typography">Typography</Link>
       <Link href="/home/stampcard/">StampCard</Link>
+      <Link href="/home/list/">List</Link>
     </View>
   );
 }

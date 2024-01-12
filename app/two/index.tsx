@@ -3,7 +3,6 @@ import { StyleSheet } from "react-native";
 import EditScreenInfo from "@/components/EditScreenInfo";
 import { StyledAlertDialog } from "@/components/StyledAlertDialog/StyledAlertDialog";
 import { StyledButton } from "@/components/StyledButton";
-import { StyledInput } from "@/components/StyledInput";
 import { Text, View } from "@/components/Themed";
 import { Typography } from "@/components/Typography";
 import { selectWordByKey } from "@/libs/AsyncStorage/Word/state";
@@ -25,7 +24,7 @@ export default function TabTwoScreen() {
         darkColor="rgba(255,255,255,0.1)"
       />
       <EditScreenInfo path="app/(tabs)/index.tsx" />
-      <StyledAlertDialog
+      {/* <StyledAlertDialog
         triggerButton={<StyledButton>Trigger</StyledButton>}
         // @ts-ignore
         cancelButton={<StyledButton type="secondary">キャンセル</StyledButton>}
@@ -38,7 +37,7 @@ export default function TabTwoScreen() {
           label="ひとことメッセージ"
           defaultValue="お疲れさま！"
         />
-      </StyledAlertDialog>
+      </StyledAlertDialog> */}
       <StyledAlertDialog
         triggerButton={<StyledButton>Trigger</StyledButton>}
         // @ts-ignore
