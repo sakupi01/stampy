@@ -176,6 +176,7 @@ const tokens = createTokens({
     "text--light": "#fff",
     "text--destructive": "#EF4444",
     "blur--light": "#ffffffbf",
+    "stroke--light": "#E2E8F0",
   },
   zIndex: {
     0: 0,

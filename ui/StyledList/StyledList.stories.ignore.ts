@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { StyledList } from "./StyledList";
+import { DATA } from "./fixture/mock.data";
 
 const meta = {
   title: "StyledList",
@@ -15,5 +16,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    data: DATA,
+  },
 };

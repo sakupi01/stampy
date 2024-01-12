@@ -17,7 +17,7 @@
     "check": "bun run check:typecheck & bun run check:lint-format",
     "ui:gen": "npx hygen ui new",
     "cmp:gen": "npx hygen cmp new",
-    "storybook": "storybook dev -p 6006",
+    "storybook": "EXPO_PUBLIC_STORYBOOK_ENABLED='true' storybook dev -p 6006",
     "storybook:generate": "sb-rn-get-stories",
     "storybook:watch": "sb-rn-watcher",
     "build:storybook": "storybook build",
