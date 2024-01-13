@@ -1,3 +1,8 @@
+import { StampWrapper } from "@/components/StampWrapper/StampWrapper";
+import { StyledAlertDialog } from "@/components/StyledAlertDialog/StyledAlertDialog";
+import { StyledButton } from "@/components/StyledButton";
+import { StyledInput } from "@/components/StyledInput/StyledInput";
+import { Typography } from "@/components/Typography/Typography";
 import { selectWordByKey } from "@/libs/AsyncStorage/Word/state";
 import { useAppSelector } from "@/libs/AsyncStorage/store";
 import { StampNode } from "@/types";
@@ -5,11 +10,6 @@ import React from "react";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import { YStack } from "tamagui";
-import { StampWrapper } from "../StampWrapper/StampWrapper";
-import { StyledAlertDialog } from "../StyledAlertDialog/StyledAlertDialog";
-import { StyledButton } from "../StyledButton";
-import { StyledInput } from "../StyledInput/StyledInput";
-import { Typography } from "../Typography/Typography";
 import { drawEdges } from "./utils/drawEdges";
 import { getPositionedNode } from "./utils/positionedNode";
 

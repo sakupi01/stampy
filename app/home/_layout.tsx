@@ -61,6 +61,29 @@ export default function Layout() {
           ),
         }}
       />
+      <Stack.Screen
+        name="list/index"
+        options={{
+          headerShown: true,
+          title: "List",
+          headerLeft: () => (
+            <Pressable onPress={() => router.back()}>
+              {({ pressed }) => (
+                <Ionicons
+                  name="arrow-back"
+                  size={25}
+                  color={Colors[colorScheme ?? "light"].text}
+                  style={{
+                    marginLeft: 15,
+                    opacity: pressed ? 0.5 : 1,
+                    fontSize: 20,
+                  }}
+                />
+              )}
+            </Pressable>
+          ),
+        }}
+      />
     </Stack>
   );
 }

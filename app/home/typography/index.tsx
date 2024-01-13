@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 
-import { Text, View } from "../../../components/Themed";
-import { Typography } from "../../../components/Typography";
+import { Text, View } from "@/components/Themed";
+import { Typography } from "@/components/Typography";
 
 export default function TabOneScreen() {
   return (

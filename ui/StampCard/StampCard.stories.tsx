@@ -1,5 +1,5 @@
+import { StyledCard } from "@/components/StyledCard/StyledCard";
 import { Meta, StoryObj } from "@storybook/react";
-import { StyledCard } from "../StyledCard/StyledCard";
 import { StampCard } from "./StampCard";
 import { FIXTURE, MockStampNodes } from "./fixture/mock.data";
 
