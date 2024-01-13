@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
 
-import EditScreenInfo from "@/components/EditScreenInfo";
 import { StyledAlertDialog } from "@/components/StyledAlertDialog/StyledAlertDialog";
 import { StyledButton } from "@/components/StyledButton";
 import { Text, View } from "@/components/Themed";
@@ -9,7 +8,7 @@ import { selectWordByKey } from "@/libs/AsyncStorage/Word/state";
 import { useAppSelector } from "@/libs/AsyncStorage/store";
 import { StampForm } from "@/ui/StampForm/StampForm";
 
-export default function TabTwoScreen() {
+export default function CreateCardScreen() {
   const readyStampLabel = useAppSelector((state) =>
     selectWordByKey(state, "stampy.word.ready.stamp"),
   );
@@ -23,7 +22,6 @@ export default function TabTwoScreen() {
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
       {/* <StyledAlertDialog
         triggerButton={<StyledButton>Trigger</StyledButton>}
         // @ts-ignore
