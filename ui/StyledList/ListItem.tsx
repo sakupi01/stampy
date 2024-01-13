@@ -1,6 +1,6 @@
 import { Typography } from "@/components/Typography";
-import { Pressable as LinkPressable } from "@/components/utils/Pressable";
 import { Href } from "expo-router";
+import { Link } from "expo-router";
 import { XStack, YStack } from "tamagui";
 import { StampWrapper } from "../../components/StampWrapper/StampWrapper";
 
@@ -10,10 +10,10 @@ export const LinkListItem = ({
   stamp,
   content,
 }: { href: Href<string>; title: string; stamp?: string; content?: string }) => (
-  <LinkPressable href={href}>
+  <Link href={href}>
     <XStack height={90} space={20} alignItems="center" width="100%">
       {stamp && <StampWrapper stamp={stamp} size="small" />}
-      <YStack flex={1}>
+      <YStack flexShrink={1}>
         <Typography
           type="large"
           display="inline"
@@ -38,7 +38,7 @@ export const LinkListItem = ({
         )}
       </YStack>
     </XStack>
-  </LinkPressable>
+  </Link>
 );
 
 export const TextListItem = ({

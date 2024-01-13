@@ -35,7 +35,7 @@ export const StyledList = ({ data }: StyledListProps) => {
           {section.title}
         </Typography>
       )}
-      renderItem={({ item }) => withEventHandlers(item)}
+      renderItem={({ item }) => resolveListItem(item)}
       keyExtractor={(item) => item.id}
       ItemSeparatorComponent={() => (
         <Separator
@@ -56,11 +56,13 @@ export const StyledList = ({ data }: StyledListProps) => {
 
 type RenderItemParams = Letter | Notification;
 
-const withEventHandlers = (item: RenderItemParams) => {
+const resolveListItem = (item: RenderItemParams) => {
   switch (item.listType) {
     case "link":
       return (
         <LinkListItem
+          title={item.title}
+          stamp={item.stamp}
           // @ts-ignore
           href={{
             pathname: `${item.hrefPrefix}/[id]`,
@@ -68,8 +70,6 @@ const withEventHandlers = (item: RenderItemParams) => {
               id: item.id,
             },
           }}
-          title={item.title}
-          stamp={item.stamp}
           // 完走レター一覧の場合は、contentを表示しない
           content={item.hrefPrefix?.startsWith("/letter") ? "" : item.content}
         />

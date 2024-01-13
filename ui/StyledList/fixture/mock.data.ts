@@ -113,3 +113,116 @@ export const DATA: Array<Notification | Letter> = [
     listType: "dialog",
   },
 ];
+
+export const DATA_LETTER: Array<Notification | Letter> = [
+  {
+    id: "1",
+    title: "「カードタイトル」への完走レター",
+    stamp: "🌟",
+    content:
+      "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
+    hrefPrefix: "/letter",
+    sender: {
+      id: "1",
+      username: "username",
+      email: "email",
+    },
+    receiver: {
+      id: "1",
+      username: "username",
+      email: "email",
+    },
+    read: true,
+    createdAt: "createdAt",
+    sendAt: "sendAt",
+    listType: "link",
+  },
+  {
+    id: "2",
+    title: "「カードタイトル」への完走レター",
+    content:
+      "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
+    stamp: "🌟",
+    hrefPrefix: "/letter",
+    sender: {
+      id: "1",
+      username: "username",
+      email: "email",
+    },
+    receiver: {
+      id: "1",
+      username: "username",
+      email: "email",
+    },
+    read: false,
+    createdAt: "createdAt",
+    sendAt: "sendAt",
+    listType: "link",
+  },
+  {
+    id: "3",
+    title: "「カードタイトル」への完走レター",
+    content:
+      "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
+    stamp: "🌟",
+    hrefPrefix: "/letter",
+    sender: {
+      id: "1",
+      username: "username",
+      email: "email",
+    },
+    receiver: {
+      id: "1",
+      username: "username",
+      email: "email",
+    },
+    read: false,
+    createdAt: "createdAt",
+    sendAt: "sendAt",
+    listType: "link",
+  },
+  {
+    id: "4",
+    title: "「カードタイトル」への完走レター",
+    content:
+      "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
+    stamp: "🌟",
+    hrefPrefix: "/letter",
+    sender: {
+      id: "1",
+      username: "username",
+      email: "email",
+    },
+    receiver: {
+      id: "1",
+      username: "username",
+      email: "email",
+    },
+    read: false,
+    createdAt: "createdAt",
+    sendAt: "sendAt",
+    listType: "link",
+  },
+  {
+    id: "5",
+    title: "「カードタイトル」への完走レター",
+    content:
+      "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
+    stamp: "🌟",
+    hrefPrefix: "/letter",
+    sender: {
+      id: "1",
+      username: "username",
+      email: "email",
+    },
+    receiver: {
+      id: "1",
+      username: "username",
+      email: "email",
+    },
+    read: true,
+    createdAt: "createdAt",
+    sendAt: "sendAt",
+    listType: "link",
+  },
+];

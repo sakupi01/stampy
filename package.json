@@ -39,6 +39,7 @@
     "@storybook/addon-ondevice-notes": "^6.5.7",
     "@tamagui/config": "^1.81.4",
     "@tamagui/image": "^1.82.3",
+    "@tamagui/lucide-icons": "^1.84.2",
     "babel-plugin-react-require": "^4.0.2",
     "expo": "~49.0.18",
     "expo-font": "~11.4.0",
