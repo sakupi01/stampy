@@ -22,6 +22,7 @@ export const Default: Story = {
     stampNodes: MockStampNodes,
     fixedWidth: FIXTURE.WIDTH,
     fixedHeight: FIXTURE.HEIGHT,
+    isEditable: true,
   },
   decorators: [
     (Story) => (
@@ -34,7 +35,14 @@ export const Default: Story = {
           justifyContent: "center",
         }}
       >
-        <StyledCard.Card padding={10} width={300} height={500}>
+        <StyledCard.Card
+          padding={10}
+          width={300}
+          height={500}
+          maxWidth={300}
+          maxHeight={500}
+          isBouncy={false}
+        >
           <Story />
         </StyledCard.Card>
       </div>
