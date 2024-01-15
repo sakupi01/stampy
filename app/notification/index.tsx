@@ -10,7 +10,7 @@ export default function LetterScreen() {
       <Typography type="h3" marginBottom={30}>
         通知リスト
       </Typography>
-      <StyledList data={[...DATA, ...DATA]} />
+      <StyledList data={[...DATA]} />
     </SafeAreaView>
   );
 }

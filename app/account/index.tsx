@@ -12,7 +12,11 @@ export default function AccountScreen() {
   const readyStampLabel = useAppSelector((state) =>
     selectWordByKey(state, "stampy.word.ready.stamp"),
   );
-  const user = { name: "saku" };
+  const user = {
+    id: "1",
+    username: "username",
+    email: "email",
+  };
   const currentDay = 5;
   return (
     <View style={styles.container}>
@@ -22,29 +26,18 @@ export default function AccountScreen() {
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
-      {/* <StyledAlertDialog
-        triggerButton={<StyledButton>Trigger</StyledButton>}
-        // @ts-ignore
-        cancelButton={<StyledButton type="secondary">キャンセル</StyledButton>}
-        // @ts-ignore
-        actionButton={<StyledButton type="primary">はい</StyledButton>}
-        description={`${readyStampLabel}`}
-      >
-        <StyledInput
-          id="message"
-          label="ひとことメッセージ"
-          defaultValue="お疲れさま！"
-        />
-      </StyledAlertDialog> */}
       <StyledAlertDialog
-        triggerButton={<StyledButton>Trigger</StyledButton>}
-        // @ts-ignore
-        cancelButton={
-          <Typography type="small" underlined>
+        triggerButton={(toggleModal) => (
+          <StyledButton onPress={toggleModal}>
+            <Typography>Trigger</Typography>
+          </StyledButton>
+        )}
+        cancelButton={(untoggleModal) => (
+          <Typography type="small" underlined onPress={untoggleModal}>
             今はやめておく
           </Typography>
-        }
-        description={` ${user.name}に送る${"\n"}${currentDay}日目のスタンプ`}
+        )}
+        description={`${user.username}に送る${"\n"}${currentDay}日目のスタンプ`}
       >
         <StampForm user={user} currentDay={currentDay} />
       </StyledAlertDialog>

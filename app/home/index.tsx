@@ -1,12 +1,11 @@
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 
-import { Badge } from "@/components/Badge";
 import { StyledCard } from "@/components/StyledCard";
 import { Typography } from "@/components/Typography";
 import { StampCard } from "@/ui/StampCard";
 import { MockStampNodes } from "@/ui/StampCard/fixture/mock.data";
 import { Link } from "expo-router";
-import { Avatar, XStack, YStack } from "tamagui";
+import { YStack } from "tamagui";
 export default function Home() {
   return (
     <SafeAreaView style={styles.container}>
@@ -33,7 +32,7 @@ export default function Home() {
               isEditable
             />
           </StyledCard.Card>
-          <StyledCard.Card margin={5} width={300} height={500}>
+          {/* <StyledCard.Card margin={5} width={300} height={500}>
             <Badge
               label="🏃🏻‍♀️Running"
               position="absolute"
@@ -71,8 +70,8 @@ export default function Home() {
                 </Avatar>
               </XStack>
             </StyledCard.Footer>
-          </StyledCard.Card>
-          <StyledCard.Card margin={5} width={300} height={500}>
+          </StyledCard.Card> */}
+          {/* <StyledCard.Card margin={5} width={300} height={500}>
             <Badge
               label="🎉Completed"
               position="absolute"
@@ -111,7 +110,7 @@ export default function Home() {
                 </Avatar>
               </XStack>
             </StyledCard.Footer>
-          </StyledCard.Card>
+          </StyledCard.Card> */}
         </YStack>
       </ScrollView>
     </SafeAreaView>
