@@ -20,7 +20,7 @@ const TextArea = styled(DefaultTextArea, {
   backgroundColor: "white",
   padding: 10,
   color: "$text--dark",
-  fontSize: "$3",
+  fontSize: "$ui",
 });
 type StyledTextAreaProps = TextAreaProps & {
   label: string;

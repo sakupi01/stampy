@@ -59,7 +59,7 @@ const UIText = styled(Heading, {
   tag: "p",
   size: "$ui",
   lineHeight: "$ui",
-  fontWeight: '"$medium"',
+  fontWeight: "$medium",
 });
 
 const Large = styled(Heading, {

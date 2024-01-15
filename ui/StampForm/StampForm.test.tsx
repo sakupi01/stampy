@@ -10,7 +10,11 @@ describe("<StampForm />", () => {
       .create(
         <Providers colorScheme={"light"}>
           <StampForm
-            user={{ name: "Blah" }}
+            user={{
+              id: "1",
+              username: "username",
+              email: "email",
+            }}
             currentDay={2}
             buttonLabel={"送る"}
             isLastDay={false}

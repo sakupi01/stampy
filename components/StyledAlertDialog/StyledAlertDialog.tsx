@@ -1,85 +1,117 @@
-import React from "react";
-import { AlertDialog, AlertDialogProps, XStack, YStack } from "tamagui";
+import React, { useState } from "react";
+import { Modal, ModalProps, StyleSheet } from "react-native";
+import { View, ViewProps, XStack, YStack } from "tamagui";
+import { Typography } from "../Typography/Typography";
 
 type StyledAlertDialogProps = {
   children?: React.ReactNode;
-  triggerButton?: React.ReactNode;
-  cancelButton?: React.ReactNode;
-  actionButton?: React.ReactNode;
+  triggerButton?: (toggleModal: () => void) => React.ReactNode;
+  cancelButton?: (untoggleModal: () => void) => React.ReactNode;
+  actionButton?: (action: () => void) => React.ReactNode;
   description?: string;
-} & AlertDialogProps;
-
+  modalProps?: ModalProps;
+} & ViewProps;
 export function StyledAlertDialog({
   children,
   triggerButton,
   cancelButton,
   actionButton,
   description,
+  modalProps,
   ...props
 }: StyledAlertDialogProps) {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
+  const untoggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
+  const someAction = () => {
+    console.log("some action");
+  };
+  const TriggerButton = triggerButton ? triggerButton(toggleModal) : "";
+  const CancelButton = cancelButton ? cancelButton(untoggleModal) : "";
+  const ActionButton = actionButton ? actionButton(someAction) : "";
   return (
-    <AlertDialog>
-      <AlertDialog.Trigger asChild>{triggerButton}</AlertDialog.Trigger>
-      <AlertDialog.Portal>
-        <AlertDialog.Overlay
-          key="overlay"
-          animation="quick"
-          opacity={0.5}
-          enterStyle={{ opacity: 0 }}
-          exitStyle={{ opacity: 0 }}
-          backgroundColor="$blur--light"
-        />
-        <AlertDialog.Content
-          bordered
-          elevate
-          key="content"
-          animation={[
-            "quick",
-            {
-              opacity: {
-                overshootClamping: true,
-              },
-            },
-          ]}
-          enterStyle={{ x: 0, y: -20, opacity: 0, scale: 0.9 }}
-          exitStyle={{ x: 0, y: 10, opacity: 0, scale: 0.95 }}
-          x={0}
-          scale={1}
-          opacity={1}
-          y={0}
-          padding={30}
-          backgroundColor={"$light--background"}
-          borderRadius={6}
-          borderBlockColor={"$stroke--dark"}
-          borderStyle="solid"
-          borderWidth={2}
+    <View style={styles.centeredView}>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+        {...modalProps}
+      >
+        <View
+          style={styles.centeredView}
+          backgroundColor={"rgba(255,255,255,0.9)"}
           {...props}
         >
-          <YStack space={30}>
-            <AlertDialog.Description
-              size="$large"
-              // @ts-ignore
-              lineHeight="$large"
-              // @ts-ignore
-              fontWeight="$bold"
-              whiteSpace="pre-wrap"
-              textAlign="center"
-              color={"$text--dark"}
-            >
-              {description}
-            </AlertDialog.Description>
-            {children}
-            <XStack space="$3" justifyContent="center">
-              <AlertDialog.Cancel asChild>{cancelButton}</AlertDialog.Cancel>
-              {actionButton ? (
-                <AlertDialog.Action asChild>{actionButton}</AlertDialog.Action>
-              ) : (
-                ""
-              )}
-            </XStack>
-          </YStack>
-        </AlertDialog.Content>
-      </AlertDialog.Portal>
-    </AlertDialog>
+          <View style={styles.modalView}>
+            <YStack space={15} width="100%">
+              <Typography type="large" whiteSpace="pre-wrap" textAlign="center">
+                {description}
+              </Typography>
+              {children}
+              <XStack space={30} justifyContent="center">
+                {CancelButton}
+                {ActionButton}
+              </XStack>
+            </YStack>
+          </View>
+        </View>
+      </Modal>
+      {TriggerButton}
+    </View>
   );
 }
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalView: {
+    backgroundColor: "white",
+    borderRadius: 6,
+    padding: 30,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    borderWidth: 2,
+    borderRightColor: "rgba(3, 10, 18, 0.81)",
+    borderLeftColor: "rgba(3, 10, 18, 0.81)",
+    borderBlockColor: "rgba(3, 10, 18, 0.81)",
+    borderStyle: "solid",
+    maxWidth: 300,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+  },
+});

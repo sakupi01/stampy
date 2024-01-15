@@ -11,7 +11,7 @@ export const LinkListItem = ({
   content,
 }: { href: Href<string>; title: string; stamp?: string; content?: string }) => (
   <Link href={href}>
-    <XStack height={90} space={20} alignItems="center" width="100%">
+    <XStack space={20} alignItems="center" width="100%">
       {stamp && <StampWrapper stamp={stamp} size="small" />}
       <YStack flexShrink={1}>
         <Typography
@@ -45,7 +45,7 @@ export const TextListItem = ({
   title,
   content,
 }: { title: string; content: string }) => (
-  <YStack height={90} width="100%">
+  <YStack width="100%">
     <Typography
       type="large"
       display="inline"
@@ -59,7 +59,7 @@ export const TextListItem = ({
       type="ui"
       overflow="hidden"
       textOverflow="ellipsis"
-      numberOfLines={3}
+      numberOfLines={2}
     >
       {content}
     </Typography>

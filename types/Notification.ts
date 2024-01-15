@@ -2,10 +2,12 @@ import { ListType } from "./ListType";
 import { User } from "./User";
 
 export type Notification = {
+  type: "notification";
   id: string;
   title: string;
   content: string;
   stamp: string | undefined;
+  currentDay?: number;
   hrefPrefix: string | undefined;
   sender: User;
   receiver: User;

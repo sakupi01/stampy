@@ -6,14 +6,13 @@ import { Typography } from "@/components/Typography/Typography";
 import { selectWordByKey } from "@/libs/AsyncStorage/Word/state";
 import { useAppSelector } from "@/libs/AsyncStorage/store";
 import { MessageFormSchema, MessageFormType } from "@/schema/message";
+import { User } from "@/types";
 import { valibotResolver } from "@hookform/resolvers/valibot";
 import { Controller, FieldValues, useForm } from "react-hook-form";
 import { YStack } from "tamagui";
 
 export type StampFormProps = {
-  user: {
-    name: string;
-  };
+  user: User;
   currentDay: number;
   buttonLabel?: string;
   isLastDay?: boolean;
@@ -95,6 +94,7 @@ export const StampForm = ({
                   value={value}
                   onBlur={onBlur}
                   minHeight={100}
+                  width="100%"
                 />
               );
             }
@@ -106,6 +106,7 @@ export const StampForm = ({
                 onChange={onChange}
                 value={value}
                 onBlur={onBlur}
+                width="100%"
               />
             );
           }}

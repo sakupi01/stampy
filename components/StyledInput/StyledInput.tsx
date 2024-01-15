@@ -20,7 +20,7 @@ const Input = styled(DefaultInput, {
   backgroundColor: "white",
   padding: 10,
   color: "$text--dark",
-  fontSize: "$3",
+  fontSize: "$ui",
 });
 type StyledInputProps = InputProps & {
   label: string;

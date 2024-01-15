@@ -1,7 +1,7 @@
-import { ListType } from "./ListType";
 import { User } from "./User";
 
 export type Letter = {
+  type: "letter";
   id: string;
   title: string;
   stamp: string | undefined;
@@ -12,5 +12,5 @@ export type Letter = {
   read: boolean;
   createdAt: string;
   sendAt: string;
-  listType: ListType;
+  listType: "link";
 };

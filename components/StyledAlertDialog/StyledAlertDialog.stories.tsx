@@ -34,22 +34,86 @@ export const Default: Story = {
   ],
   render: function Comp({ ...args }) {
     return (
-      <meta.component
-        triggerButton={<StyledButton>Trigger</StyledButton>}
-        // @ts-ignore
-        cancelButton={<StyledButton type="secondary">キャンセル</StyledButton>}
-        // @ts-ignore
-        actionButton={<StyledButton type="primary">はい</StyledButton>}
-        // biome-ignore lint/style/noUnusedTemplateLiteral: <explanation>
-        description={`スタンプをもらう\n準備ができましたか？`}
-        {...args}
-      >
-        <StyledInput
-          id="message"
-          label="ひとことメッセージ"
-          defaultValue="お疲れさま！"
-        />
-      </meta.component>
+      <>
+        <meta.component
+          triggerButton={(toggleModal) => (
+            <StyledButton onPress={toggleModal}>Trigger</StyledButton>
+          )}
+          // @ts-ignore
+          cancelButton={(untoggleModal) => (
+            <StyledButton type="secondary" onPress={untoggleModal}>
+              キャンセル
+            </StyledButton>
+          )}
+          // @ts-ignore
+          actionButton={(action) => (
+            <StyledButton type="primary" onPress={action}>
+              はい
+            </StyledButton>
+          )}
+          // biome-ignore lint/style/noUnusedTemplateLiteral: <explanation>
+          description={`スタンプをもらう\n準備ができましたか？`}
+          {...args}
+        >
+          <StyledInput
+            id="message"
+            label="ひとことメッセージ"
+            defaultValue="お疲れさま！"
+          />
+        </meta.component>
+        <meta.component
+          triggerButton={(toggleModal) => (
+            <StyledButton onPress={toggleModal}>Trigger</StyledButton>
+          )}
+          // @ts-ignore
+          cancelButton={(untoggleModal) => (
+            <StyledButton type="secondary" onPress={untoggleModal}>
+              キャンセル
+            </StyledButton>
+          )}
+          // @ts-ignore
+          actionButton={(action) => (
+            <StyledButton type="primary" onPress={action}>
+              はい
+            </StyledButton>
+          )}
+          // biome-ignore lint/style/noUnusedTemplateLiteral: <explanation>
+          description={`スタンプをもらう\n準備ができましたか？`}
+          {...args}
+        >
+          <StyledInput
+            id="message"
+            label="ひとことメッセージ"
+            defaultValue="お疲れさま！"
+          />
+        </meta.component>
+        <meta.component
+          triggerButton={(toggleModal) => (
+            <StyledButton onPress={toggleModal}>Trigger</StyledButton>
+          )}
+          // @ts-ignore
+          cancelButton={(untoggleModal) => (
+            <StyledButton type="secondary" onPress={untoggleModal}>
+              キャンセル
+            </StyledButton>
+          )}
+          // @ts-ignore
+          actionButton={(action) => (
+            <StyledButton type="primary" onPress={action}>
+              はい
+            </StyledButton>
+          )}
+          // biome-ignore lint/style/noUnusedTemplateLiteral: <explanation>
+          description={`スタンプをもらう\n準備ができましたか？`}
+          {...args}
+        >
+          <StyledInput
+            id="message"
+            label="ひとことメッセージ"
+            defaultValue="お疲れさま！"
+          />
+        </meta.component>
+      </>
     );
   },
 };
