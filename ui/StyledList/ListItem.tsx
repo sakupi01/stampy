@@ -29,7 +29,7 @@ export const LinkListItem = ({
             type="ui"
             overflow="hidden"
             textOverflow="ellipsis"
-            numberOfLines={3}
+            numberOfLines={2}
           >
             {content}
           </Typography>
