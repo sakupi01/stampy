@@ -150,7 +150,7 @@ export const DATA_LETTER: Array<Notification | Letter> = [
     title: "「カードタイトル」への完走レター",
     stamp: "🌟",
     content:
-      "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
+      "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
     hrefPrefix: "/letter",
     sender: {
       id: "1",

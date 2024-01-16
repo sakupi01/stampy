@@ -25,7 +25,7 @@ export const Badge = ({
       {...ShadowProperties}
       {...props}
     >
-      <Typography type="medium">{label}</Typography>
+      <Typography type="ui">{label}</Typography>
     </XStack>
   );
 };

@@ -16,7 +16,6 @@ export const LinkListItem = ({
       <YStack flexShrink={1}>
         <Typography
           type="large"
-          display="inline"
           whiteSpace="wrap"
           overflow="hidden"
           textOverflow="ellipsis"
@@ -48,7 +47,6 @@ export const TextListItem = ({
   <YStack width="100%">
     <Typography
       type="large"
-      display="inline"
       overflow="hidden"
       textOverflow="ellipsis"
       numberOfLines={1}

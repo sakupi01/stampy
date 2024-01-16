@@ -74,7 +74,7 @@ const Medium = styled(Heading, {
   tag: "h6",
   size: "$medium",
   lineHeight: "$medium",
-  fontWeight: "$light",
+  fontWeight: "$medium",
 });
 const Small = styled(Heading, {
   name: "H6",
