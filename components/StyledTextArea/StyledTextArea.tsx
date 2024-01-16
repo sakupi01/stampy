@@ -21,6 +21,7 @@ const TextArea = styled(DefaultTextArea, {
   padding: 10,
   color: "$text--dark",
   fontSize: "$ui",
+  lineHeight: "$ui",
 });
 type StyledTextAreaProps = TextAreaProps & {
   label: string;
