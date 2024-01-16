@@ -1,11 +1,11 @@
 import { StyledAlertDialog } from "@/components/StyledAlertDialog";
-import { StyledButton } from "@/components/StyledButton";
-import { StyledInput } from "@/components/StyledInput";
 import { Typography } from "@/components/Typography/Typography";
+import { assertNonNullable } from "@/libs/assertNonNullable";
 import { Letter } from "@/types/Letter";
 import { Notification } from "@/types/Notification";
 import { Pressable, SectionList } from "react-native";
-import { Separator } from "tamagui";
+import { Separator, YStack } from "tamagui";
+import { StampForm } from "../StampForm/StampForm";
 import { LinkListItem, TextListItem } from "./ListItem";
 
 type StyledListProps = {
@@ -35,7 +35,7 @@ export const StyledList = ({ data }: StyledListProps) => {
           {section.title}
         </Typography>
       )}
-      renderItem={({ item }) => withEventHandlers(item)}
+      renderItem={({ item }) => resolveListItem(item)}
       keyExtractor={(item) => item.id}
       ItemSeparatorComponent={() => (
         <Separator
@@ -56,49 +56,63 @@ export const StyledList = ({ data }: StyledListProps) => {
 
 type RenderItemParams = Letter | Notification;
 
-const withEventHandlers = (item: RenderItemParams) => {
-  switch (item.listType) {
-    case "link":
-      return (
-        <LinkListItem
-          // @ts-ignore
-          href={{
-            pathname: `${item.hrefPrefix}/[id]`,
-            params: {
-              id: item.id,
-            },
-          }}
-          title={item.title}
-          stamp={item.stamp}
-          // 完走レター一覧の場合は、contentを表示しない
-          content={item.hrefPrefix?.startsWith("/letter") ? "" : item.content}
-        />
-      );
-    case "dialog":
-      return (
-        <StyledAlertDialog
-          triggerButton={
-            <Pressable>
-              <TextListItem title={item.title} content={item.content} />
-            </Pressable>
-          }
-          // @ts-ignore
-          cancelButton={
-            <StyledButton type="secondary">キャンセル</StyledButton>
-          }
-          // @ts-ignore
-          actionButton={<StyledButton type="primary">はい</StyledButton>}
-          // biome-ignore lint/style/noUnusedTemplateLiteral: <explanation>
-          description={`スタンプをもらう\n準備ができましたか？`}
-        >
-          <StyledInput
-            id="message"
-            label="ひとことメッセージ"
-            defaultValue="お疲れさま！"
+const resolveListItem = (item: RenderItemParams) => {
+  if (item.type === "notification") {
+    switch (item.listType) {
+      case "link":
+        return (
+          <LinkListItem
+            title={item.title}
+            stamp={item.stamp}
+            // @ts-ignore
+            href={{
+              pathname: `${item.hrefPrefix}/[id]`,
+              params: {
+                id: item.id,
+              },
+            }}
+            // 完走レター一覧の場合は、contentを表示しない
+            content={item.hrefPrefix?.startsWith("/letter") ? "" : item.content}
           />
-        </StyledAlertDialog>
-      );
-    default:
-      return <TextListItem title={item.title} content={item.content} />;
+        );
+      case "dialog":
+        assertNonNullable(item.currentDay);
+        return (
+          <StyledAlertDialog
+            triggerButton={(toggleModal) => (
+              <Pressable onPress={toggleModal}>
+                <TextListItem title={item.title} content={item.content} />
+              </Pressable>
+            )}
+            cancelButton={(untoggleModal) => (
+              <Typography type="small" underlined onPress={untoggleModal}>
+                今はやめておく
+              </Typography>
+            )}
+            description={`${item.receiver.username}へ\n${item.currentDay}日目のスタンプ\nを送りますか？`}
+          >
+            <YStack>
+              <StampForm user={item.receiver} currentDay={item.currentDay} />
+            </YStack>
+          </StyledAlertDialog>
+        );
+      default:
+        return <TextListItem title={item.title} content={item.content} />;
+    }
   }
+  return (
+    <LinkListItem
+      title={item.title}
+      stamp={item.stamp}
+      // @ts-ignore
+      href={{
+        pathname: `${item.hrefPrefix}/[id]`,
+        params: {
+          id: item.id,
+        },
+      }}
+      // 完走レター一覧の場合は、contentを表示しない
+      content={item.hrefPrefix?.startsWith("/letter") ? "" : item.content}
+    />
+  );
 };

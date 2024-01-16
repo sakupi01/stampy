@@ -41,7 +41,7 @@ const H3 = styled(Heading, {
   tag: "h3",
   size: "$h3",
   lineHeight: "$h3",
-  fontWeight: "$medium",
+  fontWeight: "$bold",
   letterSpacing: "$3",
 });
 
@@ -59,7 +59,7 @@ const UIText = styled(Heading, {
   tag: "p",
   size: "$ui",
   lineHeight: "$ui",
-  fontWeight: '"$medium"',
+  fontWeight: "$medium",
 });
 
 const Large = styled(Heading, {

@@ -13,7 +13,7 @@ export default function Layout() {
         options={{
           headerShown: true,
           headerRight: () => (
-            <Link href="/two/modal" asChild>
+            <Link href="/account/modal" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome

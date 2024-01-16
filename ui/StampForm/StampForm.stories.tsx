@@ -32,7 +32,9 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     user: {
-      name: "Blah",
+      id: "1",
+      username: "username",
+      email: "email",
     },
     currentDay: 2,
     buttonLabel: "送る",
@@ -42,7 +44,9 @@ export const Default: Story = {
 export const 完走レター: Story = {
   args: {
     user: {
-      name: "Blah",
+      id: "1",
+      username: "username",
+      email: "email",
     },
     currentDay: 5,
     buttonLabel: "送る",

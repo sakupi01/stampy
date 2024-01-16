@@ -7,7 +7,6 @@ import { createFont, createTamagui, createTokens } from "tamagui"; // or '@tamag
 const interFont = createFont({
   family: "Inter",
   size: {
-    ...baseToken.size,
     h1: 48,
     h2: 30,
     h3: 24,
@@ -17,6 +16,7 @@ const interFont = createFont({
     medium: 16,
     small: 12,
     true: 16,
+    4: 16,
   },
   color: {
     dark: "$text--dark",
@@ -68,6 +68,7 @@ const zenKakuGothicNewFont = createFont({
     medium: 16,
     small: 12,
     true: 16,
+    4: 16,
   },
   color: {
     dark: "$text--dark",

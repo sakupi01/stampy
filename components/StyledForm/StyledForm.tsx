@@ -2,6 +2,7 @@ import { MaterialBoxshadow } from "@/constants/MaterialBoxshadow";
 import { Form as DefaultForm, FormProps, Spinner } from "tamagui";
 import { StyledButton } from "../StyledButton";
 import { StyledButtonProps } from "../StyledButton/StyledButton";
+import { Typography } from "../Typography/Typography";
 
 type StyledFormProps = {
   children?: React.ReactNode;
@@ -50,7 +51,7 @@ export function StyledForm({
           }
           {...buttonProps}
         >
-          {buttonLabel}
+          <Typography>{buttonLabel}</Typography>
         </StyledButton>
       </DefaultForm.Trigger>
     </DefaultForm>

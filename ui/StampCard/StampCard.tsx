@@ -1,7 +1,7 @@
 import { StampWrapper } from "@/components/StampWrapper/StampWrapper";
 import { StyledAlertDialog } from "@/components/StyledAlertDialog/StyledAlertDialog";
 import { StyledButton } from "@/components/StyledButton";
-import { StyledInput } from "@/components/StyledInput/StyledInput";
+import { StyledInput } from "@/components/StyledInput";
 import { Typography } from "@/components/Typography/Typography";
 import { selectWordByKey } from "@/libs/AsyncStorage/Word/state";
 import { useAppSelector } from "@/libs/AsyncStorage/store";
@@ -90,13 +90,14 @@ export const StampCard = ({
           strokeWidth={5}
         />
       </Svg>
-      {nodesWithPosition.map((node) => {
-        const { stamp, stampId, stamped, message, nthDay } = node;
+      {nodesWithPosition.map((node, index) => {
+        const { stamp, stampId, stamped, nthDay, message } = node;
         // stamped node
         if (stamped) {
+          const uniqueId = `${stampId}-stamped-${index}`;
           return (
             <Node
-              key={stampId}
+              key={uniqueId}
               style={{
                 position: "absolute",
                 top: node.y,
@@ -104,19 +105,22 @@ export const StampCard = ({
               }}
             >
               <StyledAlertDialog
-                triggerButton={
+                triggerButton={(toggleModal) => (
                   <StyledButton
                     circular
                     // @ts-ignore
                     type="accent"
+                    onPress={toggleModal}
                   >
                     <Typography>{stamp}</Typography>
                   </StyledButton>
-                }
-                cancelButton={
+                )}
+                cancelButton={(untoggleModal) => (
                   // @ts-ignore
-                  <StyledButton type="secondary">{closeMessage}</StyledButton>
-                }
+                  <StyledButton type="secondary" onPress={untoggleModal}>
+                    <Typography>{closeMessage}</Typography>
+                  </StyledButton>
+                )}
                 description={nthDay + givenStampMessage}
               >
                 <YStack gap={20} alignItems="center">
@@ -124,7 +128,7 @@ export const StampCard = ({
                   <StyledInput
                     label={messageLabel}
                     defaultValue={message}
-                    id={`${stampId}-hitokoto`}
+                    id={uniqueId}
                     isDisabled
                   />
                 </YStack>
@@ -134,9 +138,10 @@ export const StampCard = ({
         }
         // today's un-stamped node
         if (currentDay === nthDay) {
+          const uniqueId = `${stampId}-currentday-${index}`;
           return (
             <Node
-              key={stampId}
+              key={uniqueId}
               style={{
                 position: "absolute",
                 top: node.y,
@@ -144,32 +149,39 @@ export const StampCard = ({
               }}
             >
               <StyledAlertDialog
-                triggerButton={
+                triggerButton={(toggleModal) => (
                   <StyledButton
                     circular
                     // @ts-ignore
                     type="primary"
+                    onPress={toggleModal}
                   >
                     <Typography>{stamp}</Typography>
                   </StyledButton>
-                }
-                cancelButton={
+                )}
+                cancelButton={(untoggleModal) => (
                   // @ts-ignore
-                  <StyledButton type="secondary">{cancelMessage}</StyledButton>
-                }
-                actionButton={
+                  <StyledButton type="secondary" onPress={untoggleModal}>
+                    <Typography>{cancelMessage}</Typography>
+                  </StyledButton>
+                )}
+                actionButton={(action) => (
                   // @ts-ignore
-                  <StyledButton type="primary">{yesMessage}</StyledButton>
-                }
+                  <StyledButton type="primary" onPress={action}>
+                    <Typography>{yesMessage}</Typography>
+                  </StyledButton>
+                )}
                 description={`${readyStampMessage}`}
               />
             </Node>
           );
         }
+
         // future stamp nodes
+        const uniqueId = `${stampId}-future-${index}`;
         return (
           <Node
-            key={stampId}
+            key={uniqueId}
             style={{
               position: "absolute",
               top: node.y,
@@ -177,19 +189,22 @@ export const StampCard = ({
             }}
           >
             <StyledAlertDialog
-              triggerButton={
+              triggerButton={(toggleModal) => (
                 <StyledButton
                   circular
                   // @ts-ignore
                   type="ghost"
+                  onPress={toggleModal}
                 >
                   <Typography>{stampId}</Typography>
                 </StyledButton>
-              }
-              cancelButton={
+              )}
+              cancelButton={(untoggleModal) => (
                 // @ts-ignore
-                <StyledButton type="secondary">{closeMessage}</StyledButton>
-              }
+                <StyledButton type="secondary" onPress={untoggleModal}>
+                  <Typography>{closeMessage}</Typography>
+                </StyledButton>
+              )}
               description={`まだスタンプをもらえません\n${
                 nthDay - currentDay
               }日後にもらえます`}

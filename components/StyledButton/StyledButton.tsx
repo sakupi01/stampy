@@ -48,15 +48,6 @@ const StyledButton = styled(Button, {
         },
       },
     },
-    size: {
-      "...size": (size, { tokens }) => {
-        return {
-          width: tokens.size[size] ?? size,
-
-          height: tokens.size[size] ?? size,
-        };
-      },
-    },
   } as const,
   defaultVariants: {
     // @ts-ignore

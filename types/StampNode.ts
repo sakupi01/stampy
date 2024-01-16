@@ -10,4 +10,5 @@ export type StampNode = {
   stampedBy: User;
   x: number;
   y: number;
+  cardId: string;
 };

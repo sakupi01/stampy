@@ -10,7 +10,7 @@ const MonoSpan = styled(Paragraph, {
   fontFamily: "$span",
   color: "$color",
   // @ts-ignore
-  lineHeight: "$3",
+  lineHeight: "$ui",
 });
 
 const StyledXStack = styled(XStack, {
