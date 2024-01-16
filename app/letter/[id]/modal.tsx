@@ -1,14 +1,14 @@
 import { StatusBar } from "expo-status-bar";
 import { Platform, StyleSheet } from "react-native";
 
+import { View } from "@/components/Themed";
 import { Typography } from "@/components/Typography";
-import { View } from "../../components/Themed";
 
 export default function ModalScreen() {
   return (
     <View style={styles.container}>
       <Typography type="h2" marginBottom={30}>
-        Modal in List
+        Modal in Letter Item
       </Typography>
       <View
         style={styles.separator}

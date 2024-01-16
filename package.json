@@ -10,6 +10,7 @@
     "clear": "expo start --clear",
     "deps": "expo doctor --fix-dependencies",
     "test:unit": "jest --config jest.config.ts",
+    "test:update": "jest --config jest.config.ts --updateSnapshot",
     "test": "bun run test:unit",
     "check:format": "bunx @biomejs/biome format **/*.ts **/*.tsx --write",
     "check:lint": "bunx @biomejs/biome lint **/*.ts **/*.tsx",

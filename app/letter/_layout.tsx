@@ -11,7 +11,14 @@ export default function Layout() {
       <Stack.Screen
         name="index"
         options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="[id]/index"
+        options={{
           headerShown: true,
+          title: "Letter",
           headerRight: () => (
             <Link href="/letter/modal" asChild>
               <Pressable>
