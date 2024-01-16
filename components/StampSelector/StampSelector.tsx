@@ -1,4 +1,5 @@
 import { useState } from "react";
+import React from "react";
 import { UseFormSetValue } from "react-hook-form";
 import { TextInput, TextInputIOSProps, TextInputProps } from "react-native";
 import EmojiPicker, { EmojiType, ja } from "rn-emoji-keyboard";
@@ -11,7 +12,10 @@ export type StampSelectorProps = TextInputProps &
       message: string;
     }>;
   };
-export const StampSelector = ({ setValue, ...props }: StampSelectorProps) => {
+export const StampSelector = React.forwardRef<
+  React.ElementRef<typeof TextInput>,
+  StampSelectorProps
+>(({ setValue, ...props }, ref) => {
   const [result, setResult] = useState<string>();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -31,11 +35,11 @@ export const StampSelector = ({ setValue, ...props }: StampSelectorProps) => {
         {...props}
         value={result}
         style={{
-          visibility: "hidden", // web
           opacity: 0,
           height: 0, // native
         }}
         editable={false}
+        ref={ref}
       />
       <EmojiPicker
         onEmojiSelected={handlePick}
@@ -47,4 +51,4 @@ export const StampSelector = ({ setValue, ...props }: StampSelectorProps) => {
       />
     </>
   );
-};
+});
