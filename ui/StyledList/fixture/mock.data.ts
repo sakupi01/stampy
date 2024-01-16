@@ -13,11 +13,15 @@ export const DATA: Array<Notification | Letter> = [
       id: "1",
       username: "username",
       email: "email",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
     receiver: {
       id: "1",
       username: "username",
       email: "email",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
     },
     read: true,
     createdAt: "createdAt",
@@ -38,11 +42,15 @@ export const DATA: Array<Notification | Letter> = [
       id: "1",
       username: "username",
       email: "email",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
     receiver: {
       id: "1",
       username: "username",
       email: "email",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
     },
     read: false,
     createdAt: "createdAt",
@@ -62,11 +70,15 @@ export const DATA: Array<Notification | Letter> = [
       id: "1",
       username: "username",
       email: "email",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
     receiver: {
       id: "1",
       username: "username",
       email: "email",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
     },
     read: false,
     createdAt: "createdAt",
@@ -86,11 +98,15 @@ export const DATA: Array<Notification | Letter> = [
       id: "1",
       username: "username",
       email: "email",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
     receiver: {
       id: "1",
       username: "username",
       email: "email",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
     },
     read: false,
     createdAt: "createdAt",
@@ -110,11 +126,15 @@ export const DATA: Array<Notification | Letter> = [
       id: "1",
       username: "username",
       email: "email",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
     receiver: {
       id: "1",
       username: "username",
       email: "email",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
     },
     read: true,
     createdAt: "createdAt",
@@ -136,11 +156,15 @@ export const DATA_LETTER: Array<Notification | Letter> = [
       id: "1",
       username: "username",
       email: "email",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
     receiver: {
       id: "1",
       username: "username",
       email: "email",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
     },
     read: true,
     createdAt: "createdAt",
@@ -159,11 +183,15 @@ export const DATA_LETTER: Array<Notification | Letter> = [
       id: "1",
       username: "username",
       email: "email",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
     receiver: {
       id: "1",
       username: "username",
       email: "email",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
     },
     read: false,
     createdAt: "createdAt",
@@ -182,11 +210,15 @@ export const DATA_LETTER: Array<Notification | Letter> = [
       id: "1",
       username: "username",
       email: "email",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
     receiver: {
       id: "1",
       username: "username",
       email: "email",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
     },
     read: false,
     createdAt: "createdAt",
@@ -205,11 +237,15 @@ export const DATA_LETTER: Array<Notification | Letter> = [
       id: "1",
       username: "username",
       email: "email",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
     receiver: {
       id: "1",
       username: "username",
       email: "email",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
     },
     read: false,
     createdAt: "createdAt",
@@ -228,11 +264,15 @@ export const DATA_LETTER: Array<Notification | Letter> = [
       id: "1",
       username: "username",
       email: "email",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
     receiver: {
       id: "1",
       username: "username",
       email: "email",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
     },
     read: true,
     createdAt: "createdAt",
