@@ -1,4 +1,3 @@
-import Colors from "@/constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
 import { Link, Stack } from "expo-router";
 import { Pressable, useColorScheme } from "react-native";
@@ -19,7 +18,7 @@ export default function Layout() {
                   <FontAwesome
                     name="info-circle"
                     size={25}
-                    color={Colors[colorScheme ?? "light"].text}
+                    color="#030A12CF"
                     style={{
                       marginRight: 15,
                       opacity: pressed ? 0.5 : 1,

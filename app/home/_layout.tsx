@@ -1,10 +1,8 @@
-import Colors from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import { Stack, useRouter } from "expo-router";
-import { Pressable, useColorScheme } from "react-native";
+import { Pressable } from "react-native";
 
 export default function Layout() {
-  const colorScheme = useColorScheme();
   const router = useRouter();
 
   return (
@@ -26,7 +24,7 @@ export default function Layout() {
                 <Ionicons
                   name="arrow-back"
                   size={25}
-                  color={Colors[colorScheme ?? "light"].text}
+                  color="#030A12CF"
                   style={{
                     marginLeft: 15,
                     opacity: pressed ? 0.5 : 1,
@@ -42,14 +40,14 @@ export default function Layout() {
         name="[id]/index"
         options={{
           headerShown: true,
-          title: "Stamp Card",
+          title: "",
           headerLeft: () => (
             <Pressable onPress={() => router.back()}>
               {({ pressed }) => (
                 <Ionicons
                   name="arrow-back"
                   size={25}
-                  color={Colors[colorScheme ?? "light"].text}
+                  color="#030A12CF"
                   style={{
                     marginLeft: 15,
                     opacity: pressed ? 0.5 : 1,
