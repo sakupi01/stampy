@@ -1,10 +1,11 @@
 import Colors from "@/constants/Colors";
-import { FontAwesome } from "@expo/vector-icons";
-import { Link, Stack } from "expo-router";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import { Link, Stack, useRouter } from "expo-router";
 import { Pressable, useColorScheme } from "react-native";
 
 export default function Layout() {
   const colorScheme = useColorScheme();
+  const router = useRouter();
 
   return (
     <Stack>
@@ -18,7 +19,23 @@ export default function Layout() {
         name="[id]/index"
         options={{
           headerShown: true,
-          title: "Letter",
+          title: "",
+          headerLeft: () => (
+            <Pressable onPress={() => router.back()}>
+              {({ pressed }) => (
+                <Ionicons
+                  name="arrow-back"
+                  size={25}
+                  color={Colors[colorScheme ?? "light"].text}
+                  style={{
+                    marginLeft: 15,
+                    opacity: pressed ? 0.5 : 1,
+                    fontSize: 20,
+                  }}
+                />
+              )}
+            </Pressable>
+          ),
           headerRight: () => (
             <Link href="/letter/modal" asChild>
               <Pressable>
