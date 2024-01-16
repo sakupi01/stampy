@@ -6,7 +6,6 @@ import { SplashScreen } from "expo-router";
 import { Tabs } from "expo-router";
 import { useEffect } from "react";
 import { TouchableOpacity, useColorScheme } from "react-native";
-import { StyleSheet } from "react-native";
 import { ShadowProperties } from "../constants/MaterialBoxshadow";
 // import { BlurView } from "expo-blur";
 
@@ -141,14 +140,6 @@ function RootLayoutNav() {
               borderWidth: 1,
               borderRadius: 50,
               borderColor: "rgba(3, 10, 18, 0.81)",
-              borderTopColor: "rgba(3, 10, 18, 0.81)",
-              borderBottomColor: "rgba(3, 10, 18, 0.81)",
-              borderLeftColor: "rgba(3, 10, 18, 0.81)",
-              borderRightColor: "rgba(3, 10, 18, 0.81)",
-              borderTopWidth: 1,
-              borderBottomWidth: 1,
-              borderLeftWidth: 1,
-              borderRightWidth: 1,
               position: "absolute",
               top: -22.5,
               right: "50%",
@@ -200,23 +191,3 @@ function RootLayoutNav() {
     </Providers>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    paddingHorizontal: 10,
-  },
-  button: {
-    alignItems: "center",
-    backgroundColor: "#DDDDDD",
-    padding: 10,
-  },
-  countContainer: {
-    alignItems: "center",
-    padding: 10,
-  },
-  countText: {
-    color: "#FF00FF",
-  },
-});
