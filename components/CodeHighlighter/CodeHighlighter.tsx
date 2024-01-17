@@ -1,4 +1,5 @@
 import { useThemeColor } from "@/components/CodeHighlighter/hooks/useThemeColor";
+import { s } from "react-native-size-matters";
 import { GetProps, SizableText, XStack, styled } from "tamagui";
 import { Paragraph } from "../Typography";
 
