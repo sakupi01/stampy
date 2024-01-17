@@ -2,21 +2,22 @@ import { config as baseConfig } from "@tamagui/config";
 import { createMedia } from "@tamagui/react-native-media-driver";
 import { shorthands } from "@tamagui/shorthands";
 import { themes as baseTheme, tokens as baseToken } from "@tamagui/themes";
-import { createFont, createTamagui, createTokens } from "tamagui"; // or '@tamagui/core'
 // import { createAnimations } from "@tamagui/animations-react-native";
+import { ms } from "react-native-size-matters";
+import { createFont, createTamagui, createTokens } from "tamagui"; // or '@tamagui/core'
 const interFont = createFont({
   family: "Inter",
   size: {
-    h1: 48,
-    h2: 30,
-    h3: 24,
-    h4: 20,
-    ui: 14,
-    large: 18,
-    medium: 16,
-    small: 12,
-    true: 16,
-    4: 16,
+    h1: ms(48),
+    h2: ms(30),
+    h3: ms(24),
+    h4: ms(20),
+    ui: ms(14),
+    large: ms(18),
+    medium: ms(16),
+    small: ms(12),
+    true: ms(16),
+    4: ms(16),
   },
   color: {
     dark: "$text--dark",
@@ -24,14 +25,14 @@ const interFont = createFont({
     color: "$color",
   },
   lineHeight: {
-    h1: 48,
-    h2: 36,
-    h3: 32,
-    h4: 28,
-    ui: 20,
-    large: 28,
-    medium: 24,
-    small: 20,
+    h1: ms(48),
+    h2: ms(36),
+    h3: ms(32),
+    h4: ms(28),
+    ui: ms(20),
+    large: ms(28),
+    medium: ms(24),
+    small: ms(20),
   },
   weight: {
     light: "300",
@@ -59,16 +60,16 @@ export type InterFont = typeof interFont;
 const zenKakuGothicNewFont = createFont({
   family: "ZenKakuGothicNew",
   size: {
-    h1: 48,
-    h2: 30,
-    h3: 24,
-    h4: 20,
-    ui: 14,
-    large: 18,
-    medium: 16,
-    small: 12,
-    true: 16,
-    4: 16,
+    h1: ms(48, 2),
+    h2: ms(30, 2),
+    h3: ms(24, 2),
+    h4: ms(20, 2),
+    ui: ms(14, 2),
+    large: ms(18, 2),
+    medium: ms(16, 2),
+    small: ms(12, 2),
+    true: ms(16, 2),
+    4: ms(16, 2),
   },
   color: {
     dark: "$text--dark",
@@ -76,14 +77,14 @@ const zenKakuGothicNewFont = createFont({
     color: "$color",
   },
   lineHeight: {
-    h1: 48,
-    h2: 36,
-    h3: 32,
-    h4: 28,
-    ui: 20,
-    large: 28,
-    medium: 24,
-    small: 20,
+    h1: ms(48, 2),
+    h2: ms(36, 2),
+    h3: ms(32, 2),
+    h4: ms(28, 2),
+    ui: ms(20, 2),
+    large: ms(28, 2),
+    medium: ms(24, 2),
+    small: ms(20, 2),
   },
   weight: {
     light: "300",
