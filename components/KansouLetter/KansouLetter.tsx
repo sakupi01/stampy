@@ -1,5 +1,6 @@
 import { Letter } from "@/types/Letter";
 import { ImageBackground } from "react-native";
+import { s } from "react-native-size-matters";
 import { YGroup } from "tamagui";
 import { Typography } from "../Typography/Typography";
 export type KansouLetterProps = {
@@ -14,8 +15,8 @@ export const KansouLetter = ({ letter }: KansouLetterProps) => {
       style={{ width: "100%" }}
     >
       <YGroup
-        padding={30}
-        space={40}
+        padding={s(30)}
+        space={s(40)}
         justifyContent="center"
         alignItems="center"
       >

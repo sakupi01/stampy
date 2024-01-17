@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Modal, ModalProps, StyleSheet } from "react-native";
+import { s } from "react-native-size-matters";
 import { View, ViewProps, XStack, YStack } from "tamagui";
 import { Typography } from "../Typography/Typography";
 
@@ -51,12 +52,12 @@ export function StyledAlertDialog({
           {...props}
         >
           <View style={styles.modalView}>
-            <YStack space={15} width="100%">
+            <YStack space={s(15)} width="100%">
               <Typography type="large" whiteSpace="pre-wrap" textAlign="center">
                 {description}
               </Typography>
               {children}
-              <XStack space={30} justifyContent="center">
+              <XStack space={s(30)} justifyContent="center">
                 {CancelButton}
                 {ActionButton}
               </XStack>
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
   modalView: {
     backgroundColor: "white",
     borderRadius: 6,
-    padding: 30,
+    padding: s(30),
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -92,26 +93,6 @@ const styles = StyleSheet.create({
     borderLeftColor: "rgba(3, 10, 18, 0.81)",
     borderBlockColor: "rgba(3, 10, 18, 0.81)",
     borderStyle: "solid",
-    maxWidth: 300,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center",
+    maxWidth: s(300),
   },
 });

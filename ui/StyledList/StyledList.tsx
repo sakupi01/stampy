@@ -4,6 +4,7 @@ import { assertNonNullable } from "@/libs/assertNonNullable";
 import { Letter } from "@/types/Letter";
 import { Notification } from "@/types/Notification";
 import { Pressable, SectionList } from "react-native";
+import { s, vs } from "react-native-size-matters";
 import { Separator, YStack } from "tamagui";
 import { StampForm } from "../StampForm/StampForm";
 import { LinkListItem, TextListItem } from "./ListItem";
@@ -29,8 +30,8 @@ export const StyledList = ({ data }: StyledListProps) => {
           width="100%"
           backgroundColor={"$secondary--background"}
           type="medium"
-          marginVertical={15}
-          padding={6}
+          marginVertical={vs(15)}
+          padding={s(6)}
         >
           {section.title}
         </Typography>
@@ -39,7 +40,7 @@ export const StyledList = ({ data }: StyledListProps) => {
       keyExtractor={(item) => item.id}
       ItemSeparatorComponent={() => (
         <Separator
-          marginVertical={10}
+          marginVertical={vs(10)}
           borderBottomColor="$stroke--light"
           borderLeftColor="$stroke--light"
           borderRightColor="$stroke--light"

@@ -5,6 +5,7 @@ import { assertNonNullable } from "@/libs/assertNonNullable";
 import { Letter } from "@/types/Letter";
 import { DATA_LETTER } from "@/ui/StyledList/fixture/mock.data";
 import { useLocalSearchParams } from "expo-router";
+import { s, vs } from "react-native-size-matters";
 import { YStack } from "tamagui";
 import { KansouLetter } from "../../../components/KansouLetter/KansouLetter";
 import { StampWrapper } from "../../../components/StampWrapper/StampWrapper";
@@ -17,7 +18,7 @@ export default function LetterScreen() {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <YStack space={50}>
-          <Typography type="h2" marginBottom={30}>
+          <Typography type="h2" marginBottom={vs(30)}>
             {letter.title}
           </Typography>
           <YStack space={10} justifyContent="center" alignItems="center">
@@ -37,8 +38,8 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: "100%",
-    paddingVertical: 50,
-    paddingHorizontal: 30,
+    paddingVertical: vs(50),
+    paddingHorizontal: s(30),
     backgroundColor: "#fff",
   },
 });

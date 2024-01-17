@@ -1,3 +1,4 @@
+import { s } from "react-native-size-matters";
 import { Square, SquareProps } from "tamagui";
 import { Typography } from "../Typography/Typography";
 
@@ -16,9 +17,9 @@ export const StampWrapper = ({
   return (
     <Square
       backgroundColor="rgba(232, 230, 227, 0.52)"
-      width={size === "small" ? 50 : 70}
-      height={size === "small" ? 50 : 70}
-      padding={size === "small" ? 5 : 10}
+      width={size === "small" ? s(50) : s(70)}
+      height={size === "small" ? s(50) : s(70)}
+      padding={size === "small" ? s(5) : s(10)}
       borderRadius={6}
       animation={isSelector ? "bouncy" : null}
       scale={isSelector ? 0.9 : 1}

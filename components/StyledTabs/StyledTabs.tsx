@@ -1,4 +1,5 @@
 import { MaterialBoxshadow } from "@/constants/MaterialBoxshadow";
+import { s, vs } from "react-native-size-matters";
 import {
   AnimatePresence,
   StackProps,
@@ -23,8 +24,8 @@ const Tabs = ({ children, setCurrentTab, currentTab, ...props }: TabsProps) => {
       defaultValue="tab1"
       onValueChange={setCurrentTab}
       orientation="horizontal"
-      height={150}
-      space={6}
+      height={vs(150)}
+      space={s(6)}
       flexDirection="column"
       activationMode="manual"
       backgroundColor="transparent"
@@ -72,7 +73,7 @@ const List = ({ children, intentAt, activeAt }: ListProps) => {
         disablePassBorderRadius
         loop={false}
         aria-label="Manage your account"
-        padding={5}
+        padding={s(5)}
         borderRadius={6}
         borderWidth={1}
         borderStyle="solid"
@@ -90,7 +91,8 @@ const List = ({ children, intentAt, activeAt }: ListProps) => {
 const StyledTab = styled(DefaultTabs.Tab, {
   value: "default",
   flex: 1,
-  padding: "6px 12px",
+  paddingVertical: vs(6),
+  paddingHorizontal: s(12),
   alignItems: "center",
   gap: "10px",
   hoverStyle: {

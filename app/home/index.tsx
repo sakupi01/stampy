@@ -10,16 +10,17 @@ import {
 } from "@/ui/StampCard/fixture/mock.data";
 import { Link } from "expo-router";
 import { SafeAreaView, ScrollView } from "react-native";
+import { s, vs } from "react-native-size-matters";
 import { Avatar, XStack, YStack } from "tamagui";
 export default function Home() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
-        <Typography type="h3" marginBottom={30}>
+        <Typography type="h3" marginBottom={vs(30)}>
           わたしのスタンプカード
         </Typography>
         <Link href="/home/typography">Typography</Link>
-        <YStack>
+        <YStack alignItems="center" width="100%" height="100%">
           {MockStampCards.map((card) => (
             <Link
               // @ts-ignore
@@ -31,7 +32,7 @@ export default function Home() {
               }}
               asChild
             >
-              <StyledCard.Card margin={5} width={300} height={500}>
+              <StyledCard.Card margin={s(5)} width={s(300)} height={vs(500)}>
                 <Badge
                   label={card.isCompleted ? "🎉Completed" : "🏃🏻‍♀️Running"}
                   position="absolute"
@@ -44,12 +45,12 @@ export default function Home() {
                       : "$accent--background"
                   }
                 />
-                <StyledCard.Thumbnail padding={10}>
+                <StyledCard.Thumbnail padding={s(10)}>
                   <StampCard
                     currentDay={5}
                     stampNodes={MockStampNodes}
-                    fixedWidth={300}
-                    fixedHeight={500}
+                    fixedWidth={s(300)}
+                    fixedHeight={vs(500)}
                   />
                 </StyledCard.Thumbnail>
                 <StyledCard.Footer>
@@ -65,7 +66,7 @@ export default function Home() {
                       />
                       <Avatar.Fallback backgroundColor="$blue10" />
                     </Avatar>
-                    <Avatar circular size="$3" marginLeft={-10}>
+                    <Avatar circular size="$3" marginLeft={s(-10)}>
                       <Avatar.Image
                         accessibilityLabel={card.createdBy.username}
                         src={card.createdBy.avatarUrl}
@@ -94,8 +95,8 @@ const styles = StyleSheet.create({
   scrollView: {
     width: "100%",
     height: "100%",
-    paddingVertical: 50,
-    paddingHorizontal: 30,
+    paddingVertical: vs(50),
+    paddingHorizontal: s(30),
     backgroundColor: "#fff",
   },
 });
