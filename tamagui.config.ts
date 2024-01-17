@@ -3,7 +3,7 @@ import { createMedia } from "@tamagui/react-native-media-driver";
 import { shorthands } from "@tamagui/shorthands";
 import { themes as baseTheme, tokens as baseToken } from "@tamagui/themes";
 import { createFont, createTamagui, createTokens } from "tamagui"; // or '@tamagui/core'
-
+// import { createAnimations } from "@tamagui/animations-react-native";
 const interFont = createFont({
   family: "Inter",
   size: {
@@ -138,24 +138,45 @@ const spaceMonoFont = createFont({
 });
 
 // const animations = createAnimations({
+//   "100ms": {
+//     type: "timing",
+//     duration: 100,
+//   },
 //   bouncy: {
-//     type: "spring",
-//     damping: 10,
+//     damping: 9,
 //     mass: 0.9,
-//     stiffness: 100,
+//     stiffness: 150,
 //   },
 //   lazy: {
-//     type: "spring",
-//     damping: 20,
-//     stiffness: 60,
+//     damping: 18,
+//     stiffness: 50,
+//   },
+//   medium: {
+//     damping: 15,
+//     stiffness: 120,
+//     mass: 1,
+//   },
+//   slow: {
+//     damping: 15,
+//     stiffness: 40,
 //   },
 //   quick: {
-//     type: "spring",
 //     damping: 20,
 //     mass: 1.2,
 //     stiffness: 250,
 //   },
+//   tooltip: {
+//     damping: 10,
+//     mass: 0.9,
+//     stiffness: 100,
+//   },
+//   none: {
+//     damping: 1,
+//     mass: 1,
+//     stiffness: 1,
+//   },
 // });
+
 export type SpaceMonoFont = typeof spaceMonoFont;
 const tokens = createTokens({
   ...baseToken,

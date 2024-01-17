@@ -1,6 +1,6 @@
 import Providers from "@/libs/providers";
 import { FontAwesome } from "@expo/vector-icons";
-import { Bell, Home, Mail, Plus, UserCircle } from "@tamagui/lucide-icons";
+import { Bell, Home, Mail, Plus, User } from "@tamagui/lucide-icons";
 import { useFonts } from "expo-font";
 import { SplashScreen } from "expo-router";
 import { Tabs } from "expo-router";
@@ -105,9 +105,6 @@ function RootLayoutNav() {
           options={{
             tabBarIcon: ({ color }) => <Home color={color} />,
             tabBarShowLabel: false,
-            tabBarItemStyle: {
-              marginRight: -15,
-            },
           }}
         />
         <Tabs.Screen
@@ -132,19 +129,17 @@ function RootLayoutNav() {
             tabBarActiveTintColor: "white",
             tabBarInactiveTintColor: "#C5C5C5",
             tabBarItemStyle: {
-              width: 45,
-              height: 45,
+              maxWidth: 45,
+              maxHeight: 45,
+              minWidth: 45,
+              minHeight: 45,
               alignItems: "center",
               justifyContent: "center",
               marginBottom: 10,
               borderWidth: 1,
               borderRadius: 50,
               borderColor: "rgba(3, 10, 18, 0.81)",
-              position: "absolute",
-              top: -22.5,
-              right: "50%",
-              transform: [{ translateX: 22.5 }],
-              zIndex: 2,
+              top: -10,
             },
             tabBarButton: (props) => (
               <TouchableOpacity {...props} activeOpacity={0.85} />
@@ -157,16 +152,13 @@ function RootLayoutNav() {
           options={{
             tabBarIcon: ({ color }) => <Mail color={color} />,
             tabBarShowLabel: false,
-            tabBarItemStyle: {
-              paddingLeft: 20,
-            },
           }}
         />
         <Tabs.Screen
           // file name to refer to
           name="account"
           options={{
-            tabBarIcon: ({ color }) => <UserCircle color={color} />,
+            tabBarIcon: ({ color }) => <User color={color} />,
             tabBarShowLabel: false,
           }}
         />
