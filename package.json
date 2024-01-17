@@ -62,7 +62,7 @@
     "react-redux": "^9.0.4",
     "rn-emoji-keyboard": "^1.6.0",
     "tamagui": "^1.81.4",
-    "valibot": "^0.25.0"
+    "valibot": "^0.26.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
