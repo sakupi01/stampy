@@ -16,7 +16,7 @@ const MonoSpan = styled(Paragraph, {
 const StyledXStack = styled(XStack, {
   name: "StyledXStack",
   tag: "span",
-  space: 4,
+  space: s(4),
   paddingHorizontal: 4,
   marginVertical: 7,
   borderRadius: 4,

@@ -3,12 +3,13 @@ import { SafeAreaView, StyleSheet, View } from "react-native";
 import { Typography } from "@/components/Typography";
 import { StyledList } from "@/ui/StyledList/StyledList";
 import { DATA } from "@/ui/StyledList/fixture/mock.data";
+import { s, vs } from "react-native-size-matters";
 
 export default function LetterScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.wrapper}>
-        <Typography type="h3" marginBottom={30}>
+        <Typography type="h3" marginBottom={vs(30)}>
           通知リスト
         </Typography>
         <StyledList data={[...DATA]} />
@@ -25,8 +26,8 @@ const styles = StyleSheet.create({
   wrapper: {
     width: "100%",
     height: "100%",
-    paddingVertical: 50,
-    paddingHorizontal: 30,
+    paddingVertical: vs(50),
+    paddingHorizontal: s(30),
     backgroundColor: "#fff",
   },
 });

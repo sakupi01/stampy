@@ -1,6 +1,7 @@
 import { Typography } from "@/components/Typography";
 import { Href } from "expo-router";
 import { Link } from "expo-router";
+import { s } from "react-native-size-matters";
 import { XStack, YStack } from "tamagui";
 import { StampWrapper } from "../../components/StampWrapper/StampWrapper";
 
@@ -11,7 +12,7 @@ export const LinkListItem = ({
   content,
 }: { href: Href<string>; title: string; stamp?: string; content?: string }) => (
   <Link href={href}>
-    <XStack space={20} alignItems="center" width="100%">
+    <XStack space={s(20)} alignItems="center" width="100%">
       {stamp && <StampWrapper stamp={stamp} size="small" />}
       <YStack flexShrink={1}>
         <Typography
