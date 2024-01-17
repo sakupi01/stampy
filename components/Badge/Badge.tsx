@@ -1,3 +1,4 @@
+import { s, vs } from "react-native-size-matters";
 import { XStack, XStackProps } from "tamagui";
 import { ShadowProperties } from "../../constants/MaterialBoxshadow";
 import { Typography } from "../Typography/Typography";
@@ -14,12 +15,10 @@ export const Badge = ({
   return (
     <XStack
       display="inline-flex"
-      paddingTop={7}
-      paddingRight={13}
-      paddingBottom={7}
-      paddingLeft={13}
+      paddingVertical={vs(7)}
+      paddingHorizontal={s(13)}
       alignItems="center"
-      gap={10}
+      gap={s(10)}
       borderRadius={6}
       backgroundColor={backgroundColor}
       {...ShadowProperties}

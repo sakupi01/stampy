@@ -1,4 +1,5 @@
 import { useThemeColor } from "@/components/CodeHighlighter/hooks/useThemeColor";
+import { s } from "react-native-size-matters";
 import { GetProps, SizableText, XStack, styled } from "tamagui";
 import { Paragraph } from "../Typography";
 
@@ -16,7 +17,7 @@ const MonoSpan = styled(Paragraph, {
 const StyledXStack = styled(XStack, {
   name: "StyledXStack",
   tag: "span",
-  space: 4,
+  space: s(4),
   paddingHorizontal: 4,
   marginVertical: 7,
   borderRadius: 4,

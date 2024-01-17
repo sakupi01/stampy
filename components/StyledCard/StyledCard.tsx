@@ -1,4 +1,5 @@
 import React from "react";
+import { s, vs } from "react-native-size-matters";
 import {
   Card as DefaultCard,
   CardFooterProps,
@@ -21,10 +22,10 @@ function Card({
   return (
     <DefaultCard
       unstyled
-      minWidth={270} // for small mobile screens
-      maxWidth={320} // for large mobile screens
-      minHeight={250} // for small mobile screens
-      maxHeight={300} // for large mobile screens
+      minWidth={s(270)} // for small mobile screens
+      maxWidth={s(320)} // for large mobile screens
+      minHeight={vs(250)} // for small mobile screens
+      maxHeight={vs(300)} // for large mobile screens
       borderRadius={6}
       borderColor={bordered ? "$stroke--dark" : "transparent"}
       borderStyle="solid"
@@ -49,7 +50,13 @@ type ThumbnailProps = {
 } & CardHeaderProps;
 function Thumbnail({ url, children, ...props }: ThumbnailProps) {
   return (
-    <DefaultCard.Header unstyled width="100%" flex={1} padding={1} {...props}>
+    <DefaultCard.Header
+      unstyled
+      width="100%"
+      flex={1}
+      padding={s(1)}
+      {...props}
+    >
       {children ? (
         children
       ) : (
@@ -70,8 +77,8 @@ function StyledFooter({ children, ...props }: StyledFooterProps) {
       backgroundColor="$light--background"
       borderBottomLeftRadius={6}
       borderBottomRightRadius={6}
-      padding={17}
-      gap={8}
+      padding={s(17)}
+      gap={s(8)}
       {...props}
     >
       {children}

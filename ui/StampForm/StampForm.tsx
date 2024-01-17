@@ -9,6 +9,7 @@ import { MessageFormSchema, MessageFormType } from "@/schema/message";
 import { User } from "@/types";
 import { valibotResolver } from "@hookform/resolvers/valibot";
 import { Controller, FieldValues, useForm } from "react-hook-form";
+import { s } from "react-native-size-matters";
 import { YStack } from "tamagui";
 
 export type StampFormProps = {
@@ -39,7 +40,7 @@ export const StampForm = ({
   });
   return (
     <StyledForm
-      maxWidth={300}
+      maxWidth={s(300)}
       width="100%"
       alignItems="center"
       buttonLabel={buttonLabel}

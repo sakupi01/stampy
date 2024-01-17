@@ -1,5 +1,6 @@
 import { Typography } from "@/components/Typography";
 import { forwardRef } from "react";
+import { s, vs } from "react-native-size-matters";
 import {
   Input as DefaultInput,
   InputProps,
@@ -12,14 +13,14 @@ import {
 const Input = styled(DefaultInput, {
   name: "StyledTextInput",
   tag: "input",
-  height: 40,
+  height: vs(40),
   width: "100%",
   borderRadius: 6,
   borderWidth: 1,
   borderTopColor: "$stroke--dark",
   borderStyle: "solid",
   backgroundColor: "white",
-  padding: 10,
+  padding: s(10),
   color: "$text--dark",
   fontSize: "$ui",
 });
@@ -49,7 +50,7 @@ export const StyledInput = forwardRef<
     ref,
   ) => {
     return (
-      <YStack space={6} width={"100%"}>
+      <YStack space={s(6)} width={"100%"}>
         <Label htmlFor={id} {...labelProps}>
           <Typography type="ui" color="$text--dark">
             {label}
