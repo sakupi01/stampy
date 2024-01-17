@@ -42,7 +42,7 @@ export const ThemeSelector = () => {
           paddingRight={s(10)}
         >
           {DEFAULT_IMG.map((image) => (
-            <Pressable>
+            <Pressable key={image.id}>
               <YStack
                 width={150}
                 height={300}
