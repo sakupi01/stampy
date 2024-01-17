@@ -32,7 +32,12 @@ export default function Home() {
               }}
               asChild
             >
-              <StyledCard.Card margin={s(5)} width={s(300)} height={vs(500)}>
+              <StyledCard.Card
+                margin={s(5)}
+                width={s(300)}
+                height={vs(500)}
+                imageSource={{ uri: card.backgroundUrl }}
+              >
                 <Badge
                   label={card.isCompleted ? "🎉Completed" : "🏃🏻‍♀️Running"}
                   position="absolute"
@@ -45,7 +50,7 @@ export default function Home() {
                       : "$accent--background"
                   }
                 />
-                <StyledCard.Thumbnail padding={s(10)}>
+                <StyledCard.Thumbnail>
                   <StampCard
                     currentDay={5}
                     stampNodes={MockStampNodes}

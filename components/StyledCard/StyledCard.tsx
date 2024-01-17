@@ -1,4 +1,5 @@
 import React from "react";
+import { ImageBackground, ImageSourcePropType } from "react-native";
 import { s, vs } from "react-native-size-matters";
 import {
   Card as DefaultCard,
@@ -11,12 +12,14 @@ type StyledCardProps = {
   children?: React.ReactNode;
   bordered?: boolean;
   isBouncy?: boolean;
+  imageSource?: ImageSourcePropType;
 } & CardProps;
 
 function Card({
   children,
   bordered = true,
   isBouncy = true,
+  imageSource = require("../../assets/images/paperWhite.jpeg"),
   ...props
 }: StyledCardProps) {
   return (
@@ -31,6 +34,8 @@ function Card({
       borderStyle="solid"
       borderWidth={2}
       display="flex"
+      alignItems="center"
+      justifyContent="center"
       flexDirection="column"
       overflow="hidden"
       animation={isBouncy ? "bouncy" : null} // linkになると先に遷移してしまうので、bouncyがあんまりわかんない
@@ -39,7 +44,17 @@ function Card({
       pressStyle={isBouncy ? { scale: 0.925 } : {}}
       {...props}
     >
-      {children}
+      <ImageBackground
+        source={imageSource}
+        resizeMode="cover"
+        style={{
+          flexGrow: 1,
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        {children}
+      </ImageBackground>
     </DefaultCard>
   );
 }

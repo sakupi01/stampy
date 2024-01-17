@@ -27,12 +27,12 @@ export default function LetterScreen() {
           </Typography>
           <StyledCard.Card
             margin={s(5)}
-            padding={s(10)}
             width={s(300)}
             height={vs(500)}
             maxWidth={s(300)}
             maxHeight={vs(500)}
             isBouncy={false}
+            imageSource={{ uri: card.backgroundUrl }}
           >
             <StampCard
               currentDay={card.currentDay}

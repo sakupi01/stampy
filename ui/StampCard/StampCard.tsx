@@ -8,6 +8,7 @@ import { useAppSelector } from "@/libs/AsyncStorage/store";
 import { StampNode } from "@/types";
 import React from "react";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import { s } from "react-native-size-matters";
 import Svg, { Path } from "react-native-svg";
 import { YStack } from "tamagui";
 import { drawEdges } from "./utils/drawEdges";
@@ -61,40 +62,134 @@ export const StampCard = ({
   return (
     <View
       style={{
-        position: "relative",
-        height: "100%",
-        width: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: s(10),
       }}
     >
-      {!isEditable && (
-        <View
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            zIndex: 1,
-            height: "110%",
-            width: "110%",
-          }}
-        />
-      )}
+      <View
+        style={{
+          position: "relative",
+          height: "100%",
+          width: "100%",
+        }}
+      >
+        {!isEditable && (
+          <View
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              zIndex: 1,
+              height: "110%",
+              width: "110%",
+            }}
+          />
+        )}
 
-      {/* biome-ignore lint/style/noCommaOperator: <explanation> */}
-      <Svg style={(StyleSheet.absoluteFill, { width: "100%", height: "100%" })}>
-        <Path
-          d={pathData}
-          stroke="#E8E8E8"
-          // stroke="#D9D9D9"
-          // stroke="#BF6E55"
-          strokeOpacity={0.8}
-          strokeWidth={5}
-        />
-      </Svg>
-      {nodesWithPosition.map((node, index) => {
-        const { stamp, stampId, stamped, nthDay, message } = node;
-        // stamped node
-        if (stamped) {
-          const uniqueId = `${stampId}-stamped-${index}`;
+        <Svg
+          // biome-ignore lint/style/noCommaOperator: <explanation>
+          style={(StyleSheet.absoluteFill, { width: "100%", height: "100%" })}
+        >
+          <Path
+            d={pathData}
+            stroke="#E8E8E8"
+            // stroke="#D9D9D9"
+            // stroke="#BF6E55"
+            strokeOpacity={0.8}
+            strokeWidth={5}
+          />
+        </Svg>
+        {nodesWithPosition.map((node, index) => {
+          const { stamp, stampId, stamped, nthDay, message } = node;
+          // stamped node
+          if (stamped) {
+            const uniqueId = `${stampId}-stamped-${index}`;
+            return (
+              <Node
+                key={uniqueId}
+                style={{
+                  position: "absolute",
+                  top: node.y,
+                  left: node.x,
+                }}
+              >
+                <StyledAlertDialog
+                  triggerButton={(toggleModal) => (
+                    <StyledButton
+                      circular
+                      // @ts-ignore
+                      type="accent"
+                      onPress={toggleModal}
+                    >
+                      <Typography>{stamp}</Typography>
+                    </StyledButton>
+                  )}
+                  cancelButton={(untoggleModal) => (
+                    // @ts-ignore
+                    <StyledButton type="secondary" onPress={untoggleModal}>
+                      <Typography>{closeMessage}</Typography>
+                    </StyledButton>
+                  )}
+                  description={nthDay + givenStampMessage}
+                >
+                  <YStack gap={20} alignItems="center">
+                    <StampWrapper stamp={stamp} />
+                    <StyledInput
+                      label={messageLabel}
+                      defaultValue={message}
+                      id={uniqueId}
+                      isDisabled
+                    />
+                  </YStack>
+                </StyledAlertDialog>
+              </Node>
+            );
+          }
+          // today's un-stamped node
+          if (currentDay === nthDay) {
+            const uniqueId = `${stampId}-currentday-${index}`;
+            return (
+              <Node
+                key={uniqueId}
+                style={{
+                  position: "absolute",
+                  top: node.y,
+                  left: node.x,
+                }}
+              >
+                <StyledAlertDialog
+                  triggerButton={(toggleModal) => (
+                    <StyledButton
+                      circular
+                      // @ts-ignore
+                      type="primary"
+                      onPress={toggleModal}
+                    >
+                      <Typography>{stamp}</Typography>
+                    </StyledButton>
+                  )}
+                  cancelButton={(untoggleModal) => (
+                    // @ts-ignore
+                    <StyledButton type="secondary" onPress={untoggleModal}>
+                      <Typography>{cancelMessage}</Typography>
+                    </StyledButton>
+                  )}
+                  actionButton={(action) => (
+                    // @ts-ignore
+                    <StyledButton type="primary" onPress={action}>
+                      <Typography>{yesMessage}</Typography>
+                    </StyledButton>
+                  )}
+                  description={`${readyStampMessage}`}
+                />
+              </Node>
+            );
+          }
+
+          // future stamp nodes
+          const uniqueId = `${stampId}-future-${index}`;
           return (
             <Node
               key={uniqueId}
@@ -109,10 +204,10 @@ export const StampCard = ({
                   <StyledButton
                     circular
                     // @ts-ignore
-                    type="accent"
+                    type="ghost"
                     onPress={toggleModal}
                   >
-                    <Typography>{stamp}</Typography>
+                    <Typography>{stampId}</Typography>
                   </StyledButton>
                 )}
                 cancelButton={(untoggleModal) => (
@@ -121,97 +216,14 @@ export const StampCard = ({
                     <Typography>{closeMessage}</Typography>
                   </StyledButton>
                 )}
-                description={nthDay + givenStampMessage}
-              >
-                <YStack gap={20} alignItems="center">
-                  <StampWrapper stamp={stamp} />
-                  <StyledInput
-                    label={messageLabel}
-                    defaultValue={message}
-                    id={uniqueId}
-                    isDisabled
-                  />
-                </YStack>
-              </StyledAlertDialog>
-            </Node>
-          );
-        }
-        // today's un-stamped node
-        if (currentDay === nthDay) {
-          const uniqueId = `${stampId}-currentday-${index}`;
-          return (
-            <Node
-              key={uniqueId}
-              style={{
-                position: "absolute",
-                top: node.y,
-                left: node.x,
-              }}
-            >
-              <StyledAlertDialog
-                triggerButton={(toggleModal) => (
-                  <StyledButton
-                    circular
-                    // @ts-ignore
-                    type="primary"
-                    onPress={toggleModal}
-                  >
-                    <Typography>{stamp}</Typography>
-                  </StyledButton>
-                )}
-                cancelButton={(untoggleModal) => (
-                  // @ts-ignore
-                  <StyledButton type="secondary" onPress={untoggleModal}>
-                    <Typography>{cancelMessage}</Typography>
-                  </StyledButton>
-                )}
-                actionButton={(action) => (
-                  // @ts-ignore
-                  <StyledButton type="primary" onPress={action}>
-                    <Typography>{yesMessage}</Typography>
-                  </StyledButton>
-                )}
-                description={`${readyStampMessage}`}
+                description={`まだスタンプをもらえません\n${
+                  nthDay - currentDay
+                }日後にもらえます`}
               />
             </Node>
           );
-        }
-
-        // future stamp nodes
-        const uniqueId = `${stampId}-future-${index}`;
-        return (
-          <Node
-            key={uniqueId}
-            style={{
-              position: "absolute",
-              top: node.y,
-              left: node.x,
-            }}
-          >
-            <StyledAlertDialog
-              triggerButton={(toggleModal) => (
-                <StyledButton
-                  circular
-                  // @ts-ignore
-                  type="ghost"
-                  onPress={toggleModal}
-                >
-                  <Typography>{stampId}</Typography>
-                </StyledButton>
-              )}
-              cancelButton={(untoggleModal) => (
-                // @ts-ignore
-                <StyledButton type="secondary" onPress={untoggleModal}>
-                  <Typography>{closeMessage}</Typography>
-                </StyledButton>
-              )}
-              description={`まだスタンプをもらえません\n${
-                nthDay - currentDay
-              }日後にもらえます`}
-            />
-          </Node>
-        );
-      })}
+        })}
+      </View>
     </View>
   );
 };
