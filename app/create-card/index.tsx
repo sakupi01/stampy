@@ -1,32 +1,38 @@
-import { Text, View } from "@/components/Themed";
-import { StyleSheet } from "react-native";
-
+import { DatePicker } from "@/components/DatePicker";
+import { View } from "@/components/Themed";
+import { SafeAreaView, StyleSheet } from "react-native";
+import { TextInput } from "react-native-gesture-handler";
+import { ms, s, vs } from "react-native-size-matters";
 export default function CreateCardScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.wrapper}>
+        <TextInput
+          style={{
+            marginBottom: vs(30),
+            lineHeight: ms(32, 2),
+            fontWeight: "bold",
+            letterSpacing: -0.6,
+            fontSize: ms(24, 2),
+            fontFamily: "ZenKakuGothicNewBold",
+          }}
+          placeholder="スタンプカードのタイトル"
+        />
+        <DatePicker />
+      </View>
+    </SafeAreaView>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    width: "100%",
+    height: "100%",
   },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
+  wrapper: {
+    width: "100%",
+    height: "100%",
+    paddingVertical: vs(50),
+    paddingHorizontal: s(30),
+    backgroundColor: "#fff",
   },
 });
