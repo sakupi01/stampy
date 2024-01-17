@@ -1,4 +1,5 @@
 import { DatePicker } from "@/components/DatePicker";
+import { ThemeSelector } from "@/components/ThemeSelector";
 import { View } from "@/components/Themed";
 import { SafeAreaView, StyleSheet } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
@@ -19,6 +20,7 @@ export default function CreateCardScreen() {
           placeholder="スタンプカードのタイトル"
         />
         <DatePicker />
+        <ThemeSelector />
       </View>
     </SafeAreaView>
   );
