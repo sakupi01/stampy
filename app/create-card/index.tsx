@@ -1,13 +1,12 @@
 import { DatePicker } from "@/components/DatePicker";
 import { ThemeSelector } from "@/components/ThemeSelector";
-import { View } from "@/components/Themed";
-import { SafeAreaView, StyleSheet } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { ms, s, vs } from "react-native-size-matters";
 export default function CreateCardScreen() {
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.wrapper}>
+      <ScrollView style={styles.scrollView}>
         <TextInput
           style={{
             marginBottom: vs(30),
@@ -21,7 +20,7 @@ export default function CreateCardScreen() {
         />
         <DatePicker />
         <ThemeSelector />
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -30,7 +29,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
-  wrapper: {
+  scrollView: {
     width: "100%",
     height: "100%",
     paddingVertical: vs(50),
