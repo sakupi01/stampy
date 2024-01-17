@@ -23,6 +23,7 @@ const H1 = styled(Heading, {
   tag: "h1",
   size: "$h1",
   lineHeight: "$h1",
+  height: "$h1",
   fontWeight: "$extraBold",
   letterSpacing: "$1",
 });
@@ -32,6 +33,7 @@ const H2 = styled(Heading, {
   tag: "h2",
   size: "$h2",
   lineHeight: "$h2",
+  height: "$h2",
   fontWeight: "$medium",
   letterSpacing: "$2",
 });
@@ -41,6 +43,7 @@ const H3 = styled(Heading, {
   tag: "h3",
   size: "$h3",
   lineHeight: "$h3",
+  height: "$h3",
   fontWeight: "$bold",
   letterSpacing: "$3",
 });
@@ -50,6 +53,7 @@ const H4 = styled(Heading, {
   tag: "h4",
   size: "$h4",
   lineHeight: "$h4",
+  height: "$h4",
   fontWeight: "$medium",
   letterSpacing: "$4",
 });
@@ -59,6 +63,7 @@ const UIText = styled(Heading, {
   tag: "p",
   size: "$ui",
   lineHeight: "$ui",
+  height: "$ui",
   fontWeight: "$medium",
 });
 
@@ -67,6 +72,7 @@ const Large = styled(Heading, {
   tag: "h6",
   size: "$large",
   lineHeight: "$large",
+  height: "$large",
   fontWeight: "$bold",
 });
 const Medium = styled(Heading, {
@@ -74,12 +80,14 @@ const Medium = styled(Heading, {
   tag: "h6",
   size: "$medium",
   lineHeight: "$medium",
-  fontWeight: "$light",
+  height: "$medium",
+  fontWeight: "$medium",
 });
 const Small = styled(Heading, {
   name: "H6",
   size: "$small",
   lineHeight: "$small",
+  height: "$small",
   fontWeight: "$light",
 });
 

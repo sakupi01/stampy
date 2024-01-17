@@ -3,20 +3,20 @@ import { createMedia } from "@tamagui/react-native-media-driver";
 import { shorthands } from "@tamagui/shorthands";
 import { themes as baseTheme, tokens as baseToken } from "@tamagui/themes";
 import { createFont, createTamagui, createTokens } from "tamagui"; // or '@tamagui/core'
-
+// import { createAnimations } from "@tamagui/animations-react-native";
 const interFont = createFont({
   family: "Inter",
   size: {
-    h1: 48,
-    h2: 30,
-    h3: 24,
-    h4: 20,
-    ui: 14,
-    large: 18,
-    medium: 16,
-    small: 12,
-    true: 16,
-    4: 16,
+    h1: 58,
+    h2: 40,
+    h3: 34,
+    h4: 30,
+    ui: 24,
+    large: 28,
+    medium: 26,
+    small: 22,
+    true: 26,
+    4: 26,
   },
   color: {
     dark: "$text--dark",
@@ -59,16 +59,16 @@ export type InterFont = typeof interFont;
 const zenKakuGothicNewFont = createFont({
   family: "ZenKakuGothicNew",
   size: {
-    h1: 48,
-    h2: 30,
-    h3: 24,
-    h4: 20,
-    ui: 14,
-    large: 18,
-    medium: 16,
-    small: 12,
-    true: 16,
-    4: 16,
+    h1: 56,
+    h2: 38,
+    h3: 32,
+    h4: 28,
+    ui: 22,
+    large: 26,
+    medium: 24,
+    small: 20,
+    true: 24,
+    4: 24,
   },
   color: {
     dark: "$text--dark",
@@ -76,14 +76,14 @@ const zenKakuGothicNewFont = createFont({
     color: "$color",
   },
   lineHeight: {
-    h1: 48,
-    h2: 36,
-    h3: 32,
-    h4: 28,
-    ui: 20,
-    large: 28,
-    medium: 24,
-    small: 20,
+    h1: 56,
+    h2: 44,
+    h3: 40,
+    h4: 36,
+    ui: 28,
+    large: 44,
+    medium: 30,
+    small: 28,
   },
   weight: {
     light: "300",
@@ -138,24 +138,45 @@ const spaceMonoFont = createFont({
 });
 
 // const animations = createAnimations({
+//   "100ms": {
+//     type: "timing",
+//     duration: 100,
+//   },
 //   bouncy: {
-//     type: "spring",
-//     damping: 10,
+//     damping: 9,
 //     mass: 0.9,
-//     stiffness: 100,
+//     stiffness: 150,
 //   },
 //   lazy: {
-//     type: "spring",
-//     damping: 20,
-//     stiffness: 60,
+//     damping: 18,
+//     stiffness: 50,
+//   },
+//   medium: {
+//     damping: 15,
+//     stiffness: 120,
+//     mass: 1,
+//   },
+//   slow: {
+//     damping: 15,
+//     stiffness: 40,
 //   },
 //   quick: {
-//     type: "spring",
 //     damping: 20,
 //     mass: 1.2,
 //     stiffness: 250,
 //   },
+//   tooltip: {
+//     damping: 10,
+//     mass: 0.9,
+//     stiffness: 100,
+//   },
+//   none: {
+//     damping: 1,
+//     mass: 1,
+//     stiffness: 1,
+//   },
 // });
+
 export type SpaceMonoFont = typeof spaceMonoFont;
 const tokens = createTokens({
   ...baseToken,

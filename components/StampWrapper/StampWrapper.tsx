@@ -20,7 +20,7 @@ export const StampWrapper = ({
       height={size === "small" ? 50 : 70}
       padding={size === "small" ? 5 : 10}
       borderRadius={6}
-      animation={isSelector ? "bouncy" : ""}
+      animation={isSelector ? "bouncy" : null}
       scale={isSelector ? 0.9 : 1}
       hoverStyle={isSelector ? { scale: 0.925 } : {}}
       pressStyle={isSelector ? { scale: 0.925 } : {}}

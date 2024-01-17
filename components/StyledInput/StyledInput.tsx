@@ -1,4 +1,5 @@
 import { Typography } from "@/components/Typography";
+import { forwardRef } from "react";
 import {
   Input as DefaultInput,
   InputProps,
@@ -30,35 +31,44 @@ type StyledInputProps = InputProps & {
   disableAutoComplete?: boolean;
   isPassword?: boolean;
 } & { labelProps?: Omit<LabelProps, "children" | "ref"> };
-export function StyledInput({
-  label,
-  placeholderValue,
-  defaultValue = "",
-  id,
-  isPassword,
-  labelProps,
-  isDisabled,
-  ...props
-}: StyledInputProps) {
-  return (
-    <YStack space={6} width={"100%"}>
-      <Label htmlFor={id} {...labelProps}>
-        <Typography type="ui" color="$text--dark">
-          {label}
-        </Typography>
-      </Label>
-      <Input
-        id={id}
-        placeholder={placeholderValue}
-        defaultValue={defaultValue}
-        secureTextEntry={isPassword}
-        width={"100%"}
-        editable={!isDisabled}
-        disabled={isDisabled}
-        focusable={!isDisabled}
-        aria-disabled={isDisabled}
-        {...props}
-      />
-    </YStack>
-  );
-}
+export const StyledInput = forwardRef<
+  React.ElementRef<typeof DefaultInput>,
+  StyledInputProps
+>(
+  (
+    {
+      label,
+      placeholderValue,
+      defaultValue = "",
+      id,
+      isPassword,
+      labelProps,
+      isDisabled,
+      ...props
+    },
+    ref,
+  ) => {
+    return (
+      <YStack space={6} width={"100%"}>
+        <Label htmlFor={id} {...labelProps}>
+          <Typography type="ui" color="$text--dark">
+            {label}
+          </Typography>
+        </Label>
+        <Input
+          id={id}
+          ref={ref}
+          placeholder={placeholderValue}
+          defaultValue={defaultValue}
+          secureTextEntry={isPassword}
+          width={"100%"}
+          editable={!isDisabled}
+          disabled={isDisabled}
+          focusable={!isDisabled}
+          aria-disabled={isDisabled}
+          {...props}
+        />
+      </YStack>
+    );
+  },
+);

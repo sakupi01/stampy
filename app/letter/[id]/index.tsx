@@ -1,10 +1,12 @@
-import { SafeAreaView, StyleSheet } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 
 import { Typography } from "@/components/Typography";
 import { assertNonNullable } from "@/libs/assertNonNullable";
+import { Letter } from "@/types/Letter";
 import { DATA_LETTER } from "@/ui/StyledList/fixture/mock.data";
 import { useLocalSearchParams } from "expo-router";
 import { YStack } from "tamagui";
+import { KansouLetter } from "../../../components/KansouLetter/KansouLetter";
 import { StampWrapper } from "../../../components/StampWrapper/StampWrapper";
 
 export default function LetterScreen() {
@@ -13,17 +15,20 @@ export default function LetterScreen() {
   assertNonNullable(letter);
   return (
     <SafeAreaView style={styles.container}>
-      <YStack space={50}>
-        <Typography type="h2" marginBottom={30}>
-          {letter.title}
-        </Typography>
-        <YStack space={10} justifyContent="center" alignItems="center">
-          <StampWrapper stamp={letter.stamp} />
-          <Typography type="small" color="$text--subtle">
-            {letter.createdAt}日に完了しました
+      <ScrollView>
+        <YStack space={50}>
+          <Typography type="h2" marginBottom={30}>
+            {letter.title}
           </Typography>
+          <YStack space={10} justifyContent="center" alignItems="center">
+            <StampWrapper stamp={letter.stamp} />
+            <Typography type="small" color="$text--subtle">
+              {letter.createdAt}日に完了しました
+            </Typography>
+            <KansouLetter letter={letter as Letter} />
+          </YStack>
         </YStack>
-      </YStack>
+      </ScrollView>
     </SafeAreaView>
   );
 }

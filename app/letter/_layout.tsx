@@ -1,10 +1,8 @@
-import Colors from "@/constants/Colors";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { Link, Stack, useRouter } from "expo-router";
-import { Pressable, useColorScheme } from "react-native";
+import { Pressable } from "react-native";
 
 export default function Layout() {
-  const colorScheme = useColorScheme();
   const router = useRouter();
 
   return (
@@ -26,7 +24,7 @@ export default function Layout() {
                 <Ionicons
                   name="arrow-back"
                   size={25}
-                  color={Colors[colorScheme ?? "light"].text}
+                  color="#030A12CF"
                   style={{
                     marginLeft: 15,
                     opacity: pressed ? 0.5 : 1,
@@ -43,7 +41,7 @@ export default function Layout() {
                   <FontAwesome
                     name="info-circle"
                     size={25}
-                    color={Colors[colorScheme ?? "light"].text}
+                    color="#030A12CF"
                     style={{
                       marginRight: 15,
                       opacity: pressed ? 0.5 : 1,

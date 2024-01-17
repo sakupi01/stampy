@@ -32,7 +32,7 @@ function Card({
       display="flex"
       flexDirection="column"
       overflow="hidden"
-      animation={isBouncy ? "bouncy" : ""}
+      animation={isBouncy ? "bouncy" : null} // linkになると先に遷移してしまうので、bouncyがあんまりわかんない
       scale={isBouncy ? 0.9 : 1}
       hoverStyle={isBouncy ? { scale: 0.925 } : {}}
       pressStyle={isBouncy ? { scale: 0.925 } : {}}
