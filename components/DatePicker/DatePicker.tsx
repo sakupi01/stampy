@@ -1,53 +1,49 @@
 import { assertNonNullable } from "@/libs/assertNonNullable";
+import { StampCardFormType } from "@/schema/stampCard";
 import RNDateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
 import { useState } from "react";
+import { UseFormSetValue } from "react-hook-form";
 import { YStack } from "tamagui";
 import { Typography } from "../Typography";
 export type DatePickerProps = {
   formAttributes?: string;
+  label: string;
+  minimumDate: Date;
+  setValue: UseFormSetValue<StampCardFormType>;
+  keyString: "startDate" | "endDate";
 };
 
-export const DatePicker = ({ ...props }: DatePickerProps) => {
-  const [startDate, setStartDate] = useState<Date>(new Date()); //
-  const [endDate, setEndDate] = useState<Date>(new Date());
+export const DatePicker = ({
+  label,
+  minimumDate,
+  setValue,
+  keyString,
+  ...props
+}: DatePickerProps) => {
+  const [date, setsDate] = useState<Date>(minimumDate);
 
-  const onStartDateChange = (
-    event: DateTimePickerEvent,
-    selectedDate?: Date,
-  ) => {
+  const onsDateChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     assertNonNullable(selectedDate);
     const currentDate = selectedDate;
-    setStartDate(currentDate);
+    setsDate(currentDate);
+    setValue(keyString, currentDate);
   };
 
-  const onEndDateChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
-    assertNonNullable(selectedDate);
-    const currentDate = selectedDate;
-    setEndDate(currentDate);
-  };
   return (
     <YStack>
-      <Typography>開始日: {startDate.toLocaleDateString()}</Typography>
+      <Typography>
+        {label}: {date.toLocaleDateString()}
+      </Typography>
       <RNDateTimePicker
         testID="dateTimePicker"
-        value={startDate}
+        value={date}
         mode={"date"}
         display="calendar"
         is24Hour={true}
-        onChange={onStartDateChange}
-        minimumDate={new Date()}
-      />
-      <Typography>終了日: {endDate.toLocaleDateString()}</Typography>
-      <RNDateTimePicker
-        testID="dateTimePicker"
-        value={endDate}
-        mode={"date"}
-        display="calendar"
-        is24Hour={true}
-        onChange={onEndDateChange}
-        minimumDate={startDate}
+        onChange={onsDateChange}
+        minimumDate={minimumDate}
       />
     </YStack>
   );

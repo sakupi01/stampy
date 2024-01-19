@@ -64,7 +64,6 @@ export const StampForm = ({
             <StampSelector
               id="stamp"
               onChange={onChange}
-              value={value}
               onBlur={onBlur}
               setValue={setValue}
             />
@@ -91,7 +90,7 @@ export const StampForm = ({
                   id="message"
                   label={kansouLabel}
                   placeholder={"最後までがんばった相手へ"}
-                  onChange={onChange}
+                  onChangeText={onChange}
                   value={value}
                   onBlur={onBlur}
                   minHeight={100}
@@ -104,7 +103,7 @@ export const StampForm = ({
                 id="message"
                 label={messageLabel}
                 placeholder={"がんばった相手へ"}
-                onChange={onChange}
+                onChangeText={onChange}
                 value={value}
                 onBlur={onBlur}
                 width="100%"

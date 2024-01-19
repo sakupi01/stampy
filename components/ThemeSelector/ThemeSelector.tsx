@@ -1,15 +1,20 @@
 import { Typography } from "@/components/Typography";
 import { ShadowProperties } from "@/constants/MaterialBoxshadow";
+import { StampCardFormType } from "@/schema/stampCard";
 import { Plus } from "@tamagui/lucide-icons";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
+import { UseFormSetValue } from "react-hook-form";
 import { ImageBackground, Pressable } from "react-native";
 import { ScrollView } from "react-native";
 import { s } from "react-native-size-matters";
 import { XStack, YStack } from "tamagui";
 import { DEFAULT_IMG } from "./fixtures/mock.data";
 
-export const ThemeSelector = () => {
+type ThemeSelectorProps = {
+  setValue: UseFormSetValue<StampCardFormType>;
+};
+export const ThemeSelector = ({ setValue, ...props }: ThemeSelectorProps) => {
   const [image, setImage] = useState<string | null>(null);
 
   const pickImage = async () => {
@@ -25,10 +30,12 @@ export const ThemeSelector = () => {
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
+      setValue("theme", result.assets[0].uri);
     }
   };
   const selectFromDefault = (source: string) => {
     setImage(source);
+    setValue("theme", source);
   };
 
   return (
