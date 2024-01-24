@@ -26,8 +26,6 @@ export const ThemeSelector = ({ setValue, ...props }: ThemeSelectorProps) => {
       quality: 1,
     });
 
-    // console.log(result);
-
     if (!result.canceled) {
       setImage(result.assets[0].uri);
       setValue("theme", result.assets[0].uri);
