@@ -10,6 +10,7 @@ type StyledFormProps = {
   onSubmitAction: () => void;
   isSubmitting?: boolean;
   isSubmitted?: boolean;
+  isDirty?: boolean;
   buttonLabel?: string;
   // @ts-ignore
   buttonProps?: Omit<StyledButtonProps, "children" | "ref">;
@@ -19,6 +20,7 @@ export function StyledForm({
   onSubmitAction,
   isSubmitting,
   isSubmitted,
+  isDirty,
   buttonLabel = "Submit",
   buttonProps,
   ...formProps
@@ -42,14 +44,11 @@ export function StyledForm({
         <StyledButton
           icon={
             isSubmitting || isSubmitted
-              ? () => (
-                  <Spinner
-                    size="small"
-                    color={`$${buttonProps?.type || "primary"}--click`}
-                  />
-                )
+              ? () => <Spinner size="small" color={"$secondary--background"} />
               : undefined
           }
+          type={!isDirty ? "disabled" : "primary"}
+          disabled={!isDirty || isSubmitting}
           {...buttonProps}
         >
           <Typography>{buttonLabel}</Typography>

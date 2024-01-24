@@ -47,6 +47,15 @@ const StyledButton = styled(Button, {
           backgroundColor: "$ghost--click",
         },
       },
+      disabled: {
+        backgroundColor: "$ghost--background",
+        color: "$text--subtle",
+        opacity: 0.5,
+        pressStyle: {
+          backgroundColor: "$ghost--background",
+          bordered: false,
+        },
+      },
     },
   } as const,
   defaultVariants: {

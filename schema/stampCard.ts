@@ -1,7 +1,11 @@
 import { Output, coerce, date, object } from "valibot";
 import { stampCardTitleSchema, themeSchema } from "./schema";
 
-export const DateSchema = coerce(date(), (i) => new Date(i));
+export const DateSchema = coerce(
+  date("日付を選択してください"),
+  // @ts-ignore
+  (i: string | number | Date) => new Date(i),
+);
 
 const StampCardFormSchema = object({
   title: stampCardTitleSchema,

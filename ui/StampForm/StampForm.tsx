@@ -33,10 +33,14 @@ export const StampForm = ({
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitting, isSubmitted },
+    formState: { errors, isSubmitting, isSubmitted, isDirty },
     setValue,
   } = useForm<MessageFormType>({
     resolver: valibotResolver(MessageFormSchema),
+    defaultValues: {
+      stamp: "",
+      message: "",
+    },
   });
   return (
     <StyledForm
@@ -44,12 +48,9 @@ export const StampForm = ({
       width="100%"
       alignItems="center"
       buttonLabel={buttonLabel}
-      // @ts-ignore
-      buttonProps={{
-        type: "primary",
-      }}
       isSubmitting={isSubmitting}
       isSubmitted={isSubmitted}
+      isDirty={isDirty}
       onSubmitAction={handleSubmit((data: FieldValues) => {
         console.log("Submitted! :", data);
       })}
