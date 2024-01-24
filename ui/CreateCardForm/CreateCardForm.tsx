@@ -1,9 +1,9 @@
+import { CoWorkerSelector } from "@/components/CoWorkerSelector";
 import { DatePicker } from "@/components/DatePicker";
 import { StyledButton } from "@/components/StyledButton";
 import { ThemeSelector } from "@/components/ThemeSelector";
 import { DEFAULT_IMG } from "@/components/ThemeSelector/fixtures/mock.data";
 import { Typography } from "@/components/Typography";
-import { Stampy } from "@/components/images/Stampy";
 import { StampCardFormSchema, StampCardFormType } from "@/schema/stampCard";
 import { valibotResolver } from "@hookform/resolvers/valibot";
 import { Controller, FieldValues, useForm } from "react-hook-form";
@@ -125,8 +125,18 @@ export const CreateCardForm = () => {
           </Typography>
         )}
       </YStack>
-      <YStack marginBottom={vs(30)}>
-        <Stampy />
+      <YStack marginBottom={vs(30)} width="100%">
+        <CoWorkerSelector inputControl={control} setValue={setValue} />
+        {errors.isStampy && (
+          <Typography type="small" color="$text--destructive">
+            😕{errors.isStampy.message}
+          </Typography>
+        )}
+        {errors.receiver && (
+          <Typography type="small" color="$text--destructive">
+            😕{errors.receiver.message}
+          </Typography>
+        )}
       </YStack>
 
       <StyledButton

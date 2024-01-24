@@ -1,6 +1,9 @@
 import {
+  BooleanSchema,
   StringSchema,
+  UnionSchema,
   blob,
+  boolean,
   email,
   maxLength,
   maxSize,
@@ -8,6 +11,8 @@ import {
   minLength,
   regex,
   string,
+  union,
+  value,
 } from "valibot";
 
 const emailSchema: StringSchema<string> = string(
@@ -68,6 +73,16 @@ const endDateSchema: StringSchema<string> = string("日付を選択してくだ�
 const themeSchema: StringSchema<string> = string("テーマを選択してください", [
   minLength(1, "入力が必須の項目です"),
 ]);
+
+const isStampySchema: BooleanSchema<boolean> = boolean(
+  "スタンプを押すかどうかを選択してください",
+);
+
+const receiverSchema: UnionSchema<
+  (BooleanSchema<boolean> | StringSchema<string>)[],
+  boolean | string
+> = union([string([value("stampy", "stampy")]), emailSchema]);
+
 export {
   emailSchema,
   userNameSchema,
@@ -79,4 +94,6 @@ export {
   startDateSchema,
   endDateSchema,
   themeSchema,
+  isStampySchema,
+  receiverSchema,
 };

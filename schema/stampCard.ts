@@ -1,5 +1,10 @@
-import { Output, coerce, date, object } from "valibot";
-import { stampCardTitleSchema, themeSchema } from "./schema";
+import { Output, coerce, date, object, optional } from "valibot";
+import {
+  emailSchema,
+  isStampySchema,
+  stampCardTitleSchema,
+  themeSchema,
+} from "./schema";
 
 export const DateSchema = coerce(
   date("日付を選択してください"),
@@ -12,6 +17,8 @@ const StampCardFormSchema = object({
   startDate: DateSchema,
   endDate: DateSchema,
   theme: themeSchema,
+  isStampy: isStampySchema,
+  receiver: optional(emailSchema),
 });
 
 type StampCardFormType = Output<typeof StampCardFormSchema>;

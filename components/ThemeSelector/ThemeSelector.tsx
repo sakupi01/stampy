@@ -119,10 +119,6 @@ export const ThemeSelector = ({ setValue, ...props }: ThemeSelectorProps) => {
           borderWidth={2}
           borderRadius={6}
           padding={s(3)}
-          animation={"bouncy"} // linkになると先に遷移してしまうので、bouncyがあんまりわかんない
-          scale={0.9}
-          hoverStyle={{ scale: 0.925 }}
-          pressStyle={{ scale: 0.925 }}
         >
           <ImageBackground
             source={{ uri: image }}
