@@ -8,7 +8,7 @@ import { XStack, YStack } from "tamagui";
 import { StyledInput } from "../StyledInput/StyledInput";
 import { Typography } from "../Typography/Typography";
 type CoWorkerSelectorProps = {
-  inputControl: Control<StampCardFormType>;
+  inputControl?: Control<StampCardFormType>;
   setValue: UseFormSetValue<StampCardFormType>;
 };
 export const CoWorkerSelector = ({
@@ -48,44 +48,47 @@ export const CoWorkerSelector = ({
         </YStack>
 
         <Typography>OR</Typography>
+        {inputControl ? (
+          <YStack paddingHorizontal={s(10)} flexShrink={1} alignItems="center">
+            <YStack flex={1} width="100%" justifyContent="center">
+              <Controller
+                control={inputControl}
+                rules={{
+                  required: true,
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <StyledInput
+                    ref={inputRef}
+                    id="receiver"
+                    label="メールアドレス"
+                    placeholder="email"
+                    // height={vs(30)}
+                    onFocus={() => {
+                      setStampy(false);
+                      setValue("isStampy", false);
+                    }}
+                    focusStyle={{
+                      borderColor: "$accent--background",
+                      borderWidth: 2,
+                    }}
+                    autoFocus={false}
+                    onChangeText={onChange}
+                    value={value}
+                    onBlur={onBlur}
+                  />
+                )}
+                name="receiver"
+              />
 
-        <YStack paddingHorizontal={s(10)} flexShrink={1} alignItems="center">
-          <YStack flex={1} width="100%" justifyContent="center">
-            <Controller
-              control={inputControl}
-              rules={{
-                required: true,
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <StyledInput
-                  ref={inputRef}
-                  id="receiver"
-                  label="メールアドレス"
-                  placeholder="email"
-                  // height={vs(30)}
-                  onFocus={() => {
-                    setStampy(false);
-                    setValue("isStampy", false);
-                  }}
-                  focusStyle={{
-                    borderColor: "$accent--background",
-                    borderWidth: 2,
-                  }}
-                  autoFocus={false}
-                  onChangeText={onChange}
-                  value={value}
-                  onBlur={onBlur}
-                />
-              )}
-              name="receiver"
-            />
-
-            <Typography type="small" color="$text--subtle">
-              ※スタンプカードを作成すると自動的に相手に招待リンクが送信されます
-            </Typography>
+              <Typography type="small" color="$text--subtle">
+                ※スタンプカードを作成すると自動的に相手に招待リンクが送信されます
+              </Typography>
+            </YStack>
+            <Typography type="medium">招待メールを送信</Typography>
           </YStack>
-          <Typography type="medium">招待メールを送信</Typography>
-        </YStack>
+        ) : (
+          <></>
+        )}
       </XStack>
     </YStack>
   );

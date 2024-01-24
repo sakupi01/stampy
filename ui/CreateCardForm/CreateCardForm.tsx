@@ -25,6 +25,8 @@ export const CreateCardForm = () => {
       startDate: new Date(),
       endDate: new Date(),
       theme: DEFAULT_IMG[0].source.uri,
+      isStampy: false,
+      receiver: undefined,
     },
   });
   const watchStartDate = watch("startDate", undefined);
