@@ -33,10 +33,14 @@ export const StampForm = ({
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitting, isSubmitted },
+    formState: { errors, isSubmitting, isSubmitted, isDirty },
     setValue,
   } = useForm<MessageFormType>({
     resolver: valibotResolver(MessageFormSchema),
+    defaultValues: {
+      stamp: "",
+      message: "",
+    },
   });
   return (
     <StyledForm
@@ -44,12 +48,9 @@ export const StampForm = ({
       width="100%"
       alignItems="center"
       buttonLabel={buttonLabel}
-      // @ts-ignore
-      buttonProps={{
-        type: "primary",
-      }}
       isSubmitting={isSubmitting}
       isSubmitted={isSubmitted}
+      isDirty={isDirty}
       onSubmitAction={handleSubmit((data: FieldValues) => {
         console.log("Submitted! :", data);
       })}
@@ -64,7 +65,6 @@ export const StampForm = ({
             <StampSelector
               id="stamp"
               onChange={onChange}
-              value={value}
               onBlur={onBlur}
               setValue={setValue}
             />
@@ -91,7 +91,7 @@ export const StampForm = ({
                   id="message"
                   label={kansouLabel}
                   placeholder={"最後までがんばった相手へ"}
-                  onChange={onChange}
+                  onChangeText={onChange}
                   value={value}
                   onBlur={onBlur}
                   minHeight={100}
@@ -104,7 +104,7 @@ export const StampForm = ({
                 id="message"
                 label={messageLabel}
                 placeholder={"がんばった相手へ"}
-                onChange={onChange}
+                onChangeText={onChange}
                 value={value}
                 onBlur={onBlur}
                 width="100%"

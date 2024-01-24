@@ -46,6 +46,7 @@ export const MockStampCards: StampCard[] = [
     isCompleted: i + 1 < 8,
     isDeleted: false,
     stampNodes: MockStampNodes,
+    backgroundUrl: "https://source.unsplash.com/ZkOt0N7rP4s",
   })),
 ];
 

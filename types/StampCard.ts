@@ -12,4 +12,5 @@ export type StampCard = {
   isCompleted: boolean;
   isDeleted: boolean;
   stampNodes: StampNode[];
+  backgroundUrl: string | undefined;
 };

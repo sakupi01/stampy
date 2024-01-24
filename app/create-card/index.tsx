@@ -1,32 +1,26 @@
-import { Text, View } from "@/components/Themed";
-import { StyleSheet } from "react-native";
+import { CreateCardForm } from "@/ui/CreateCardForm";
+import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
+import { s, vs } from "react-native-size-matters";
 
 export default function CreateCardScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        <CreateCardForm />
+      </ScrollView>
+    </SafeAreaView>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    width: "100%",
+    height: "100%",
   },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
+  scrollView: {
+    width: "100%",
+    height: "100%",
+    paddingVertical: vs(50),
+    paddingHorizontal: s(30),
+    backgroundColor: "#fff",
   },
 });
