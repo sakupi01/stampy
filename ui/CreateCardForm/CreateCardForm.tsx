@@ -3,6 +3,7 @@ import { StyledButton } from "@/components/StyledButton";
 import { ThemeSelector } from "@/components/ThemeSelector";
 import { DEFAULT_IMG } from "@/components/ThemeSelector/fixtures/mock.data";
 import { Typography } from "@/components/Typography";
+import { Stampy } from "@/components/images/Stampy";
 import { StampCardFormSchema, StampCardFormType } from "@/schema/stampCard";
 import { valibotResolver } from "@hookform/resolvers/valibot";
 import { Controller, FieldValues, useForm } from "react-hook-form";
@@ -123,6 +124,9 @@ export const CreateCardForm = () => {
             😕{errors.theme.message}
           </Typography>
         )}
+      </YStack>
+      <YStack marginBottom={vs(30)}>
+        <Stampy />
       </YStack>
 
       <StyledButton
