@@ -4,8 +4,14 @@ import { Bell, Home, Mail, Plus, User } from "@tamagui/lucide-icons";
 import { useFonts } from "expo-font";
 import { SplashScreen } from "expo-router";
 import { Tabs } from "expo-router";
+import { StatusBar, StatusBarProps } from "expo-status-bar";
 import { useEffect } from "react";
-import { TouchableOpacity, useColorScheme } from "react-native";
+import {
+  SafeAreaView,
+  TouchableOpacity,
+  View,
+  useColorScheme,
+} from "react-native";
 import { ShadowProperties } from "../constants/MaterialBoxshadow";
 // import { BlurView } from "expo-blur";
 
@@ -64,10 +70,19 @@ export default function RootLayout() {
   return <RootLayoutNav />;
 }
 
+const MyStatusBar = ({ backgroundColor, ...props }: StatusBarProps) => (
+  <View style={[{ backgroundColor }]}>
+    <SafeAreaView>
+      <StatusBar style="dark" backgroundColor={backgroundColor} {...props} />
+    </SafeAreaView>
+  </View>
+);
+
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
   return (
     <Providers colorScheme={colorScheme}>
+      <MyStatusBar backgroundColor="transparent" />
       <Tabs
         screenOptions={{
           tabBarActiveTintColor: "#ECB390",
