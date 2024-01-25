@@ -1,9 +1,10 @@
-import { StyleSheet, View } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 
 import { StyledButton } from "@/components/StyledButton";
 import { Typography } from "@/components/Typography";
 import { authActions } from "@/libs/AsyncStorage/Auth/slice";
 import { useAppDispatch, useAppSelector } from "@/libs/AsyncStorage/store";
+import { s, vs } from "react-native-size-matters";
 
 export default function AccountScreen() {
   const { session } = useAppSelector((state) => state.auth);
@@ -19,36 +20,31 @@ export default function AccountScreen() {
   const currentDay = 5;
 
   return (
-    <View style={styles.container}>
-      <Typography style={styles.title}>Tab Two</Typography>
-      <Typography type="ui" color="white">
-        {JSON.stringify(session)}
-      </Typography>
-      <View style={styles.separator} />
-      <StyledButton
-        onPress={() => {
-          dispatch(authActions.signOut());
-        }}
-      >
-        Sign out
-      </StyledButton>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        <Typography type="ui">{JSON.stringify(session)}</Typography>
+        <StyledButton
+          onPress={() => {
+            dispatch(authActions.signOut());
+          }}
+        >
+          Sign out
+        </StyledButton>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    width: "100%",
+    height: "100%",
   },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
+  scrollView: {
+    width: "100%",
+    height: "100%",
+    paddingVertical: vs(50),
+    paddingHorizontal: s(30),
+    backgroundColor: "#fff",
   },
 });

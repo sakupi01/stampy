@@ -16,8 +16,7 @@ export default function Layout() {
       <Stack.Screen
         name="[id]/index"
         options={{
-          headerShown: true,
-          title: "",
+          headerShown: false,
           headerLeft: () => (
             <Pressable onPress={() => router.back()}>
               {({ pressed }) => (

@@ -110,29 +110,6 @@ export default function Layout() {
             tabBarShowLabel: false,
           }}
         />
-
-        {/**
-         * リダイレクト用の index は Bottom Tabs で表示しない
-         * - https://docs.expo.dev/router/advanced/tabs/#hiding-a-tab
-         */}
-        <Tabs.Screen
-          name="index"
-          options={{
-            href: null,
-          }}
-        />
-        <Tabs.Screen
-          name="[...missing]"
-          options={{
-            href: null,
-          }}
-        />
-        <Tabs.Screen
-          name="sign-in"
-          options={{
-            href: null,
-          }}
-        />
       </Tabs>
     </>
   );
