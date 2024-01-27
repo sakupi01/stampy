@@ -67,6 +67,7 @@ export const StyledInput = forwardRef<
           disabled={isDisabled}
           focusable={!isDisabled}
           aria-disabled={isDisabled}
+          autoCapitalize="none"
           {...props}
         />
       </YStack>

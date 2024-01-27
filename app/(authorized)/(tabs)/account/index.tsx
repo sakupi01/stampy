@@ -25,7 +25,7 @@ export default function AccountScreen() {
         <Typography type="ui">{JSON.stringify(session)}</Typography>
         <StyledButton
           onPress={() => {
-            dispatch(authActions.signOut());
+            dispatch(authActions.unAuthorize());
           }}
         >
           Sign out

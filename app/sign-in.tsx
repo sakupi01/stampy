@@ -1,30 +1,86 @@
-import { StyledButton } from "@/components/StyledButton";
-import { authActions } from "@/libs/AsyncStorage/Auth/slice";
-import { useAppSelector } from "@/libs/AsyncStorage/store";
-import { router } from "expo-router";
-import { View } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
 
-import { useDispatch } from "react-redux";
+import { StyledTabs } from "@/components/StyledTabs";
+import { useTabsState } from "@/components/StyledTabs/hooks/useTabsState";
+import { Typography } from "@/components/Typography";
+import { s, vs } from "react-native-size-matters";
+import { YStack } from "tamagui";
+import {
+  SignInForm,
+  SignUpForm,
+} from "../components/StyledTabs/utils/formsMock";
 
 export default function SignIn() {
-  const dispatch = useDispatch();
-  const { isLoading } = useAppSelector((state) => state.auth);
+  const {
+    activeAt,
+    currentTab,
+    enterVariant,
+    exitVariant,
+    handleOnInteraction,
+    intentAt,
+    setCurrentTab,
+  } = useTabsState();
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <StyledButton
-        onPress={() => {
-          // authorization logic with server
-          dispatch(authActions.isLoading(true));
-          // async dispatch so need to wait
-          dispatch(authActions.signIn("sessid-xxx123ccc"));
-          dispatch(authActions.isLoading(false));
-          // Navigate after signing in. You may want to tweak this to ensure sign-in is
-          // successful before navigating.
-          router.replace("/");
-        }}
+    <SafeAreaView style={styles.container}>
+      <YStack
+        space={vs(10)}
+        width="100%"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        paddingHorizontal={s(30)}
+        paddingVertical={vs(50)}
       >
-        {isLoading ? "Loading... " : "Sign In"}
-      </StyledButton>
-    </View>
+        <YStack space={vs(5)}>
+          <Typography type="h3">Stampyへようこそ！</Typography>
+          <Typography type="ui" color="$text--subtle">
+            今日からあなたと一緒にステップを踏んでいくのが楽しみです！
+          </Typography>
+        </YStack>
+
+        <StyledTabs.Tabs
+          value={currentTab}
+          setCurrentTab={setCurrentTab}
+          currentTab={currentTab}
+          height={vs(350)}
+        >
+          <StyledTabs.List intentAt={intentAt} activeAt={activeAt}>
+            <StyledTabs.Tab
+              value="tab1"
+              currentTab={currentTab}
+              handleOnInteraction={handleOnInteraction}
+            >
+              <Typography type="ui">サインイン</Typography>
+            </StyledTabs.Tab>
+            <StyledTabs.Tab
+              value="tab2"
+              currentTab={currentTab}
+              handleOnInteraction={handleOnInteraction}
+            >
+              <Typography type="ui">サインアップ</Typography>
+            </StyledTabs.Tab>
+          </StyledTabs.List>
+          <StyledTabs.ContentAnimateWrapper
+            enterVariant={exitVariant}
+            exitVariant={enterVariant}
+            currentTab={currentTab}
+          >
+            <StyledTabs.Content currentTab="tab1">
+              <SignInForm />
+            </StyledTabs.Content>
+            <StyledTabs.Content currentTab="tab2">
+              <SignUpForm />
+            </StyledTabs.Content>
+          </StyledTabs.ContentAnimateWrapper>
+        </StyledTabs.Tabs>
+      </YStack>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    width: "100%",
+    height: "100%",
+  },
+});

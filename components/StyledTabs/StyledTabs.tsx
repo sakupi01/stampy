@@ -75,7 +75,7 @@ const List = ({ children, intentAt, activeAt }: ListProps) => {
         aria-label="Manage your account"
         padding={s(5)}
         borderRadius={6}
-        borderWidth={1}
+        borderWidth={2}
         borderStyle="solid"
         borderColor="$stroke--dark"
         backgroundColor="$light--background"
@@ -131,6 +131,13 @@ const Tab = ({
       borderStyle={currentTab === value ? "dashed" : "unset"}
       borderColor={currentTab === value ? "$stroke--dark" : "transparent"}
       onInteraction={handleOnInteraction}
+      pressStyle={{
+        backgroundColor: "$secondary--click",
+        borderRadius: 6,
+        borderWidth: 1,
+        borderStyle: "dashed",
+        borderColor: "$stroke--dark",
+      }}
       {...props}
     >
       {children}
@@ -147,8 +154,10 @@ const Content = ({ children, currentTab }: ContentProps) => {
     <DefaultTabs.Content
       backgroundColor="transparent"
       flex={1}
+      width="100%"
+      height="100%"
       alignItems="center"
-      justifyContent="center"
+      justifyContent="flex-start"
       value={currentTab}
     >
       {children}
@@ -164,16 +173,22 @@ type ContentAnimateWrapperProps = {
 export const ContentAnimateWrapper = ({
   children,
   currentTab,
-  enterVariant,
-  exitVariant,
 }: ContentAnimateWrapperProps) => {
   return (
     <AnimatePresence
       exitBeforeEnter
-      enterVariant={enterVariant}
-      exitVariant={exitVariant}
+      enterVariant={currentTab === "tab1" ? "isLeft" : "isRight"}
+      exitVariant={currentTab === "tab2" ? "isLeft" : "isRight"}
     >
-      <AnimatedYStack key={currentTab} animation="100ms" x={0} opacity={1}>
+      <AnimatedYStack
+        height="100%"
+        justifyContent="center"
+        alignItems="center"
+        key={currentTab}
+        animation="100ms"
+        x={0}
+        opacity={1}
+      >
         {children}
       </AnimatedYStack>
     </AnimatePresence>
@@ -193,10 +208,9 @@ const TabsRovingIndicator = ({
 }: { active?: boolean } & StackProps) => {
   return (
     <YStack
-      position="absolute"
       backgroundColor="$light--background"
       opacity={0.7}
-      animation="100ms"
+      animation="slow"
       enterStyle={{
         opacity: 0,
       }}

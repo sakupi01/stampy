@@ -38,7 +38,7 @@ export default function Layout() {
   }
 
   // Only require authentication within the (app) group's layout as users
-  // need to be able to access the (auth) group and sign in again.
+  // need to be able to access the (authorized) group and sign in again.
   if (session === null) {
     console.log("session:", session);
     // On web, static rendering will stop here as the user is not authenticated
