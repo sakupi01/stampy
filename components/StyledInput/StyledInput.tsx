@@ -68,6 +68,10 @@ export const StyledInput = forwardRef<
           focusable={!isDisabled}
           aria-disabled={isDisabled}
           autoCapitalize="none"
+          focusStyle={{
+            borderColor: "$accent--background",
+            borderWidth: 2,
+          }}
           {...props}
         />
       </YStack>

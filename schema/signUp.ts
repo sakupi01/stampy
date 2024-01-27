@@ -1,4 +1,4 @@
-import { Output, custom, object } from "valibot";
+import { Output, custom, forward, object } from "valibot";
 import {
   emailSchema,
   passwordConfirmSchema,
@@ -14,9 +14,12 @@ const SignUpFormSchema = object(
     passwordConfirm: passwordConfirmSchema,
   },
   [
-    custom(
-      ({ password, passwordConfirm }) => password === passwordConfirm,
-      "パスワードが一致しません",
+    forward(
+      custom(
+        (input) => input.password === input.passwordConfirm,
+        "パスワードが一致しません",
+      ),
+      ["passwordConfirm"],
     ),
   ],
 );

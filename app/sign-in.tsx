@@ -65,10 +65,10 @@ export default function SignIn() {
             exitVariant={enterVariant}
             currentTab={currentTab}
           >
-            <StyledTabs.Content currentTab="tab1">
+            <StyledTabs.Content currentTab="tab1" key="signin">
               <SignInForm />
             </StyledTabs.Content>
-            <StyledTabs.Content currentTab="tab2">
+            <StyledTabs.Content currentTab="tab2" key="signup">
               <SignUpForm />
             </StyledTabs.Content>
           </StyledTabs.ContentAnimateWrapper>

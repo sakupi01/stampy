@@ -77,8 +77,8 @@ export function SignInForm() {
           name="email"
         />
         {errors.email && (
-          <Typography color="$text--destructive">
-            {errors.email.message}
+          <Typography type="small" color="$text--destructive">
+            😕{errors.email.message}
           </Typography>
         )}
         <Controller
@@ -100,8 +100,8 @@ export function SignInForm() {
           name="password"
         />
         {errors.password && (
-          <Typography color="$text--destructive">
-            {errors.password.message}
+          <Typography type="small" color="$text--destructive">
+            😕{errors.password.message}
           </Typography>
         )}
       </StyledForm>
@@ -174,8 +174,8 @@ export function SignUpForm() {
           name="email"
         />
         {errors.email && (
-          <Typography color="$text--destructive">
-            {errors.email.message}
+          <Typography type="small" color="$text--destructive">
+            😕{errors.email.message}
           </Typography>
         )}
         <Controller
@@ -196,8 +196,8 @@ export function SignUpForm() {
           name="username"
         />
         {errors.username && (
-          <Typography color="$text--destructive">
-            {errors.username.message}
+          <Typography type="small" color="$text--destructive">
+            😕{errors.username.message}
           </Typography>
         )}
         <Controller
@@ -219,8 +219,8 @@ export function SignUpForm() {
           name="password"
         />
         {errors.password && (
-          <Typography color="$text--destructive">
-            {errors.password.message}
+          <Typography type="small" color="$text--destructive">
+            😕{errors.password.message}
           </Typography>
         )}
         <Controller
@@ -242,8 +242,8 @@ export function SignUpForm() {
           name="passwordConfirm"
         />
         {errors.passwordConfirm && (
-          <Typography color="$text--destructive">
-            {errors.passwordConfirm.message}
+          <Typography type="small" color="$text--destructive">
+            😕{errors.passwordConfirm.message}
           </Typography>
         )}
       </StyledForm>
