@@ -8,5 +8,6 @@ const defaultConfig = getDefaultConfig(__dirname, {
 });
 
 defaultConfig.resolver.resolverMainFields.unshift("sbmodern");
+defaultConfig.resolver.assetExts.push("lottie");
 
 module.exports = defaultConfig;
