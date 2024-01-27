@@ -184,7 +184,6 @@ export const ContentAnimateWrapper = ({
         height="100%"
         justifyContent="center"
         alignItems="center"
-        key={currentTab}
         animation="100ms"
         x={0}
         opacity={1}
