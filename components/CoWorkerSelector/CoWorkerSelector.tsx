@@ -38,32 +38,36 @@ export const CoWorkerSelector = ({
     <YStack space={vs(5)}>
       <Typography>誰と一緒に始めますか？</Typography>
       <XStack width="100%" alignItems="center" space={s(10)}>
-        <Controller
-          control={inputControl}
-          rules={{
-            required: false,
-          }}
-          render={({ field: { onBlur } }) => (
-            <YStack
-              space={vs(10)}
-              alignItems="center"
-              animation={"bouncy"} // linkになると先に遷移してしまうので、bouncyがあんまりわかんない
-              scale={0.9}
-              hoverStyle={{ scale: 0.925 }}
-              pressStyle={{ scale: 0.925 }}
-              borderColor="$accent--background"
-              borderWidth={stampy ? 2 : 0}
-              borderRadius={stampy ? 6 : 0}
-              padding={s(6)}
-              onBlur={onBlur}
-              onPress={handleStampyState}
-            >
-              <Stampy />
-              <Typography type="medium">Stampy</Typography>
-            </YStack>
-          )}
-          name="isStampy"
-        />
+        {inputControl ? (
+          <Controller
+            control={inputControl}
+            rules={{
+              required: false,
+            }}
+            render={({ field: { onBlur } }) => (
+              <YStack
+                space={vs(10)}
+                alignItems="center"
+                animation={"bouncy"} // linkになると先に遷移してしまうので、bouncyがあんまりわかんない
+                scale={0.9}
+                hoverStyle={{ scale: 0.925 }}
+                pressStyle={{ scale: 0.925 }}
+                borderColor="$accent--background"
+                borderWidth={stampy ? 2 : 0}
+                borderRadius={stampy ? 6 : 0}
+                padding={s(6)}
+                onBlur={onBlur}
+                onPress={handleStampyState}
+              >
+                <Stampy />
+                <Typography type="medium">Stampy</Typography>
+              </YStack>
+            )}
+            name="isStampy"
+          />
+        ) : (
+          <></>
+        )}
 
         <Typography>OR</Typography>
         {inputControl ? (
