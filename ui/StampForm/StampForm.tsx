@@ -33,7 +33,7 @@ export const StampForm = ({
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitting, isSubmitted, isDirty },
+    formState: { errors, isSubmitting, isSubmitted, isValid },
     setValue,
   } = useForm<MessageFormType>({
     resolver: valibotResolver(MessageFormSchema),
@@ -50,7 +50,7 @@ export const StampForm = ({
       buttonLabel={buttonLabel}
       isSubmitting={isSubmitting}
       isSubmitted={isSubmitted}
-      isDirty={isDirty}
+      isValid={isValid}
       onSubmitAction={handleSubmit((data: FieldValues) => {
         console.log("Submitted! :", data);
       })}
