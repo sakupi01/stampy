@@ -2,7 +2,6 @@ import { CoWorkerSelector } from "@/components/CoWorkerSelector";
 import { DatePicker } from "@/components/DatePicker";
 import { StyledButton } from "@/components/StyledButton";
 import { ThemeSelector } from "@/components/ThemeSelector";
-import { DEFAULT_IMG } from "@/components/ThemeSelector/fixtures/mock.data";
 import { Typography } from "@/components/Typography";
 import { StampCardFormSchema, StampCardFormType } from "@/schema/stampCard";
 import { valibotResolver } from "@hookform/resolvers/valibot";
@@ -15,20 +14,14 @@ export const CreateCardForm = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitting, isSubmitted, isDirty },
+    formState: { errors, isSubmitting, isSubmitted, isValid },
     setValue,
     watch,
   } = useForm<StampCardFormType>({
     resolver: valibotResolver(StampCardFormSchema),
-    defaultValues: {
-      title: "タイトル",
-      startDate: new Date(),
-      endDate: new Date(),
-      theme: DEFAULT_IMG[0].source.uri,
-      isStampy: false,
-      receiver: undefined,
-    },
+    reValidateMode: "onChange",
   });
+  const noErrorMessage = Object.keys(errors).length === 0;
   const watchStartDate = watch("startDate", undefined);
 
   const onSubmit = (data: FieldValues) => console.log(data);
@@ -55,7 +48,8 @@ export const CreateCardForm = () => {
                 fontSize: ms(24, 2),
                 fontFamily: "ZenKakuGothicNewBold",
               }}
-              placeholder="スタンプカードのタイトル"
+              placeholderTextColor={"#E5E7EB"}
+              placeholder="タイトル"
             />
           )}
           name="title"
@@ -148,8 +142,8 @@ export const CreateCardForm = () => {
             ? () => <Spinner size="small" color={"$secondary--background"} />
             : undefined
         }
-        type={!isDirty ? "disabled" : "primary"}
-        disabled={!isDirty || isSubmitting}
+        type={!isValid && !noErrorMessage ? "disabled" : "primary"}
+        disabled={(!isValid && !noErrorMessage) || isSubmitting}
       >
         <Typography>作成</Typography>
       </StyledButton>

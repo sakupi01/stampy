@@ -1,8 +1,8 @@
 import { Output, object } from "valibot";
-import { passwordSchema, userNameSchema } from "./schema";
+import { emailSchema, passwordSchema } from "./schema";
 
 const SignInFormSchema = object({
-  username: userNameSchema,
+  email: emailSchema,
   password: passwordSchema,
 });
 

@@ -16,7 +16,7 @@ export default function Layout() {
       <Stack.Screen
         name="typography/index"
         options={{
-          headerShown: true,
+          headerShown: false,
           title: "Typography",
           headerLeft: () => (
             <Pressable onPress={() => router.back()}>
@@ -39,8 +39,7 @@ export default function Layout() {
       <Stack.Screen
         name="[id]/index"
         options={{
-          headerShown: true,
-          title: "",
+          headerShown: false,
           headerLeft: () => (
             <Pressable onPress={() => router.back()}>
               {({ pressed }) => (
@@ -58,10 +57,6 @@ export default function Layout() {
             </Pressable>
           ),
         }}
-      />
-      <Stack.Screen
-        name="modal"
-        options={{ presentation: "modal", headerShown: false }}
       />
     </Stack>
   );

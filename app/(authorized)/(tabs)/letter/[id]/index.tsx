@@ -1,5 +1,7 @@
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 
+import { KansouLetter } from "@/components/KansouLetter/KansouLetter";
+import { StampWrapper } from "@/components/StampWrapper/StampWrapper";
 import { Typography } from "@/components/Typography";
 import { assertNonNullable } from "@/libs/assertNonNullable";
 import { Letter } from "@/types/Letter";
@@ -7,8 +9,6 @@ import { DATA_LETTER } from "@/ui/StyledList/fixture/mock.data";
 import { useLocalSearchParams } from "expo-router";
 import { s, vs } from "react-native-size-matters";
 import { YStack } from "tamagui";
-import { KansouLetter } from "../../../components/KansouLetter/KansouLetter";
-import { StampWrapper } from "../../../components/StampWrapper/StampWrapper";
 
 export default function LetterScreen() {
   const { id } = useLocalSearchParams();

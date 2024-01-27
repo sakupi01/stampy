@@ -40,6 +40,11 @@ const passwordSchema: StringSchema<string> = string(
   ],
 );
 
+const passwordConfirmSchema: StringSchema<string> = string(
+  "確認用パスワードを入力してください",
+  [minLength(1, "入力が必須の項目です")],
+);
+
 const messageSchema: StringSchema<string> = string(
   "メッセージを入力してください",
   [minLength(1, "入力が必須の項目です"), maxLength(4098, "入力値が長すぎます")],
@@ -81,7 +86,7 @@ const isStampySchema: BooleanSchema<boolean> = boolean(
 const receiverSchema: UnionSchema<
   (BooleanSchema<boolean> | StringSchema<string>)[],
   boolean | string
-> = union([string([value("stampy", "stampy")]), emailSchema]);
+> = union([string([value("", "Stampyを選択していません")]), emailSchema]);
 
 export {
   emailSchema,
@@ -96,4 +101,5 @@ export {
   themeSchema,
   isStampySchema,
   receiverSchema,
+  passwordConfirmSchema,
 };

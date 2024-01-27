@@ -18,34 +18,56 @@ export const CoWorkerSelector = ({
   const [stampy, setStampy] = useState(false);
   const inputRef = useRef<TextInput>(null);
 
-  const handleSetStampy = () => {
-    inputRef.current?.blur(); // remove focus
+  const handleStampyState = () => {
     const isStampy = !stampy;
-    setStampy(isStampy);
-    setValue("isStampy", isStampy);
-    setValue("receiver", undefined);
+    if (isStampy) {
+      inputRef.current?.blur(); // remove focus
+      setStampy(isStampy);
+      setValue("isStampy", isStampy);
+      setValue("receiver", undefined);
+    } else {
+      inputRef.current?.focus(); // remove focus
+      setStampy(isStampy);
+      setValue("isStampy", isStampy);
+      // メールドレスバリデーションを有効にするために空文字を入れる
+      setValue("receiver", "");
+    }
   };
 
   return (
     <YStack space={vs(5)}>
       <Typography>誰と一緒に始めますか？</Typography>
       <XStack width="100%" alignItems="center" space={s(10)}>
-        <YStack
-          space={vs(10)}
-          alignItems="center"
-          animation={"bouncy"} // linkになると先に遷移してしまうので、bouncyがあんまりわかんない
-          scale={0.9}
-          hoverStyle={{ scale: 0.925 }}
-          pressStyle={{ scale: 0.925 }}
-          borderColor="$accent--background"
-          borderWidth={stampy ? 2 : 0}
-          borderRadius={stampy ? 6 : 0}
-          padding={s(6)}
-          onPress={handleSetStampy}
-        >
-          <Stampy />
-          <Typography type="medium">Stampy</Typography>
-        </YStack>
+        {inputControl ? (
+          <Controller
+            control={inputControl}
+            rules={{
+              required: false,
+            }}
+            render={({ field: { onBlur } }) => (
+              <YStack
+                space={vs(10)}
+                alignItems="center"
+                animation={"bouncy"} // linkになると先に遷移してしまうので、bouncyがあんまりわかんない
+                scale={0.9}
+                hoverStyle={{ scale: 0.925 }}
+                pressStyle={{ scale: 0.925 }}
+                borderColor="$accent--background"
+                borderWidth={stampy ? 2 : 0}
+                borderRadius={stampy ? 6 : 0}
+                padding={s(6)}
+                onBlur={onBlur}
+                onPress={handleStampyState}
+              >
+                <Stampy />
+                <Typography type="medium">Stampy</Typography>
+              </YStack>
+            )}
+            name="isStampy"
+          />
+        ) : (
+          <></>
+        )}
 
         <Typography>OR</Typography>
         {inputControl ? (
@@ -54,7 +76,7 @@ export const CoWorkerSelector = ({
               <Controller
                 control={inputControl}
                 rules={{
-                  required: true,
+                  required: false,
                 }}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <StyledInput
@@ -62,7 +84,6 @@ export const CoWorkerSelector = ({
                     id="receiver"
                     label="メールアドレス"
                     placeholder="email"
-                    // height={vs(30)}
                     onFocus={() => {
                       setStampy(false);
                       setValue("isStampy", false);
@@ -84,7 +105,7 @@ export const CoWorkerSelector = ({
                 ※スタンプカードを作成すると自動的に相手に招待リンクが送信されます
               </Typography>
             </YStack>
-            <Typography type="medium">招待メールを送信</Typography>
+            <Typography type="ui">招待メールを送信</Typography>
           </YStack>
         ) : (
           <></>

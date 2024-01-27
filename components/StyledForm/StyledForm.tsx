@@ -11,6 +11,7 @@ type StyledFormProps = {
   isSubmitting?: boolean;
   isSubmitted?: boolean;
   isDirty?: boolean;
+  isValid: boolean;
   buttonLabel?: string;
   // @ts-ignore
   buttonProps?: Omit<StyledButtonProps, "children" | "ref">;
@@ -21,6 +22,7 @@ export function StyledForm({
   isSubmitting,
   isSubmitted,
   isDirty,
+  isValid,
   buttonLabel = "Submit",
   buttonProps,
   ...formProps
@@ -47,9 +49,9 @@ export function StyledForm({
               ? () => <Spinner size="small" color={"$secondary--background"} />
               : undefined
           }
-          type={!isDirty ? "disabled" : "primary"}
-          disabled={!isDirty || isSubmitting}
           {...buttonProps}
+          type={!isValid ? "disabled" : buttonProps?.type || "primary"}
+          disabled={!isValid || isSubmitting}
         >
           <Typography>{buttonLabel}</Typography>
         </StyledButton>

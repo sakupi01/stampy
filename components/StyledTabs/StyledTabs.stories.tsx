@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { StyledInput } from "../StyledInput/StyledInput";
 import { Typography } from "../Typography";
 import { StyledTabs } from "./StyledTabs";
 import { useTabsState } from "./hooks/useTabsState";
-import { SignInForm, SignUpForm } from "./utils/formsMock";
 const meta = {
   title: "StyledTabs",
   // @ts-ignore
@@ -56,14 +56,14 @@ export const Default: Story = {
             currentTab={currentTab}
             handleOnInteraction={handleOnInteraction}
           >
-            <Typography type="ui">サインイン</Typography>
+            <Typography type="ui">メールアドレス</Typography>
           </StyledTabs.Tab>
           <StyledTabs.Tab
             value="tab2"
             currentTab={currentTab}
             handleOnInteraction={handleOnInteraction}
           >
-            <Typography type="ui">サインアップ</Typography>
+            <Typography type="ui">パスワード</Typography>
           </StyledTabs.Tab>
         </StyledTabs.List>
         <StyledTabs.ContentAnimateWrapper
@@ -72,10 +72,20 @@ export const Default: Story = {
           currentTab={currentTab}
         >
           <StyledTabs.Content currentTab="tab1">
-            <SignInForm />
+            <StyledInput
+              id="signin-email"
+              label="メールアドレス"
+              inputMode="email"
+              placeholder="email"
+            />
           </StyledTabs.Content>
           <StyledTabs.Content currentTab="tab2">
-            <SignUpForm />
+            <StyledInput
+              id="signin-password"
+              label="パスワード"
+              placeholder="password"
+              isPassword
+            />
           </StyledTabs.Content>
         </StyledTabs.ContentAnimateWrapper>
       </meta.component>
