@@ -1,3 +1,4 @@
+import { User } from "@/types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 import * as SecureStore from "expo-secure-store";
@@ -24,11 +25,13 @@ export async function setStorageItemAsync(key: string, value: string | null) {
 }
 
 type AuthState = {
+  user: User | null;
   session: string | null;
   isLoading: boolean;
 };
 
 const INITIAL_AUTH_STATE: AuthState = {
+  user: null,
   session: null,
   isLoading: false,
 };
@@ -36,13 +39,18 @@ export const { actions, reducer } = createSlice({
   name: "auth",
   initialState: INITIAL_AUTH_STATE,
   reducers: {
-    signIn: (state, action: PayloadAction<string>) => {
-      setStorageItemAsync("session", action.payload);
-      state.session = action.payload;
+    authorize: (
+      state,
+      action: PayloadAction<{ session: string; user: User }>,
+    ) => {
+      setStorageItemAsync("session", action.payload.session);
+      state.session = action.payload.session;
+      state.user = action.payload.user;
     },
-    signOut: (state) => {
+    unAuthorize: (state) => {
       setStorageItemAsync("session", null);
       state.session = null;
+      state.user = null;
     },
     isLoading: (state, action) => {
       state.isLoading = action.payload;
