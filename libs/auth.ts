@@ -23,7 +23,7 @@ async function registerUser({
 }
 
 async function getUser({
-  username,
+  email,
   password,
 }: SignInFormType): Promise<{ sessionId: string; user: User } | undefined> {
   // get user from database

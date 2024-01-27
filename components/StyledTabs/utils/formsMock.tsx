@@ -18,6 +18,7 @@ export function SignInForm() {
     formState: { errors, isSubmitting, isSubmitted, isDirty, isValid },
   } = useForm<SignInFormType>({
     resolver: valibotResolver(SignInFormSchema),
+    reValidateMode: "onChange",
   });
   const dispatch = useDispatch();
   return (
@@ -64,20 +65,20 @@ export function SignInForm() {
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <StyledInput
-              id="name"
-              label="name"
+              id="signin-email"
+              label="メールアドレス"
               inputMode="email"
-              placeholder="name"
+              placeholder="email"
               onChangeText={onChange}
               value={value}
               onBlur={onBlur}
             />
           )}
-          name="username"
+          name="email"
         />
-        {errors.username && (
+        {errors.email && (
           <Typography color="$text--destructive">
-            {errors.username.message}
+            {errors.email.message}
           </Typography>
         )}
         <Controller
@@ -87,8 +88,8 @@ export function SignInForm() {
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <StyledInput
-              id="password"
-              label="password"
+              id="signin-password"
+              label="パスワード"
               placeholder="password"
               onChangeText={onChange}
               value={value}
@@ -115,6 +116,7 @@ export function SignUpForm() {
     formState: { errors, isSubmitting, isSubmitted, isDirty, isValid },
   } = useForm<SignUpFormType>({
     resolver: valibotResolver(SignUpFormSchema),
+    reValidateMode: "onChange",
   });
   return (
     <ScrollView
@@ -160,9 +162,9 @@ export function SignUpForm() {
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <StyledInput
-              id="email"
+              id="signup-email"
               inputMode="email"
-              label="email"
+              label="メールアドレス"
               placeholder="email"
               onChangeText={onChange}
               value={value}
@@ -183,9 +185,9 @@ export function SignUpForm() {
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <StyledInput
-              id="name"
-              label="name"
-              placeholder="name"
+              id="signin-name"
+              label="ユーザー名"
+              placeholder="username"
               onChangeText={onChange}
               value={value}
               onBlur={onBlur}
@@ -205,8 +207,8 @@ export function SignUpForm() {
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <StyledInput
-              id="password"
-              label="password"
+              id="signup-password"
+              label="パスワード"
               placeholder="password"
               onChangeText={onChange}
               value={value}
@@ -228,7 +230,7 @@ export function SignUpForm() {
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <StyledInput
-              id="passwordConfirm"
+              id="signup-passwordConfirm"
               label="パスワード再入力"
               placeholder="same password"
               onChangeText={onChange}
