@@ -1,4 +1,4 @@
-import Providers from "@/libs/providers";
+import Providers from "@/libs/provider/providers";
 import { Letter } from "@/types/Letter";
 import { DATA_LETTER } from "@/ui/StyledList/fixture/mock.data";
 import renderer from "react-test-renderer";

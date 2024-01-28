@@ -32,13 +32,15 @@ export const Default: Story = {
     const {
       control,
       handleSubmit,
-      formState: { errors, isSubmitting, isSubmitted },
+      formState: { errors, isSubmitting, isSubmitted, isValid, isDirty },
     } = useForm<SignInFormType>({
       resolver: valibotResolver(SignInFormSchema),
     });
 
     return (
       <meta.component
+        isValid={isValid}
+        isDirty={isDirty}
         alignItems="flex-start"
         buttonLabel="サインアップ"
         borderColor="$stroke--dark"
@@ -71,11 +73,11 @@ export const Default: Story = {
               onBlur={onBlur}
             />
           )}
-          name="username"
+          name="email"
         />
-        {errors.username && (
+        {errors.email && (
           <Typography color="$text--destructive">
-            {errors.username.message}{" "}
+            {errors.email.message}{" "}
           </Typography>
         )}
         <Controller

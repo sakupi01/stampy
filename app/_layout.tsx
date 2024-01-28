@@ -1,4 +1,4 @@
-import Providers from "@/libs/providers";
+import Providers from "@/libs/provider/providers";
 import { FontAwesome } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import { Slot, SplashScreen } from "expo-router";
