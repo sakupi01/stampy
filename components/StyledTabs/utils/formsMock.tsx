@@ -18,6 +18,7 @@ export function SignInForm() {
     formState: { errors, isSubmitting, isSubmitted, isDirty, isValid },
   } = useForm<SignInFormType>({
     resolver: valibotResolver(SignInFormSchema),
+    mode: "all",
     reValidateMode: "onChange",
   });
   const dispatch = useDispatch();
@@ -116,6 +117,7 @@ export function SignUpForm() {
     formState: { errors, isSubmitting, isSubmitted, isDirty, isValid },
   } = useForm<SignUpFormType>({
     resolver: valibotResolver(SignUpFormSchema),
+    mode: "all",
     reValidateMode: "onChange",
   });
   return (
