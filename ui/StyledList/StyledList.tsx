@@ -90,10 +90,18 @@ const resolveListItem = (item: RenderItemParams) => {
                 今はやめておく
               </Typography>
             )}
-            description={`${item.receiver.username}へ\n${item.currentDay}日目のスタンプ\nを送りますか？`}
+            description={
+              item.isLastDay
+                ? `${item.receiver.username}へ\n最終日の完走レター\nを送りますか？`
+                : `${item.receiver.username}へ\n${item.currentDay}日目のスタンプ\nを送りますか？`
+            }
           >
             <YStack>
-              <StampForm user={item.receiver} currentDay={item.currentDay} />
+              <StampForm
+                user={item.receiver}
+                currentDay={item.currentDay}
+                isLastDay={item.isLastDay}
+              />
             </YStack>
           </StyledAlertDialog>
         );

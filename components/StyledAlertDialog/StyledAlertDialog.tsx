@@ -36,7 +36,7 @@ export function StyledAlertDialog({
   const CancelButton = cancelButton ? cancelButton(untoggleModal) : "";
   const ActionButton = actionButton ? actionButton(someAction) : "";
   return (
-    <View style={styles.centeredView}>
+    <View style={styles.centeredView} zIndex="$1" position="relative">
       <Modal
         animationType="fade"
         transparent={true}

@@ -4,7 +4,7 @@ import { StyledTabs } from "@/components/StyledTabs";
 import { useTabsState } from "@/components/StyledTabs/hooks/useTabsState";
 import { Typography } from "@/components/Typography";
 import AnimatedView from "@/components/lotties/LottieView";
-import React, { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Animated, Dimensions } from "react-native";
 import { s, vs } from "react-native-size-matters";
 import { YStack } from "tamagui";
@@ -27,7 +27,7 @@ export default function SignIn() {
   } = useTabsState();
   const moveAnimation = useRef(new Animated.Value(-100)).current;
 
-  React.useEffect(() => {
+  useEffect(() => {
     Animated.loop(
       Animated.timing(moveAnimation, {
         toValue: ScreenWidth,

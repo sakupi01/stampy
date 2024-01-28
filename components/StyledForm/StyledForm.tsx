@@ -37,7 +37,7 @@ export function StyledForm({
       borderRadius={formProps.borderRadius || 6}
       backgroundColor={formProps.backgroundColor || "$light--background"}
       borderColor={formProps.borderColor || "transparent"}
-      padding={formProps.padding || s(25)}
+      padding={formProps.padding || s(30)}
       boxShadow={formProps.boxShadow || MaterialBoxshadow}
       {...formProps}
     >

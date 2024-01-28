@@ -31,12 +31,12 @@ export const DATA: Array<Notification | Letter> = [
   {
     type: "notification",
     id: "2",
-    title:
-      "ダイアログアイテムダイアログアイテムダイアログアイテムダイアログアイテムダイアログアイテムダイアログアイテム",
+    title: "最終日ダイアログ",
     content:
       "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
     stamp: "stamp",
-    currentDay: 1,
+    currentDay: 10,
+    isLastDay: true,
     hrefPrefix: "hrefPrefix",
     sender: {
       id: "1",
@@ -65,6 +65,7 @@ export const DATA: Array<Notification | Letter> = [
       "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
     stamp: "stamp",
     currentDay: 1,
+    isLastDay: false,
     hrefPrefix: "hrefPrefix",
     sender: {
       id: "1",
@@ -93,6 +94,7 @@ export const DATA: Array<Notification | Letter> = [
       "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
     stamp: "stamp",
     currentDay: 1,
+    isLastDay: false,
     hrefPrefix: "hrefPrefix",
     sender: {
       id: "1",
@@ -121,6 +123,7 @@ export const DATA: Array<Notification | Letter> = [
       "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
     stamp: "stamp",
     currentDay: 1,
+    isLastDay: false,
     hrefPrefix: "hrefPrefix",
     sender: {
       id: "1",
