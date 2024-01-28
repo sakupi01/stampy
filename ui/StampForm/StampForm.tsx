@@ -171,6 +171,9 @@ export const StampForm = ({
                   value={value}
                   onBlur={onBlur}
                   width="100%"
+                  scrollEnabled
+                  multiline
+                  lineHeight={25}
                 />
               );
             }}

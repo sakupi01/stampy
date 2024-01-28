@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    width: "100%",
   },
   modalView: {
     backgroundColor: "white",
@@ -126,5 +127,6 @@ const styles = StyleSheet.create({
     borderBlockColor: "rgba(3, 10, 18, 0.81)",
     borderStyle: "solid",
     maxWidth: s(300),
+    width: "100%",
   },
 });

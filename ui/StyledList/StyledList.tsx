@@ -1,5 +1,7 @@
+import { StampWrapper } from "@/components/StampWrapper";
 import { StyledAlertDialog } from "@/components/StyledAlertDialog";
 import { StyledButton } from "@/components/StyledButton";
+import { StyledInput } from "@/components/StyledInput";
 import { Typography } from "@/components/Typography/Typography";
 import { assertNonNullable } from "@/libs/assertNonNullable";
 import DialogProvider from "@/libs/provider/dialog";
@@ -101,11 +103,11 @@ const resolveListItem = (item: RenderItemParams) => {
               )}
               description={
                 item.isLastDay
-                  ? `${item.receiver.username}へ\n最終日の完走レター\nを送りますか？`
-                  : `${item.receiver.username}へ\n${item.currentDay}日目のスタンプ\nを送りますか？`
+                  ? `${item.receiver.username}さんへ\n最終日の完走レター\nを送りますか？`
+                  : `${item.receiver.username}さんへ\n${item.currentDay}日目のスタンプ\nを送りますか？`
               }
             >
-              <YStack>
+              <YStack alignItems="center">
                 <StampForm
                   user={item.receiver}
                   currentDay={item.currentDay}
@@ -132,7 +134,7 @@ const resolveListItem = (item: RenderItemParams) => {
               )}
               cancelButton={(untoggleModal) => (
                 <StyledButton onPress={untoggleModal} type="secondary">
-                  <Typography>いいえ</Typography>
+                  <Typography>やめておく</Typography>
                 </StyledButton>
               )}
               actionButton={(action) => (
@@ -146,15 +148,34 @@ const resolveListItem = (item: RenderItemParams) => {
                     })
                   }
                 >
-                  <Typography>受け取る</Typography>
+                  <Typography>
+                    {item.isLastDay ? "開封する" : "受け取る"}
+                  </Typography>
                 </StyledButton>
               )}
               description={
                 item.isLastDay
-                  ? `${item.sender.username}からの\n最終日の完走レター\nを受け取りますか？`
-                  : `${item.sender.username}からの\n${item.currentDay}日目のスタンプ\nを送りますか？`
+                  ? `${item.sender.username}さんから\n最終日の完走レター\nが届きました！`
+                  : `${item.sender.username}さんから\n${item.currentDay}日目のスタンプ\nが届いています`
               }
-            />
+            >
+              <YStack gap={20} alignItems="center">
+                <StampWrapper stamp={item.isLastDay ? "✉️" : item.stamp} />
+                {item.isLastDay ? (
+                  <Typography type="medium">便箋を開封しますか？</Typography>
+                ) : (
+                  <StyledInput
+                    label="ひとことメッセージ"
+                    defaultValue={item.content}
+                    id={item.id}
+                    scrollEnabled
+                    multiline
+                    lineHeight={25}
+                    isDisabled
+                  />
+                )}
+              </YStack>
+            </StyledAlertDialog>
           </DialogProvider>
         );
       default:
