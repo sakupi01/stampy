@@ -3,7 +3,7 @@ import { SafeAreaView, StyleSheet } from "react-native";
 import { StyledTabs } from "@/components/StyledTabs";
 import { useTabsState } from "@/components/StyledTabs/hooks/useTabsState";
 import { Typography } from "@/components/Typography";
-import AnimatedPaperFly from "@/components/lotties/Paperfly";
+import AnimatedView from "@/components/lotties/LottieView";
 import React, { useRef } from "react";
 import { Animated, Dimensions } from "react-native";
 import { s, vs } from "react-native-size-matters";
@@ -45,7 +45,7 @@ export default function SignIn() {
           { transform: [{ translateX: moveAnimation }] },
         ]}
       >
-        <AnimatedPaperFly />
+        <AnimatedView assetUri={require("../assets/lotties/paperfly.json")} />
       </Animated.View>
       <YStack
         space={vs(10)}
