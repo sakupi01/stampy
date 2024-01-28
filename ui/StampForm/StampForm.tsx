@@ -29,7 +29,6 @@ export const StampForm = ({
   isLastDay = false,
 }: StampFormProps) => {
   const [animationStarted, setAnimationStarted] = useState(false);
-  // const dispatch = useDialogDispatch();
   const { closeDialog } = useDialogContext();
 
   const messageLabel = useAppSelector((state) =>
@@ -57,8 +56,8 @@ export const StampForm = ({
         <AnimatedView
           assetUri={require("../../assets/lotties/stamp.json")}
           style={{
-            width: 330, // ここにViewの幅を設定
-            height: 250, // ここにViewの高さを設定
+            width: 330,
+            height: 250,
             position: "absolute",
             zIndex: 2,
             top: vs(-20),
@@ -73,8 +72,8 @@ export const StampForm = ({
           <AnimatedView
             assetUri={require("../../assets/lotties/particles.json")}
             style={{
-              width: 330, // ここにViewの幅を設定
-              height: 250, // ここにViewの高さを設定
+              width: 330,
+              height: 250,
               position: "absolute",
               zIndex: 2,
               top: vs(-20),
@@ -85,8 +84,8 @@ export const StampForm = ({
           <AnimatedView
             assetUri={require("../../assets/lotties/letter2.json")}
             style={{
-              width: 330, // ここにViewの幅を設定
-              height: 250, // ここにViewの高さを設定
+              width: 330,
+              height: 250,
               position: "absolute",
               zIndex: 2,
               top: vs(-20),
@@ -200,8 +199,8 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   animatedView: {
-    width: 150, // ここにViewの幅を設定
-    height: 80, // ここにViewの高さを設定
+    width: 150,
+    height: 80,
     backgroundColor: "transparent", // 背景色などのスタイルを設定
   },
 });

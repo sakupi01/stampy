@@ -144,6 +144,62 @@ export const DATA: Array<Notification | Letter> = [
     sendAt: "sendAt",
     listType: "dialog",
   },
+  {
+    type: "notification",
+    id: "6",
+    title: "スタンプが届いています",
+    content: "xxxさんからoo日目のスタンプが届いています",
+    stamp: "stamp",
+    currentDay: 1,
+    isLastDay: false,
+    hrefPrefix: "hrefPrefix",
+    sender: {
+      id: "1",
+      username: "username",
+      email: "email",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
+    },
+    receiver: {
+      id: "1",
+      username: "username",
+      email: "email",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
+    },
+    read: false,
+    createdAt: "createdAt",
+    sendAt: "sendAt",
+    listType: "dialog",
+  },
+  {
+    type: "notification",
+    id: "7",
+    title: "完走レターが届いています",
+    content: "xxxさんから完走レターが届いています",
+    stamp: "stamp",
+    currentDay: 10,
+    isLastDay: true,
+    hrefPrefix: "hrefPrefix",
+    sender: {
+      id: "1",
+      username: "username",
+      email: "email",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
+    },
+    receiver: {
+      id: "1",
+      username: "username",
+      email: "email",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
+    },
+    read: false,
+    createdAt: "createdAt",
+    sendAt: "sendAt",
+    listType: "dialog",
+  },
 ];
 
 export const DATA_LETTER: Array<Notification | Letter> = [

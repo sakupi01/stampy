@@ -1,9 +1,10 @@
 import { useDialogContext } from "@/libs/context/Dialog/useDialogContext";
-import React from "react";
+import React, { useState } from "react";
 import { Modal, ModalProps, StyleSheet } from "react-native";
-import { s } from "react-native-size-matters";
+import { s, vs } from "react-native-size-matters";
 import { View, ViewProps, XStack, YStack } from "tamagui";
 import { Typography } from "../Typography/Typography";
+import AnimatedView from "../lotties/LottieView";
 
 type StyledAlertDialogProps = {
   children?: React.ReactNode;
@@ -23,6 +24,7 @@ export function StyledAlertDialog({
   ...props
 }: StyledAlertDialogProps) {
   const { isOpen, openDialog, closeDialog } = useDialogContext();
+  const [animationStarted, setAnimationStarted] = useState(false);
 
   const toggleModal = () => {
     openDialog();
@@ -31,7 +33,16 @@ export function StyledAlertDialog({
     closeDialog();
   };
   const someAction = () => {
-    console.log("some action");
+    // サーバに既読状態を送信
+
+    // アニメーションを開始
+    setAnimationStarted(true);
+    // 3.3秒後にアニメーションを終了
+    setTimeout(() => {
+      setAnimationStarted(false);
+      // TODO: ダイアログを閉じる
+      closeDialog();
+    }, 3000);
   };
   const TriggerButton = triggerButton ? triggerButton(toggleModal) : "";
   const CancelButton = cancelButton ? cancelButton(untoggleModal) : "";
@@ -57,6 +68,22 @@ export function StyledAlertDialog({
               <Typography type="large" whiteSpace="pre-wrap" textAlign="center">
                 {description}
               </Typography>
+              {animationStarted ? (
+                <AnimatedView
+                  assetUri={require("../../assets/lotties/particles.json")}
+                  style={{
+                    width: 330,
+                    height: 250,
+                    position: "absolute",
+                    zIndex: 2,
+                    top: vs(-20),
+                    left: s(-5),
+                  }}
+                  loop={false}
+                />
+              ) : (
+                <></>
+              )}
               {children}
               <XStack space={s(30)} justifyContent="center">
                 {CancelButton}
