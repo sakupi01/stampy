@@ -47,6 +47,7 @@ export function StyledAlertDialog({
   const TriggerButton = triggerButton ? triggerButton(toggleModal) : "";
   const CancelButton = cancelButton ? cancelButton(untoggleModal) : "";
   const ActionButton = actionButton ? actionButton(someAction) : "";
+
   return (
     <View style={styles.centeredView} zIndex="$1" position="relative">
       <Modal
