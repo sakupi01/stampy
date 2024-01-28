@@ -3,6 +3,7 @@ import { DatePicker } from "@/components/DatePicker";
 import { StyledButton } from "@/components/StyledButton";
 import { ThemeSelector } from "@/components/ThemeSelector";
 import { Typography } from "@/components/Typography";
+import { sleep } from "@/libs/sleep";
 import { StampCardFormSchema, StampCardFormType } from "@/schema/stampCard";
 import { valibotResolver } from "@hookform/resolvers/valibot";
 import { useEffect, useRef } from "react";
@@ -16,6 +17,7 @@ export const CreateCardForm = () => {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting, isSubmitted, isValid },
     setValue,
     setFocus,
@@ -32,7 +34,15 @@ export const CreateCardForm = () => {
 
   const watchStartDate = watch("startDate", undefined);
 
-  const onSubmit = (data: FieldValues) => console.log(data);
+  const onSubmit = async (data: FieldValues) => {
+    console.log(data);
+    // save card to server
+    await sleep(1000);
+    // clear submitting state
+    reset();
+    // 作成したカード一覧へ遷移
+    // router.push("/cards");
+  };
   const onError = (data: FieldValues) =>
     console.error("Something went wrong:", data);
 

@@ -40,6 +40,7 @@ export const StampForm = ({
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting, isSubmitted, isValid },
     setValue,
   } = useForm<MessageFormType>({
@@ -110,6 +111,8 @@ export const StampForm = ({
           console.log("Submitted! :", data);
           // アニメーションを開始
           setAnimationStarted(true);
+          // clear submitting state
+          reset();
           // 3.3秒後にアニメーションを終了
           setTimeout(() => {
             setAnimationStarted(false);
