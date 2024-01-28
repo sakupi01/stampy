@@ -1,4 +1,4 @@
-import Providers from "@/libs/providers";
+import Providers from "@/libs/provider/providers";
 import renderer from "react-test-renderer";
 import { StampCard } from "./StampCard";
 import { FIXTURE, MockStampNodes } from "./fixture/mock.data";

@@ -3,28 +3,46 @@ import { DatePicker } from "@/components/DatePicker";
 import { StyledButton } from "@/components/StyledButton";
 import { ThemeSelector } from "@/components/ThemeSelector";
 import { Typography } from "@/components/Typography";
+import { sleep } from "@/libs/sleep";
 import { StampCardFormSchema, StampCardFormType } from "@/schema/stampCard";
 import { valibotResolver } from "@hookform/resolvers/valibot";
+import { useEffect, useRef } from "react";
 import { Controller, FieldValues, useForm } from "react-hook-form";
 import { TextInput } from "react-native";
 import { ms, vs } from "react-native-size-matters";
 import { Spinner, YStack } from "tamagui";
 
 export const CreateCardForm = () => {
+  const titleRef = useRef<TextInput>(null);
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting, isSubmitted, isValid },
     setValue,
+    setFocus,
     watch,
   } = useForm<StampCardFormType>({
     resolver: valibotResolver(StampCardFormSchema),
+    mode: "onChange",
     reValidateMode: "onChange",
   });
-  const noErrorMessage = Object.keys(errors).length === 0;
+  useEffect(() => {
+    titleRef.current?.focus();
+    setFocus("title");
+  }, [setFocus]);
+
   const watchStartDate = watch("startDate", undefined);
 
-  const onSubmit = (data: FieldValues) => console.log(data);
+  const onSubmit = async (data: FieldValues) => {
+    console.log(data);
+    // save card to server
+    await sleep(1000);
+    // clear submitting state
+    reset();
+    // 作成したカード一覧へ遷移
+    // router.push("/cards");
+  };
   const onError = (data: FieldValues) =>
     console.error("Something went wrong:", data);
 
@@ -38,6 +56,7 @@ export const CreateCardForm = () => {
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
+              ref={titleRef}
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
@@ -142,8 +161,8 @@ export const CreateCardForm = () => {
             ? () => <Spinner size="small" color={"$secondary--background"} />
             : undefined
         }
-        type={!isValid && !noErrorMessage ? "disabled" : "primary"}
-        disabled={(!isValid && !noErrorMessage) || isSubmitting}
+        type={!isValid ? "disabled" : "primary"}
+        disabled={!isValid || isSubmitting}
       >
         <Typography>作成</Typography>
       </StyledButton>

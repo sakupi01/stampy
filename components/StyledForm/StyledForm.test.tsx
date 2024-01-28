@@ -7,7 +7,10 @@ describe("<StyledForm />", () => {
     const snapshot = renderer
       .create(
         <TamaguiProvider config={config}>
-          <StyledForm onSubmitAction={() => console.log("render")} />
+          <StyledForm
+            onSubmitAction={() => console.log("render")}
+            isValid={true}
+          />
         </TamaguiProvider>,
       )
       .toJSON();

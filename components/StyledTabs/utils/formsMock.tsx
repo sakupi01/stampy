@@ -3,6 +3,7 @@ import { StyledInput } from "@/components/StyledInput";
 import { Typography } from "@/components/Typography";
 import { authActions } from "@/libs/AsyncStorage/Auth/slice";
 import { signIn, signUp } from "@/libs/auth";
+import { sleep } from "@/libs/sleep";
 import { SignInFormSchema, SignInFormType } from "@/schema/signIn";
 import { SignUpFormSchema, SignUpFormType } from "@/schema/signUp";
 import { valibotResolver } from "@hookform/resolvers/valibot";
@@ -15,9 +16,11 @@ export function SignInForm() {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting, isSubmitted, isDirty, isValid },
   } = useForm<SignInFormType>({
     resolver: valibotResolver(SignInFormSchema),
+    mode: "all",
     reValidateMode: "onChange",
   });
   const dispatch = useDispatch();
@@ -47,9 +50,12 @@ export function SignInForm() {
           dispatch(authActions.isLoading(true));
           // authorization logic with server
           const { sessionId, user } = await signIn(data);
+          await sleep(1000);
           // async dispatch so need to wait
           dispatch(authActions.authorize({ session: sessionId, user: user }));
           dispatch(authActions.isLoading(false));
+          // clear submitting state
+          reset();
           // Navigate after signing in. You may want to tweak this to ensure sign-in is
           // successful before navigating.
           router.replace("/");
@@ -113,9 +119,11 @@ export function SignUpForm() {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting, isSubmitted, isDirty, isValid },
   } = useForm<SignUpFormType>({
     resolver: valibotResolver(SignUpFormSchema),
+    mode: "all",
     reValidateMode: "onChange",
   });
   return (
@@ -147,6 +155,8 @@ export function SignUpForm() {
           // async dispatch so need to wait
           dispatch(authActions.authorize({ session: sessionId, user: user }));
           dispatch(authActions.isLoading(false));
+          // clear submitting state
+          reset();
           // Navigate after signing in. You may want to tweak this to ensure sign-in is
           // successful before navigating.
           router.replace("/");

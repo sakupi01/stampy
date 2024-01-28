@@ -1,14 +1,19 @@
+import { useDialogContext } from "@/libs/context/Dialog/useDialogContext";
 import React, { useState } from "react";
 import { Modal, ModalProps, StyleSheet } from "react-native";
-import { s } from "react-native-size-matters";
+import { s, vs } from "react-native-size-matters";
 import { View, ViewProps, XStack, YStack } from "tamagui";
 import { Typography } from "../Typography/Typography";
+import AnimatedView from "../lotties/LottieView";
 
+type DialogActionType = () => Promise<void>;
 type StyledAlertDialogProps = {
   children?: React.ReactNode;
   triggerButton?: (toggleModal: () => void) => React.ReactNode;
   cancelButton?: (untoggleModal: () => void) => React.ReactNode;
-  actionButton?: (action: () => void) => React.ReactNode;
+  actionButton?: (
+    action: (action: DialogActionType) => void,
+  ) => React.ReactNode;
   description?: string;
   modalProps?: ModalProps;
 } & ViewProps;
@@ -21,28 +26,39 @@ export function StyledAlertDialog({
   modalProps,
   ...props
 }: StyledAlertDialogProps) {
-  const [modalVisible, setModalVisible] = useState(false);
+  const { isOpen, openDialog, closeDialog } = useDialogContext();
+  const [animationStarted, setAnimationStarted] = useState(false);
 
   const toggleModal = () => {
-    setModalVisible(!modalVisible);
+    openDialog();
   };
   const untoggleModal = () => {
-    setModalVisible(!modalVisible);
+    closeDialog();
   };
-  const someAction = () => {
-    console.log("some action");
+  const someAction = async (action: DialogActionType) => {
+    // サーバと通信する処理
+    await action();
+    // アニメーションを開始
+    setAnimationStarted(true);
+    // 3.3秒後にアニメーションを終了
+    setTimeout(() => {
+      setAnimationStarted(false);
+      // TODO: ダイアログを閉じる
+      closeDialog();
+    }, 3000);
   };
   const TriggerButton = triggerButton ? triggerButton(toggleModal) : "";
   const CancelButton = cancelButton ? cancelButton(untoggleModal) : "";
   const ActionButton = actionButton ? actionButton(someAction) : "";
+
   return (
-    <View style={styles.centeredView}>
+    <View style={styles.centeredView} zIndex="$1" position="relative">
       <Modal
         animationType="fade"
         transparent={true}
-        visible={modalVisible}
+        visible={isOpen}
         onRequestClose={() => {
-          setModalVisible(!modalVisible);
+          closeDialog();
         }}
         {...modalProps}
       >
@@ -56,6 +72,22 @@ export function StyledAlertDialog({
               <Typography type="large" whiteSpace="pre-wrap" textAlign="center">
                 {description}
               </Typography>
+              {animationStarted ? (
+                <AnimatedView
+                  assetUri={require("../../assets/lotties/particles.json")}
+                  style={{
+                    width: 330,
+                    height: 250,
+                    position: "absolute",
+                    zIndex: 2,
+                    top: vs(-20),
+                    left: s(-5),
+                  }}
+                  loop={false}
+                />
+              ) : (
+                <></>
+              )}
               {children}
               <XStack space={s(30)} justifyContent="center">
                 {CancelButton}
@@ -74,6 +106,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    width: "100%",
   },
   modalView: {
     backgroundColor: "white",
@@ -94,5 +127,6 @@ const styles = StyleSheet.create({
     borderBlockColor: "rgba(3, 10, 18, 0.81)",
     borderStyle: "solid",
     maxWidth: s(300),
+    width: "100%",
   },
 });

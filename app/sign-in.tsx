@@ -3,12 +3,17 @@ import { SafeAreaView, StyleSheet } from "react-native";
 import { StyledTabs } from "@/components/StyledTabs";
 import { useTabsState } from "@/components/StyledTabs/hooks/useTabsState";
 import { Typography } from "@/components/Typography";
+import AnimatedView from "@/components/lotties/LottieView";
+import { useEffect, useRef } from "react";
+import { Animated, Dimensions } from "react-native";
 import { s, vs } from "react-native-size-matters";
 import { YStack } from "tamagui";
 import {
   SignInForm,
   SignUpForm,
 } from "../components/StyledTabs/utils/formsMock";
+
+const ScreenWidth = Dimensions.get("window").width;
 
 export default function SignIn() {
   const {
@@ -20,8 +25,28 @@ export default function SignIn() {
     intentAt,
     setCurrentTab,
   } = useTabsState();
+  const moveAnimation = useRef(new Animated.Value(-100)).current;
+
+  useEffect(() => {
+    Animated.loop(
+      Animated.timing(moveAnimation, {
+        toValue: ScreenWidth,
+        duration: 7000,
+        useNativeDriver: true,
+      }),
+    ).start();
+  }, [moveAnimation]);
+
   return (
     <SafeAreaView style={styles.container}>
+      <Animated.View
+        style={[
+          styles.animatedView,
+          { transform: [{ translateX: moveAnimation }] },
+        ]}
+      >
+        <AnimatedView assetUri={require("../assets/lotties/paperfly.json")} />
+      </Animated.View>
       <YStack
         space={vs(10)}
         width="100%"
@@ -29,7 +54,7 @@ export default function SignIn() {
         justifyContent="center"
         alignItems="center"
         paddingHorizontal={s(30)}
-        paddingVertical={vs(50)}
+        paddingBottom={vs(50)}
       >
         <YStack space={vs(5)}>
           <Typography type="h3">Stampyへようこそ！</Typography>
@@ -80,7 +105,13 @@ export default function SignIn() {
 
 const styles = StyleSheet.create({
   container: {
+    position: "relative",
     width: "100%",
     height: "100%",
+  },
+  animatedView: {
+    width: 150, // ここにViewの幅を設定
+    height: 80, // ここにViewの高さを設定
+    backgroundColor: "transparent", // 背景色などのスタイルを設定
   },
 });

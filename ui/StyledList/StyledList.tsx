@@ -1,12 +1,17 @@
+import { StampWrapper } from "@/components/StampWrapper";
 import { StyledAlertDialog } from "@/components/StyledAlertDialog";
+import { StyledButton } from "@/components/StyledButton";
+import { StyledInput } from "@/components/StyledInput";
 import { Typography } from "@/components/Typography/Typography";
 import { assertNonNullable } from "@/libs/assertNonNullable";
+import DialogProvider from "@/libs/provider/dialog";
+import { sleep } from "@/libs/sleep";
 import { Letter } from "@/types/Letter";
 import { Notification } from "@/types/Notification";
 import { Pressable, SectionList } from "react-native";
 import { s, vs } from "react-native-size-matters";
 import { Separator, YStack } from "tamagui";
-import { StampForm } from "../StampForm/StampForm";
+import { StampForm } from "../StampForm";
 import { LinkListItem, TextListItem } from "./ListItem";
 
 type StyledListProps = {
@@ -76,26 +81,52 @@ const resolveListItem = (item: RenderItemParams) => {
             content={item.hrefPrefix?.startsWith("/letter") ? "" : item.content}
           />
         );
-      case "dialog":
+      case "sender-dialog":
         assertNonNullable(item.currentDay);
         return (
-          <StyledAlertDialog
-            triggerButton={(toggleModal) => (
-              <Pressable onPress={toggleModal}>
-                <TextListItem title={item.title} content={item.content} />
-              </Pressable>
-            )}
-            cancelButton={(untoggleModal) => (
-              <Typography type="small" underlined onPress={untoggleModal}>
-                今はやめておく
-              </Typography>
-            )}
-            description={`${item.receiver.username}へ\n${item.currentDay}日目のスタンプ\nを送りますか？`}
-          >
-            <YStack>
-              <StampForm user={item.receiver} currentDay={item.currentDay} />
-            </YStack>
-          </StyledAlertDialog>
+          <DialogProvider>
+            <StyledAlertDialog
+              triggerButton={(toggleModal) => (
+                <Pressable
+                  onPress={toggleModal}
+                  style={{
+                    width: "100%",
+                  }}
+                >
+                  <TextListItem title={item.title} content={item.content} />
+                </Pressable>
+              )}
+              cancelButton={(untoggleModal) => (
+                <Typography type="small" underlined onPress={untoggleModal}>
+                  今はやめておく
+                </Typography>
+              )}
+              description={
+                item.isLastDay
+                  ? `${item.receiver.username}さんへ\n最終日の完走レター\nを送りますか？`
+                  : `${item.receiver.username}さんへ\n${item.currentDay}日目のスタンプ\nを送りますか？`
+              }
+            >
+              <YStack alignItems="center">
+                <StampForm
+                  user={item.receiver}
+                  currentDay={item.currentDay}
+                  isLastDay={item.isLastDay}
+                />
+              </YStack>
+            </StyledAlertDialog>
+          </DialogProvider>
+        );
+      case "receiver-dialog":
+        assertNonNullable(item.currentDay);
+        assertNonNullable(item.isLastDay);
+        return (
+          <DialogProvider>
+            {resolveReceiverDialogContent({
+              isLastDay: item.isLastDay,
+              item: item,
+            })}
+          </DialogProvider>
         );
       default:
         return <TextListItem title={item.title} content={item.content} />;
@@ -117,3 +148,99 @@ const resolveListItem = (item: RenderItemParams) => {
     />
   );
 };
+
+function resolveReceiverDialogContent({
+  isLastDay,
+  item,
+}: { isLastDay: boolean; item: Notification }) {
+  console.log(isLastDay);
+
+  if (isLastDay) {
+    return (
+      <StyledAlertDialog
+        triggerButton={(toggleModal) => (
+          <Pressable
+            onPress={toggleModal}
+            style={{
+              width: "100%",
+            }}
+          >
+            <TextListItem title={item.title} content={item.content} />
+          </Pressable>
+        )}
+        cancelButton={(untoggleModal) => (
+          <StyledButton onPress={untoggleModal} type="secondary">
+            <Typography>やめておく</Typography>
+          </StyledButton>
+        )}
+        actionButton={(action) => (
+          <StyledButton
+            onPress={() =>
+              action(async () => {
+                console.log("receive stamp start");
+                // TODO: スタンプ・手紙を受け取る処理
+                await sleep(1000);
+                console.log("receive stamp end");
+              })
+            }
+          >
+            <Typography>開封する</Typography>
+          </StyledButton>
+        )}
+        description={`${item.sender.username}さんから\n最終日の完走レター\nが届きました！`}
+      >
+        <YStack gap={20} alignItems="center">
+          <StampWrapper stamp="✉️" />
+          <Typography type="medium">便箋を開封しますか？</Typography>
+        </YStack>
+      </StyledAlertDialog>
+    );
+  }
+  return (
+    <StyledAlertDialog
+      triggerButton={(toggleModal) => (
+        <Pressable
+          onPress={toggleModal}
+          style={{
+            width: "100%",
+          }}
+        >
+          <TextListItem title={item.title} content={item.content} />
+        </Pressable>
+      )}
+      cancelButton={(untoggleModal) => (
+        <StyledButton onPress={untoggleModal} type="secondary">
+          <Typography>やめておく</Typography>
+        </StyledButton>
+      )}
+      actionButton={(action) => (
+        <StyledButton
+          onPress={() =>
+            action(async () => {
+              console.log("receive stamp start");
+              // TODO: スタンプ・手紙を受け取る処理
+              await sleep(1000);
+              console.log("receive stamp end");
+            })
+          }
+        >
+          <Typography>"受け取る"</Typography>
+        </StyledButton>
+      )}
+      description={`${item.sender.username}さんから\n${item.currentDay}日目のスタンプ\nが届いています`}
+    >
+      <YStack gap={20} alignItems="center">
+        <StampWrapper stamp={item.stamp} />
+        <StyledInput
+          label="ひとことメッセージ"
+          defaultValue={item.content}
+          id={item.id}
+          scrollEnabled
+          multiline
+          lineHeight={25}
+          isDisabled
+        />
+      </YStack>
+    </StyledAlertDialog>
+  );
+}

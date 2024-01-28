@@ -1,4 +1,3 @@
-import { Stampy } from "@/components/images/Stampy";
 import { StampCardFormType } from "@/schema/stampCard";
 import { useRef, useState } from "react";
 import { Control, Controller, UseFormSetValue } from "react-hook-form";
@@ -7,6 +6,7 @@ import { s, vs } from "react-native-size-matters";
 import { XStack, YStack } from "tamagui";
 import { StyledInput } from "../StyledInput/StyledInput";
 import { Typography } from "../Typography/Typography";
+import AnimatedView from "../lotties/LottieView";
 type CoWorkerSelectorProps = {
   inputControl?: Control<StampCardFormType>;
   setValue: UseFormSetValue<StampCardFormType>;
@@ -48,6 +48,9 @@ export const CoWorkerSelector = ({
               <YStack
                 space={vs(10)}
                 alignItems="center"
+                justifyContent="center"
+                width={s(100)}
+                // height={vs(120)}
                 animation={"bouncy"} // linkになると先に遷移してしまうので、bouncyがあんまりわかんない
                 scale={0.9}
                 hoverStyle={{ scale: 0.925 }}
@@ -59,7 +62,16 @@ export const CoWorkerSelector = ({
                 onBlur={onBlur}
                 onPress={handleStampyState}
               >
-                <Stampy />
+                <AnimatedView
+                  assetUri={require("../../assets/lotties/stampy.json")}
+                  style={{
+                    flex: 1,
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                />
                 <Typography type="medium">Stampy</Typography>
               </YStack>
             )}

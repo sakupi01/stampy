@@ -1,1 +1,1 @@
-export type ListType = "dialog" | "link" | "text";
+export type ListType = "sender-dialog" | "receiver-dialog" | "link" | "text";

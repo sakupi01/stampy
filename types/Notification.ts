@@ -8,6 +8,7 @@ export type Notification = {
   content: string;
   stamp: string | undefined;
   currentDay?: number;
+  isLastDay?: boolean;
   hrefPrefix: string | undefined;
   sender: User;
   receiver: User;

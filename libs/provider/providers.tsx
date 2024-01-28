@@ -7,8 +7,8 @@ import { ReactNode } from "react";
 import { ColorSchemeName } from "react-native";
 import { Provider } from "react-redux";
 import { TamaguiProvider } from "tamagui";
-import config from "../tamagui.config";
-import { store } from "./AsyncStorage/store";
+import config from "../../tamagui.config";
+import { store } from "../AsyncStorage/store";
 
 export default function Providers({
   children,
