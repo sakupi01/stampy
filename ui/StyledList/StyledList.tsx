@@ -3,6 +3,7 @@ import { StyledButton } from "@/components/StyledButton";
 import { Typography } from "@/components/Typography/Typography";
 import { assertNonNullable } from "@/libs/assertNonNullable";
 import DialogProvider from "@/libs/provider/dialog";
+import { sleep } from "@/libs/sleep";
 import { Letter } from "@/types/Letter";
 import { Notification } from "@/types/Notification";
 import { Pressable, SectionList } from "react-native";
@@ -124,7 +125,16 @@ const resolveListItem = (item: RenderItemParams) => {
                 </StyledButton>
               )}
               actionButton={(action) => (
-                <StyledButton onPress={action}>
+                <StyledButton
+                  onPress={() =>
+                    action(async () => {
+                      console.log("receive stamp start");
+                      // TODO: スタンプを受け取る処理
+                      await sleep(1000);
+                      console.log("receive stamp end");
+                    })
+                  }
+                >
                   <Typography>受け取る</Typography>
                 </StyledButton>
               )}

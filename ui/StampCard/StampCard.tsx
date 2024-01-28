@@ -6,6 +6,7 @@ import { Typography } from "@/components/Typography/Typography";
 import { selectWordByKey } from "@/libs/AsyncStorage/Word/state";
 import { useAppSelector } from "@/libs/AsyncStorage/store";
 import DialogProvider from "@/libs/provider/dialog";
+import { sleep } from "@/libs/sleep";
 import { StampNode } from "@/types";
 import React from "react";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
@@ -182,7 +183,17 @@ export const StampCard = ({
                     )}
                     actionButton={(action) => (
                       // @ts-ignore
-                      <StyledButton type="primary" onPress={action}>
+                      <StyledButton
+                        type="primary"
+                        onPress={() =>
+                          action(async () => {
+                            console.log("claim stamp start");
+                            // TODO: スタンプをclaimする処理
+                            await sleep(1000);
+                            console.log("claim stamp end");
+                          })
+                        }
+                      >
                         <Typography>{yesMessage}</Typography>
                       </StyledButton>
                     )}

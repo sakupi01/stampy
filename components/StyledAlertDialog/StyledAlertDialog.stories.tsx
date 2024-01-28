@@ -1,3 +1,4 @@
+import { sleep } from "@/libs/sleep";
 import { Meta, StoryObj } from "@storybook/react";
 import { StyledButton } from "../StyledButton";
 import { StyledInput } from "../StyledInput/StyledInput";
@@ -47,7 +48,17 @@ export const Default: Story = {
           )}
           // @ts-ignore
           actionButton={(action) => (
-            <StyledButton type="primary" onPress={action}>
+            <StyledButton
+              type="primary"
+              onPress={() =>
+                action(async () => {
+                  console.log("claim stamp start");
+                  // TODO: スタンプをclaimする処理
+                  await sleep(1000);
+                  console.log("claim stamp end");
+                })
+              }
+            >
               はい
             </StyledButton>
           )}
@@ -73,7 +84,17 @@ export const Default: Story = {
           )}
           // @ts-ignore
           actionButton={(action) => (
-            <StyledButton type="primary" onPress={action}>
+            <StyledButton
+              type="primary"
+              onPress={() =>
+                action(async () => {
+                  console.log("claim stamp start");
+                  // TODO: スタンプをclaimする処理
+                  await sleep(1000);
+                  console.log("claim stamp end");
+                })
+              }
+            >
               はい
             </StyledButton>
           )}
@@ -99,7 +120,17 @@ export const Default: Story = {
           )}
           // @ts-ignore
           actionButton={(action) => (
-            <StyledButton type="primary" onPress={action}>
+            <StyledButton
+              type="primary"
+              onPress={() =>
+                action(async () => {
+                  console.log("claim stamp start");
+                  // TODO: スタンプをclaimする処理
+                  await sleep(1000);
+                  console.log("claim stamp end");
+                })
+              }
+            >
               はい
             </StyledButton>
           )}

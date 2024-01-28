@@ -6,11 +6,14 @@ import { View, ViewProps, XStack, YStack } from "tamagui";
 import { Typography } from "../Typography/Typography";
 import AnimatedView from "../lotties/LottieView";
 
+type DialogActionType = () => Promise<void>;
 type StyledAlertDialogProps = {
   children?: React.ReactNode;
   triggerButton?: (toggleModal: () => void) => React.ReactNode;
   cancelButton?: (untoggleModal: () => void) => React.ReactNode;
-  actionButton?: (action: () => void) => React.ReactNode;
+  actionButton?: (
+    action: (action: DialogActionType) => void,
+  ) => React.ReactNode;
   description?: string;
   modalProps?: ModalProps;
 } & ViewProps;
@@ -32,9 +35,9 @@ export function StyledAlertDialog({
   const untoggleModal = () => {
     closeDialog();
   };
-  const someAction = () => {
-    // サーバに既読状態を送信
-
+  const someAction = async (action: DialogActionType) => {
+    // サーバと通信する処理
+    await action();
     // アニメーションを開始
     setAnimationStarted(true);
     // 3.3秒後にアニメーションを終了
