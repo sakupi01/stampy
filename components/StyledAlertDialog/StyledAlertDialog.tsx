@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useDialogContext } from "@/libs/context/Dialog/useDialogContext";
+import React from "react";
 import { Modal, ModalProps, StyleSheet } from "react-native";
 import { s } from "react-native-size-matters";
 import { View, ViewProps, XStack, YStack } from "tamagui";
@@ -21,13 +22,13 @@ export function StyledAlertDialog({
   modalProps,
   ...props
 }: StyledAlertDialogProps) {
-  const [modalVisible, setModalVisible] = useState(false);
+  const { isOpen, openDialog, closeDialog } = useDialogContext();
 
   const toggleModal = () => {
-    setModalVisible(!modalVisible);
+    openDialog();
   };
   const untoggleModal = () => {
-    setModalVisible(!modalVisible);
+    closeDialog();
   };
   const someAction = () => {
     console.log("some action");
@@ -40,9 +41,9 @@ export function StyledAlertDialog({
       <Modal
         animationType="fade"
         transparent={true}
-        visible={modalVisible}
+        visible={isOpen}
         onRequestClose={() => {
-          setModalVisible(!modalVisible);
+          closeDialog();
         }}
         {...modalProps}
       >

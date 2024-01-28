@@ -5,6 +5,7 @@ import { StyledTextArea } from "@/components/StyledTextArea";
 import { Typography } from "@/components/Typography/Typography";
 import { selectWordByKey } from "@/libs/AsyncStorage/Word/state";
 import { useAppSelector } from "@/libs/AsyncStorage/store";
+import { useDialogContext } from "@/libs/context/Dialog/useDialogContext";
 import { MessageFormSchema, MessageFormType } from "@/schema/message";
 import { User } from "@/types";
 import { valibotResolver } from "@hookform/resolvers/valibot";
@@ -28,6 +29,8 @@ export const StampForm = ({
   isLastDay = false,
 }: StampFormProps) => {
   const [animationStarted, setAnimationStarted] = useState(false);
+  // const dispatch = useDialogDispatch();
+  const { closeDialog } = useDialogContext();
 
   const messageLabel = useAppSelector((state) =>
     selectWordByKey(state, "stampy.word.message.label"),
@@ -103,17 +106,17 @@ export const StampForm = ({
         isSubmitting={isSubmitting}
         isSubmitted={isSubmitted}
         isValid={isValid}
-        onSubmitAction={handleSubmit((data: FieldValues) => {
+        onSubmitAction={handleSubmit(async (data: FieldValues) => {
           // データ送信処理
           console.log("Submitted! :", data);
           // アニメーションを開始
           setAnimationStarted(true);
-          // 2秒後にアニメーションを終了
+          // 3.3秒後にアニメーションを終了
           setTimeout(() => {
             setAnimationStarted(false);
-          }, 3500);
-          // TODO: ダイアログを閉じる
-          // reduxでmodalの状態を管理した方がいいかも
+            // TODO: ダイアログを閉じる
+            closeDialog();
+          }, 3300);
         })}
       >
         <YStack alignItems="center">

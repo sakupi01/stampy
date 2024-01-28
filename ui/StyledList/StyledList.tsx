@@ -1,6 +1,7 @@
 import { StyledAlertDialog } from "@/components/StyledAlertDialog";
 import { Typography } from "@/components/Typography/Typography";
 import { assertNonNullable } from "@/libs/assertNonNullable";
+import DialogProvider from "@/libs/provider/dialog";
 import { Letter } from "@/types/Letter";
 import { Notification } from "@/types/Notification";
 import { Pressable, SectionList } from "react-native";
@@ -79,31 +80,33 @@ const resolveListItem = (item: RenderItemParams) => {
       case "dialog":
         assertNonNullable(item.currentDay);
         return (
-          <StyledAlertDialog
-            triggerButton={(toggleModal) => (
-              <Pressable onPress={toggleModal}>
-                <TextListItem title={item.title} content={item.content} />
-              </Pressable>
-            )}
-            cancelButton={(untoggleModal) => (
-              <Typography type="small" underlined onPress={untoggleModal}>
-                今はやめておく
-              </Typography>
-            )}
-            description={
-              item.isLastDay
-                ? `${item.receiver.username}へ\n最終日の完走レター\nを送りますか？`
-                : `${item.receiver.username}へ\n${item.currentDay}日目のスタンプ\nを送りますか？`
-            }
-          >
-            <YStack>
-              <StampForm
-                user={item.receiver}
-                currentDay={item.currentDay}
-                isLastDay={item.isLastDay}
-              />
-            </YStack>
-          </StyledAlertDialog>
+          <DialogProvider>
+            <StyledAlertDialog
+              triggerButton={(toggleModal) => (
+                <Pressable onPress={toggleModal}>
+                  <TextListItem title={item.title} content={item.content} />
+                </Pressable>
+              )}
+              cancelButton={(untoggleModal) => (
+                <Typography type="small" underlined onPress={untoggleModal}>
+                  今はやめておく
+                </Typography>
+              )}
+              description={
+                item.isLastDay
+                  ? `${item.receiver.username}へ\n最終日の完走レター\nを送りますか？`
+                  : `${item.receiver.username}へ\n${item.currentDay}日目のスタンプ\nを送りますか？`
+              }
+            >
+              <YStack>
+                <StampForm
+                  user={item.receiver}
+                  currentDay={item.currentDay}
+                  isLastDay={item.isLastDay}
+                />
+              </YStack>
+            </StyledAlertDialog>
+          </DialogProvider>
         );
       default:
         return <TextListItem title={item.title} content={item.content} />;
