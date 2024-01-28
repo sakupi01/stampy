@@ -55,7 +55,7 @@ export const DATA: Array<Notification | Letter> = [
     read: false,
     createdAt: "createdAt",
     sendAt: "sendAt",
-    listType: "dialog",
+    listType: "sender-dialog",
   },
   {
     type: "notification",
@@ -84,7 +84,7 @@ export const DATA: Array<Notification | Letter> = [
     read: false,
     createdAt: "createdAt",
     sendAt: "sendAt",
-    listType: "dialog",
+    listType: "sender-dialog",
   },
   {
     type: "notification",
@@ -113,7 +113,7 @@ export const DATA: Array<Notification | Letter> = [
     read: false,
     createdAt: "createdAt",
     sendAt: "sendAt",
-    listType: "dialog",
+    listType: "sender-dialog",
   },
   {
     type: "notification",
@@ -142,7 +142,7 @@ export const DATA: Array<Notification | Letter> = [
     read: true,
     createdAt: "createdAt",
     sendAt: "sendAt",
-    listType: "dialog",
+    listType: "sender-dialog",
   },
   {
     type: "notification",
@@ -170,7 +170,7 @@ export const DATA: Array<Notification | Letter> = [
     read: false,
     createdAt: "createdAt",
     sendAt: "sendAt",
-    listType: "dialog",
+    listType: "receiver-dialog",
   },
   {
     type: "notification",
@@ -198,7 +198,7 @@ export const DATA: Array<Notification | Letter> = [
     read: false,
     createdAt: "createdAt",
     sendAt: "sendAt",
-    listType: "dialog",
+    listType: "receiver-dialog",
   },
 ];
 
