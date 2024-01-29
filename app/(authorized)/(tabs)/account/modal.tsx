@@ -1,4 +1,4 @@
-import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
+import { SafeAreaView, StyleSheet, View } from "react-native";
 
 import { Typography } from "@/components/Typography";
 import { authActions } from "@/libs/AsyncStorage/Auth/slice";
@@ -44,7 +44,7 @@ export default function ModalScreen() {
   ];
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
+      <View style={styles.view}>
         <YStack space={vs(50)} alignItems="center">
           <CardList data={userModalItems} />
           <Typography
@@ -58,7 +58,7 @@ export default function ModalScreen() {
             ログアウト
           </Typography>
         </YStack>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#fff",
   },
-  scrollView: {
+  view: {
     width: "100%",
     height: "100%",
     paddingVertical: vs(50),
