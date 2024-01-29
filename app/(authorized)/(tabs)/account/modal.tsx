@@ -1,14 +1,24 @@
 import { StyleSheet, View } from "react-native";
 
 import { Typography } from "@/components/Typography";
+import { authActions } from "@/libs/AsyncStorage/Auth/slice";
+import { useAppDispatch } from "@/libs/AsyncStorage/store";
 
 export default function ModalScreen() {
+  const dispatch = useAppDispatch();
   return (
     <View style={styles.container}>
-      <Typography type="h2" marginBottom={30}>
-        Modal
-      </Typography>
       <View style={styles.separator} />
+      <Typography
+        type="ui"
+        underlined
+        color={"$destructive--background"}
+        onPress={() => {
+          dispatch(authActions.unAuthorize());
+        }}
+      >
+        ログアウト
+      </Typography>
     </View>
   );
 }
@@ -18,6 +28,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#fff",
   },
   title: {
     fontSize: 20,
