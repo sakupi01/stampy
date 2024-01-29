@@ -1,44 +1,96 @@
+import { AccountSettingsType } from "@/schema/accountSetting";
+import { Control, Controller } from "react-hook-form";
 import { FlatList } from "react-native";
 import { vs } from "react-native-size-matters";
-import { Separator, XStack } from "tamagui";
+import { Input, InputProps, Label, Separator, XStack } from "tamagui";
 import { Typography } from "../Typography/Typography";
 
-type ListItemProps = { label: string; data: string; isEditable: boolean };
-const Item = ({ label, data, isEditable }: ListItemProps) => {
+type ListItemProps = {
+  id: string;
+  label: string;
+  data: string;
+  isEditable: boolean;
+} & InputProps;
+const Item = ({ id, label, data, isEditable, ...props }: ListItemProps) => {
   return (
     <XStack width="100%" justifyContent="space-between">
-      <Typography
-        type="ui"
-        color={isEditable ? "$text--subtle" : "$text--dark"}
-      >
-        {label}
-      </Typography>
-      <Typography
-        type="ui"
-        color={isEditable ? "$text--subtle" : "$text--dark"}
-      >
-        {data}
-      </Typography>
+      <Label htmlFor={`${id}-${label}`}>
+        <Typography
+          type="ui"
+          color={!isEditable ? "$text--subtle" : "$text--dark"}
+        >
+          {label}
+        </Typography>
+      </Label>
+      <Input
+        id={`${id}-${label}`}
+        placeholder={data}
+        defaultValue={data}
+        editable={isEditable}
+        disabled={!isEditable}
+        focusable={isEditable}
+        aria-disabled={!isEditable}
+        autoCapitalize="none"
+        focusStyle={{
+          borderColor: "$accent--background",
+          borderWidth: 2,
+        }}
+        backgroundColor="transparent"
+        borderColor="transparent"
+        color={!isEditable ? "$text--subtle" : "$text--dark"}
+        fontSize="$ui"
+        lineHeight="$ui"
+        height="$ui"
+        fontWeight="$medium"
+        placeholderTextColor={"$text--subtle"}
+        {...props}
+      />
+      {/* <Typography type="ui">{data}</Typography> */}
     </XStack>
   );
 };
 
 type SimpleListProps = {
-  data: Array<{ id: string; label: string; data: string }>;
+  data: Array<{ id: string; label: string; data: string; formLabel?: string }>;
+  control: Control<AccountSettingsType>;
 };
-export const SimpleList = ({ data }: SimpleListProps) => {
+export const SimpleList = ({ data, control }: SimpleListProps) => {
   return (
     <FlatList
       data={data}
-      renderItem={({ item }) => (
-        <Item
-          label={item.label}
-          data={item.data}
-          isEditable={
-            !(item.label === "ユーザ名" || item.label === "メールアドレス")
-          }
-        />
-      )}
+      renderItem={({ item }) => {
+        if (item.formLabel) {
+          return (
+            <>
+              <Controller
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => {
+                  return (
+                    <Item
+                      id={item.id}
+                      label={item.label}
+                      data={item.data}
+                      isEditable={true}
+                      onChangeText={onChange}
+                      onBlur={onBlur}
+                      value={value as string}
+                    />
+                  );
+                }}
+                name={item.formLabel as keyof AccountSettingsType}
+              />
+            </>
+          );
+        }
+        return (
+          <Item
+            id={item.id}
+            label={item.label}
+            data={item.data}
+            isEditable={false}
+          />
+        );
+      }}
       keyExtractor={(item) => item.id}
       ItemSeparatorComponent={() => (
         <Separator

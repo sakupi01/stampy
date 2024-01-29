@@ -2,7 +2,7 @@ import { Output, object } from "valibot";
 import { ImageSchema, emailSchema, userNameSchema } from "./schema";
 
 const AccountSettingsSchema = object({
-  image: ImageSchema,
+  avatarUrl: ImageSchema,
   email: emailSchema,
   username: userNameSchema,
 });
