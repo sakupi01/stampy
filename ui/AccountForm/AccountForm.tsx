@@ -6,23 +6,19 @@ import {
   AccountSettingsType,
 } from "@/schema/accountSetting";
 import { valibotResolver } from "@hookform/resolvers/valibot";
-import { useRef } from "react";
 import { useForm } from "react-hook-form";
-import { TextInput } from "react-native";
 import { s, vs } from "react-native-size-matters";
 import { Spinner, Square, YStack } from "tamagui";
+import { AvatarPicker } from "../AvatarPicker/AvatarPicker";
 import { listData } from "./fixture/mock.data";
 
 export const AccountForm = () => {
-  const titleRef = useRef<TextInput>(null);
   const {
     control,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting, isSubmitted, isValid },
     setValue,
-    setFocus,
-    watch,
   } = useForm<AccountSettingsType>({
     resolver: valibotResolver(AccountSettingsSchema),
     mode: "onChange",
@@ -38,7 +34,8 @@ export const AccountForm = () => {
     // router.push("/cards");
   };
   return (
-    <YStack space={vs(20)} alignItems="center" width="100%">
+    <YStack space={vs(30)} alignItems="center" width="100%">
+      <AvatarPicker defaultUrl={listData[0].data} setValue={setValue} />
       <SimpleList
         // exept index 0: avatar
         data={listData.slice(1)}

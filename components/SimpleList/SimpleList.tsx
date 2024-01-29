@@ -31,12 +31,9 @@ const Item = ({ id, label, data, isEditable, ...props }: ListItemProps) => {
         focusable={isEditable}
         aria-disabled={!isEditable}
         autoCapitalize="none"
-        focusStyle={{
-          borderColor: "$accent--background",
-          borderWidth: 2,
-        }}
         backgroundColor="transparent"
         borderColor="transparent"
+        borderWidth={0}
         color={!isEditable ? "$text--subtle" : "$text--dark"}
         fontSize="$ui"
         lineHeight="$ui"
