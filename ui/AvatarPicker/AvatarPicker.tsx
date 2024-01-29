@@ -1,5 +1,6 @@
 import { AccountSettingsType } from "@/schema/accountSetting";
 import { Pencil } from "@tamagui/lucide-icons";
+import { useToastController } from "@tamagui/toast";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
 import { UseFormSetValue } from "react-hook-form";
@@ -12,6 +13,7 @@ type AvatarPickerProps = {
 };
 export const AvatarPicker = ({ defaultUrl, setValue }: AvatarPickerProps) => {
   const [image, setImage] = useState<string>(defaultUrl);
+  const toast = useToastController();
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -27,6 +29,7 @@ export const AvatarPicker = ({ defaultUrl, setValue }: AvatarPickerProps) => {
       // get image url
       setImage(result.assets[0].uri);
       setValue("avatarUrl", result.assets[0].uri);
+      toast.show("🌟 画像がアップロードされました");
     }
   };
 

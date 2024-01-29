@@ -6,6 +6,7 @@ import {
   AccountSettingsType,
 } from "@/schema/accountSetting";
 import { valibotResolver } from "@hookform/resolvers/valibot";
+import { useToastController } from "@tamagui/toast";
 import { useForm } from "react-hook-form";
 import { s, vs } from "react-native-size-matters";
 import { Spinner, Square, YStack } from "tamagui";
@@ -13,6 +14,7 @@ import { AvatarPicker } from "../AvatarPicker/AvatarPicker";
 import { listData } from "./fixture/mock.data";
 
 export const AccountForm = () => {
+  const toast = useToastController();
   const {
     control,
     handleSubmit,
@@ -28,6 +30,7 @@ export const AccountForm = () => {
     console.log(data);
     // save card to server
     // await sleep(1000);
+    toast.show("✅ 変更を保存しました");
     // clear submitting state
     reset();
     // 作成したカード一覧へ遷移
