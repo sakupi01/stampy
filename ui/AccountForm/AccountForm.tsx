@@ -1,6 +1,7 @@
 import { SimpleList } from "@/components/SimpleList";
 import { StyledButton } from "@/components/StyledButton";
 import { Typography } from "@/components/Typography";
+import { sleep } from "@/libs/sleep";
 import {
   AccountSettingsSchema,
   AccountSettingsType,
@@ -11,9 +12,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { ScrollView, StyleSheet } from "react-native";
 import { s, vs } from "react-native-size-matters";
-import { Spinner, Square, XStack, YStack } from "tamagui";
-import { StyledInput } from "../../components/StyledInput/StyledInput";
+import { Spinner, Square, YStack } from "tamagui";
 import { AvatarPicker } from "../AvatarPicker/AvatarPicker";
+import { PasswordChangeForm } from "../PasswordChangeForm/PasswordChangeForm";
 import { listData } from "./fixture/mock.data";
 
 export const AccountForm = () => {
@@ -23,7 +24,7 @@ export const AccountForm = () => {
     control,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting, isSubmitted, isValid },
+    formState: { errors, isSubmitting, isSubmitted, isValid, isDirty },
     setValue,
   } = useForm<AccountSettingsType>({
     resolver: valibotResolver(AccountSettingsSchema),
@@ -55,65 +56,6 @@ export const AccountForm = () => {
           width="100%"
           paddingBottom={vs(50)}
         >
-          <YStack alignItems="center" width="100%" space={vs(20)}>
-            <Typography
-              type="ui"
-              underlined
-              color={"$destructive--background"}
-              onPress={() => {
-                setPasswordFormVisible(!passwordFormVisible);
-              }}
-            >
-              パスワード変更
-            </Typography>
-
-            {passwordFormVisible ? (
-              <YStack space={vs(20)} alignItems="center" width="100%">
-                <StyledInput
-                  label="新しいパスワード"
-                  placeholder="password"
-                  // value={value}
-                  // onChangeText={onChange}
-                  // onBlur={onBlur}
-                  placeholderTextColor={"#E5E7EB"}
-                />
-                <StyledInput
-                  label="再度入力"
-                  placeholder="password"
-                  // value={value}
-                  // onChangeText={onChange}
-                  // onBlur={onBlur}
-                  placeholderTextColor={"#E5E7EB"}
-                />
-                <XStack width="100%" justifyContent="space-around">
-                  <Typography
-                    type="ui"
-                    underlined
-                    color={"$text--subtle"}
-                    onPress={() => {
-                      setPasswordFormVisible(false);
-                    }}
-                  >
-                    変更をやめる
-                  </Typography>
-                  <Typography
-                    type="ui"
-                    underlined
-                    color={"$destructive--background"}
-                    onPress={() => {
-                      console.log("パスワード変更");
-                      toast.show("📧 パスワードを変更メールを送信しました");
-                    }}
-                  >
-                    変更する
-                  </Typography>
-                </XStack>
-              </YStack>
-            ) : (
-              <></>
-            )}
-          </YStack>
-
           {/* エラー */}
           {Object.keys(errors).length !== 0 ? (
             <Square
@@ -163,17 +105,37 @@ export const AccountForm = () => {
           <StyledButton
             onPress={handleSubmit(onSubmit)}
             icon={
-              isSubmitting || isSubmitted
+              isSubmitting
                 ? () => (
                     <Spinner size="small" color={"$secondary--background"} />
                   )
                 : undefined
             }
-            type={!isValid ? "disabled" : "primary"}
-            disabled={!isValid || isSubmitting}
+            type={!isValid || !isDirty ? "disabled" : "primary"}
+            disabled={!isValid || !isDirty || isSubmitting}
           >
             <Typography>変更を保存</Typography>
           </StyledButton>
+
+          {/* パスワード変更フォーム */}
+          <Typography
+            type="ui"
+            underlined
+            color={"$destructive--background"}
+            onPress={() => {
+              setPasswordFormVisible(!passwordFormVisible);
+            }}
+          >
+            パスワード変更
+          </Typography>
+
+          {passwordFormVisible ? (
+            <PasswordChangeForm
+              setPasswordFormVisible={setPasswordFormVisible}
+            />
+          ) : (
+            <></>
+          )}
         </YStack>
       </ScrollView>
     </YStack>

@@ -58,25 +58,23 @@ export const SimpleList = ({ data, control }: SimpleListProps) => {
       renderItem={({ item }) => {
         if (item.formLabel) {
           return (
-            <>
-              <Controller
-                control={control}
-                render={({ field: { onChange, onBlur, value } }) => {
-                  return (
-                    <Item
-                      id={item.id}
-                      label={item.label}
-                      data={item.data}
-                      isEditable={true}
-                      onChangeText={onChange}
-                      onBlur={onBlur}
-                      value={value as string}
-                    />
-                  );
-                }}
-                name={item.formLabel as keyof AccountSettingsType}
-              />
-            </>
+            <Controller
+              control={control}
+              render={({ field: { onChange, onBlur, value } }) => {
+                return (
+                  <Item
+                    id={item.id}
+                    label={item.label}
+                    data={item.data}
+                    isEditable={true}
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    value={value as string}
+                  />
+                );
+              }}
+              name={item.formLabel as keyof AccountSettingsType}
+            />
           );
         }
         return (

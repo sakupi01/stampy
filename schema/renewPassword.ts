@@ -1,9 +1,21 @@
-import { Output, object } from "valibot";
-import { passwordSchema } from "./schema";
+import { Output, custom, forward, object } from "valibot";
+import { passwordConfirmSchema, passwordSchema } from "./schema";
 
-const RenewPasswordFormSchema = object({
-  password: passwordSchema,
-});
+const RenewPasswordFormSchema = object(
+  {
+    password: passwordSchema,
+    passwordConfirm: passwordConfirmSchema,
+  },
+  [
+    forward(
+      custom(
+        (input) => input.password === input.passwordConfirm,
+        "パスワードが一致しません",
+      ),
+      ["passwordConfirm"],
+    ),
+  ],
+);
 
 type RenewPasswordFormType = Output<typeof RenewPasswordFormSchema>;
 
