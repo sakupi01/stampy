@@ -1,5 +1,5 @@
 import { Letter } from "@/types/Letter";
-import { DATA_LETTER } from "@/ui/StyledList/fixture/mock.data";
+import { DATA_LETTER } from "@/ui/Lists/StyledList/fixture/mock.data";
 import { Meta, StoryObj } from "@storybook/react";
 import { KansouLetter } from "./KansouLetter";
 
