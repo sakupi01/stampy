@@ -66,6 +66,32 @@ export const PasswordChangeForm = ({
           name="passwordConfirm"
         />
 
+        {/* エラー */}
+        {Object.keys(errors).length !== 0 ? (
+          <Square
+            backgroundColor="rgba(232, 230, 227, 0.52)"
+            width="100%"
+            padding={s(10)}
+            borderRadius={6}
+            display="flex"
+            flexDirection="column"
+            alignItems="flex-start"
+          >
+            {errors.password && (
+              <Typography type="small" color="$text--destructive">
+                😕{errors.password.message}
+              </Typography>
+            )}
+            {errors.passwordConfirm && (
+              <Typography type="small" color="$text--destructive">
+                😕{errors.passwordConfirm.message}
+              </Typography>
+            )}
+          </Square>
+        ) : (
+          <></>
+        )}
+
         <XStack width="100%" justifyContent="space-around">
           <Typography
             type="ui"
@@ -96,32 +122,6 @@ export const PasswordChangeForm = ({
           </Typography>
         </XStack>
       </YStack>
-
-      {/* エラー */}
-      {Object.keys(errors).length !== 0 ? (
-        <Square
-          backgroundColor="rgba(232, 230, 227, 0.52)"
-          width="100%"
-          padding={s(10)}
-          borderRadius={6}
-          display="flex"
-          flexDirection="column"
-          alignItems="flex-start"
-        >
-          {errors.password && (
-            <Typography type="small" color="$text--destructive">
-              😕{errors.password.message}
-            </Typography>
-          )}
-          {errors.passwordConfirm && (
-            <Typography type="small" color="$text--destructive">
-              😕{errors.passwordConfirm.message}
-            </Typography>
-          )}
-        </Square>
-      ) : (
-        <></>
-      )}
     </YStack>
   );
 };
