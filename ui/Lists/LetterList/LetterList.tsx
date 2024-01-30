@@ -6,7 +6,6 @@ export type LetterListProps = {
 };
 
 export const LetterList = ({ query }: LetterListProps) => {
-  console.log(query);
   const data = [...DATA_LETTER].filter((item) =>
     item.title.includes(query ?? ""),
   );
