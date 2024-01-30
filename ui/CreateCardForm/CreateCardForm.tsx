@@ -157,7 +157,7 @@ export const CreateCardForm = () => {
       <StyledButton
         onPress={handleSubmit(onSubmit, onError)}
         icon={
-          isSubmitting || isSubmitted
+          isSubmitting
             ? () => <Spinner size="small" color={"$secondary--background"} />
             : undefined
         }

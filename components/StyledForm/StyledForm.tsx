@@ -45,7 +45,7 @@ export function StyledForm({
       <DefaultForm.Trigger asChild disabled={isSubmitting || isSubmitted}>
         <StyledButton
           icon={
-            isSubmitting || isSubmitted
+            isSubmitting
               ? () => <Spinner size="small" color={"$secondary--background"} />
               : undefined
           }
