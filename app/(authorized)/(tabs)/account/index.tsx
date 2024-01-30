@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet } from "react-native";
+import { KeyboardAvoidingView, SafeAreaView, StyleSheet } from "react-native";
 
 import { Typography } from "@/components/Typography";
 import { AccountForm } from "@/ui/AccountForm";
@@ -15,7 +15,9 @@ export default function AccountScreen() {
           設定
         </Typography>
         {/* 全体としてフォーム */}
-        <AccountForm />
+        <KeyboardAvoidingView behavior={"position"}>
+          <AccountForm />
+        </KeyboardAvoidingView>
         <ToastViewport
           width="100%"
           height="100%"
