@@ -8,7 +8,11 @@ export default function Layout() {
       <Stack.Screen
         name="index"
         options={{
-          headerShown: false,
+          headerShown: true,
+          headerTitle: "",
+          headerStyle: {
+            backgroundColor: "white",
+          },
           headerRight: () => (
             <Link href="/account/modal" asChild>
               <Pressable>

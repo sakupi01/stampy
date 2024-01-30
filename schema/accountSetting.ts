@@ -1,10 +1,10 @@
-import { Output, object } from "valibot";
+import { Output, object, optional } from "valibot";
 import { ImageSchema, emailSchema, userNameSchema } from "./schema";
 
 const AccountSettingsSchema = object({
-  image: ImageSchema,
-  email: emailSchema,
-  username: userNameSchema,
+  avatarUrl: optional(ImageSchema),
+  email: optional(emailSchema),
+  username: optional(userNameSchema),
 });
 
 type AccountSettingsType = Output<typeof AccountSettingsSchema>;

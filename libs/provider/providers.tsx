@@ -3,6 +3,7 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
+import { ToastProvider } from "@tamagui/toast";
 import { ReactNode } from "react";
 import { ColorSchemeName } from "react-native";
 import { Provider } from "react-redux";
@@ -20,7 +21,7 @@ export default function Providers({
         <ThemeProvider
           value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
         >
-          {children}
+          <ToastProvider>{children}</ToastProvider>
         </ThemeProvider>
       </TamaguiProvider>
     </Provider>

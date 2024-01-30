@@ -1,49 +1,71 @@
-import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
+import { KeyboardAvoidingView, SafeAreaView, StyleSheet } from "react-native";
 
-import { StyledButton } from "@/components/StyledButton";
 import { Typography } from "@/components/Typography";
-import { authActions } from "@/libs/AsyncStorage/Auth/slice";
-import { useAppDispatch, useAppSelector } from "@/libs/AsyncStorage/store";
+import { AccountForm } from "@/ui/AccountForm";
+import { Toast, ToastViewport, useToastState } from "@tamagui/toast";
 import { s, vs } from "react-native-size-matters";
+import { YStack } from "tamagui";
 
 export default function AccountScreen() {
-  const { session } = useAppSelector((state) => state.auth);
-  const dispatch = useAppDispatch();
-
-  const user = {
-    id: "1",
-    username: "username",
-    email: "email",
-    avatarUrl:
-      "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
-  };
-  const currentDay = 5;
-
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
-        <Typography type="ui">{JSON.stringify(session)}</Typography>
-        <StyledButton
-          onPress={() => {
-            dispatch(authActions.unAuthorize());
-          }}
-        >
-          Sign out
-        </StyledButton>
-      </ScrollView>
+      <YStack space={vs(20)}>
+        <CurrentToast />
+        <Typography type="h3" marginBottom={vs(30)}>
+          設定
+        </Typography>
+        {/* 全体としてフォーム */}
+        <KeyboardAvoidingView behavior={"position"}>
+          <AccountForm />
+        </KeyboardAvoidingView>
+        <ToastViewport
+          width="100%"
+          height="100%"
+          alignItems="center"
+          flexDirection="column"
+        />
+      </YStack>
     </SafeAreaView>
   );
 }
+
+const CurrentToast = () => {
+  const currentToast = useToastState();
+
+  if (!currentToast || currentToast.isHandledNatively) return null;
+  return (
+    <Toast
+      unstyled
+      key={currentToast.id}
+      duration={currentToast.duration}
+      enterStyle={{ opacity: 0, scale: 0.5, y: -25 }}
+      exitStyle={{ opacity: 0, scale: 1, y: -20 }}
+      y={0}
+      opacity={1}
+      scale={1}
+      animation="bouncy"
+      viewportName={currentToast.viewportName}
+      borderRadius={50}
+      backgroundColor="rgb(232, 230, 227)"
+      padding={s(15)}
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Toast.Title>
+        <Typography type="medium" color="$text--subtle">
+          {currentToast.title}
+        </Typography>
+      </Toast.Title>
+    </Toast>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: "100%",
-  },
-  scrollView: {
-    width: "100%",
-    height: "100%",
-    paddingVertical: vs(50),
+    paddingBottom: vs(50),
     paddingHorizontal: s(30),
     backgroundColor: "#fff",
   },

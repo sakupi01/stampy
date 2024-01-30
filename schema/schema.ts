@@ -2,12 +2,9 @@ import {
   BooleanSchema,
   StringSchema,
   UnionSchema,
-  blob,
   boolean,
   email,
   maxLength,
-  maxSize,
-  mimeType,
   minLength,
   regex,
   string,
@@ -50,13 +47,17 @@ const messageSchema: StringSchema<string> = string(
   [minLength(1, "入力が必須の項目です"), maxLength(4098, "入力値が長すぎます")],
 );
 
-const ImageSchema = blob("画像を選択してください", [
-  mimeType(
-    ["image/jpeg", "image/png"],
-    "JPEG または PNG 形式の画像ファイルを選択してください",
-  ),
-  maxSize(1024 * 1024 * 10, "10MB 以下の画像ファイルを選択してください"),
+// 画像のバリデーションはサーバ側で行う
+const ImageSchema = string("画像を選んでください", [
+  minLength(1, "入力が必須の項目です"),
 ]);
+// const ImageSchema = blob("画像を選択してください", [
+//   mimeType(
+//     ["image/jpeg", "image/png"],
+//     "JPEG または PNG 形式の画像ファイルを選択してください",
+//   ),
+//   maxSize(1024 * 1024 * 10, "10MB 以下の画像ファイルを選択してください"),
+// ]);
 
 const stampSchema: StringSchema<string> = string("スタンプを選んでください", [
   minLength(1, "入力が必須の項目です"),
