@@ -8,10 +8,10 @@ import DialogProvider from "@/libs/provider/dialog";
 import { sleep } from "@/libs/sleep";
 import { Letter } from "@/types/Letter";
 import { Notification } from "@/types/Notification";
+import { StampForm } from "@/ui/StampForm";
 import { KeyboardAvoidingView, Pressable, SectionList } from "react-native";
 import { s, vs } from "react-native-size-matters";
 import { Separator, YStack } from "tamagui";
-import { StampForm } from "../StampForm";
 import { LinkListItem, TextListItem } from "./ListItem";
 
 type StyledListProps = {

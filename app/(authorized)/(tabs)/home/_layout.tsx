@@ -14,29 +14,6 @@ export default function Layout() {
         }}
       />
       <Stack.Screen
-        name="typography/index"
-        options={{
-          headerShown: false,
-          title: "Typography",
-          headerLeft: () => (
-            <Pressable onPress={() => router.back()}>
-              {({ pressed }) => (
-                <Ionicons
-                  name="arrow-back"
-                  size={25}
-                  color="#030A12CF"
-                  style={{
-                    marginLeft: 15,
-                    opacity: pressed ? 0.5 : 1,
-                    fontSize: 20,
-                  }}
-                />
-              )}
-            </Pressable>
-          ),
-        }}
-      />
-      <Stack.Screen
         name="[id]/index"
         options={{
           headerShown: false,

@@ -1,15 +1,12 @@
 import Providers from "@/libs/provider/providers";
-import { Letter } from "@/types/Letter";
-import { DATA_LETTER } from "@/ui/Lists/StyledList/fixture/mock.data";
 import renderer from "react-test-renderer";
-import { KansouLetter } from "./KansouLetter";
-describe("<KansouLetter />", () => {
+import { LetterList } from "./LetterList";
+describe("<LetterList />", () => {
   test("if renders", () => {
-    const letter = DATA_LETTER[0] as Letter;
     const snapshot = renderer
       .create(
         <Providers colorScheme={"light"}>
-          <KansouLetter letter={letter} />
+          <LetterList />
         </Providers>,
       )
       .toJSON();

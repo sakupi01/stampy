@@ -1,9 +1,9 @@
+import { StampWrapper } from "@/components/StampWrapper/StampWrapper";
 import { Typography } from "@/components/Typography";
 import { Href } from "expo-router";
 import { Link } from "expo-router";
 import { s } from "react-native-size-matters";
 import { XStack, YStack } from "tamagui";
-import { StampWrapper } from "../../components/StampWrapper/StampWrapper";
 
 export const LinkListItem = ({
   href,
