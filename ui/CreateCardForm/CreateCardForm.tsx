@@ -8,7 +8,7 @@ import { StampCardFormSchema, StampCardFormType } from "@/schema/stampCard";
 import { valibotResolver } from "@hookform/resolvers/valibot";
 import { useEffect, useRef } from "react";
 import { Controller, FieldValues, useForm } from "react-hook-form";
-import { TextInput } from "react-native";
+import { KeyboardAvoidingView, TextInput } from "react-native";
 import { ms, vs } from "react-native-size-matters";
 import { Spinner, YStack } from "tamagui";
 
@@ -140,18 +140,20 @@ export const CreateCardForm = () => {
           </Typography>
         )}
       </YStack>
-      <YStack marginBottom={vs(30)} width="100%">
-        <CoWorkerSelector inputControl={control} setValue={setValue} />
-        {errors.isStampy && (
-          <Typography type="small" color="$text--destructive">
-            😕{errors.isStampy.message}
-          </Typography>
-        )}
-        {errors.receiver && (
-          <Typography type="small" color="$text--destructive">
-            😕{errors.receiver.message}
-          </Typography>
-        )}
+      <YStack marginBottom={vs(30)} width="100%" backgroundColor="white">
+        <KeyboardAvoidingView behavior={"position"}>
+          <CoWorkerSelector inputControl={control} setValue={setValue} />
+          {errors.isStampy && (
+            <Typography type="small" color="$text--destructive">
+              😕{errors.isStampy.message}
+            </Typography>
+          )}
+          {errors.receiver && (
+            <Typography type="small" color="$text--destructive">
+              😕{errors.receiver.message}
+            </Typography>
+          )}
+        </KeyboardAvoidingView>
       </YStack>
 
       <StyledButton

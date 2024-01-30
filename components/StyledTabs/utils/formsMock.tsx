@@ -62,7 +62,7 @@ export function SignInForm() {
         })}
       >
         <Typography type="ui" color="$text--subtle">
-          サインイン
+          おかえりなさい
         </Typography>
         <Controller
           control={control}
@@ -163,7 +163,7 @@ export function SignUpForm() {
         })}
       >
         <Typography type="ui" color="$text--subtle">
-          サインアップ
+          はじめまして！
         </Typography>
         <Controller
           control={control}

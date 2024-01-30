@@ -8,7 +8,7 @@ import DialogProvider from "@/libs/provider/dialog";
 import { sleep } from "@/libs/sleep";
 import { Letter } from "@/types/Letter";
 import { Notification } from "@/types/Notification";
-import { Pressable, SectionList } from "react-native";
+import { KeyboardAvoidingView, Pressable, SectionList } from "react-native";
 import { s, vs } from "react-native-size-matters";
 import { Separator, YStack } from "tamagui";
 import { StampForm } from "../StampForm";
@@ -107,13 +107,15 @@ const resolveListItem = (item: RenderItemParams) => {
                   : `${item.receiver.username}さんへ\n${item.currentDay}日目のスタンプ\nを送りますか？`
               }
             >
-              <YStack alignItems="center">
-                <StampForm
-                  user={item.receiver}
-                  currentDay={item.currentDay}
-                  isLastDay={item.isLastDay}
-                />
-              </YStack>
+              <KeyboardAvoidingView behavior={"position"}>
+                <YStack alignItems="center">
+                  <StampForm
+                    user={item.receiver}
+                    currentDay={item.currentDay}
+                    isLastDay={item.isLastDay}
+                  />
+                </YStack>
+              </KeyboardAvoidingView>
             </StyledAlertDialog>
           </DialogProvider>
         );
@@ -224,7 +226,7 @@ function resolveReceiverDialogContent({
             })
           }
         >
-          <Typography>"受け取る"</Typography>
+          <Typography>受け取る</Typography>
         </StyledButton>
       )}
       description={`${item.sender.username}さんから\n${item.currentDay}日目のスタンプ\nが届いています`}
