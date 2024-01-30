@@ -5,7 +5,7 @@ import { StampWrapper } from "@/components/StampWrapper/StampWrapper";
 import { Typography } from "@/components/Typography";
 import { assertNonNullable } from "@/libs/assertNonNullable";
 import { Letter } from "@/types/Letter";
-import { DATA_LETTER } from "@/ui/StyledList/fixture/mock.data";
+import { DATA_LETTER } from "@/ui/Lists/StyledList/fixture/mock.data";
 import { useLocalSearchParams } from "expo-router";
 import { s, vs } from "react-native-size-matters";
 import { YStack } from "tamagui";

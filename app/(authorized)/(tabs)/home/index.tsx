@@ -95,12 +95,12 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: "100%",
+    backgroundColor: "#fff",
   },
   scrollView: {
     width: "100%",
     height: "100%",
     paddingVertical: vs(50),
     paddingHorizontal: s(30),
-    backgroundColor: "#fff",
   },
 });

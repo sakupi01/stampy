@@ -1,8 +1,8 @@
 import { SafeAreaView, StyleSheet, View } from "react-native";
 
 import { Typography } from "@/components/Typography";
-import { StyledList } from "@/ui/StyledList/StyledList";
-import { DATA } from "@/ui/StyledList/fixture/mock.data";
+import { StyledList } from "@/ui/Lists/StyledList/StyledList";
+import { DATA } from "@/ui/Lists/StyledList/fixture/mock.data";
 import { s, vs } from "react-native-size-matters";
 
 export default function LetterScreen() {
