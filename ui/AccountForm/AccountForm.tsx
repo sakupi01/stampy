@@ -45,7 +45,7 @@ export const AccountForm = () => {
     <YStack space={vs(30)} alignItems="center" width="100%">
       <AvatarPicker defaultUrl={listData[0].data} setValue={setValue} />
       <SimpleList
-        // exept index 0: avatar
+        // except index 0: avatar
         data={listData.slice(1)}
         control={control}
       />
