@@ -1,6 +1,6 @@
 import Providers from "@/libs/provider/providers";
 import { Letter } from "@/types/Letter";
-import { DATA_LETTER } from "@/ui/StyledList/fixture/mock.data";
+import { DATA_LETTER } from "@/ui/Lists/StyledList/fixture/mock.data";
 import renderer from "react-test-renderer";
 import { KansouLetter } from "./KansouLetter";
 describe("<KansouLetter />", () => {
