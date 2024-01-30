@@ -3,7 +3,7 @@ to: <%= abs_path %>/<%= component_name %>.test.tsx
 ---
 import React from "react";
 import { <%= component_name %> } from "./<%= component_name %>";
-import Providers from "@/libs/providers";
+import Providers from "@/libs/provider/providers";
 import renderer from "react-test-renderer";
 describe("<<%= component_name %> />", () => {
   test("if renders", () => {
