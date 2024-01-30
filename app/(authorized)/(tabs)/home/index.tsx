@@ -19,7 +19,6 @@ export default function Home() {
         <Typography type="h3" marginBottom={vs(30)}>
           わたしのスタンプカード
         </Typography>
-        <Link href="/home/typography">Typography</Link>
         <YStack alignItems="center" width="100%" height="100%">
           {MockStampCards.map((card) => (
             <Link
