@@ -13,7 +13,11 @@ export default function LetterScreen() {
     <SafeAreaView style={styles.container}>
       <YStack paddingVertical={vs(50)} paddingHorizontal={s(30)} space={30}>
         <Typography type="h3">通知リスト</Typography>
-        <SearchBar placeholder="タイトルで検索" zIndex={"$1"} />
+        <SearchBar
+          uid="notification"
+          placeholder="タイトルで検索"
+          zIndex={"$1"}
+        />
         <NotificationList query={query} />
       </YStack>
     </SafeAreaView>

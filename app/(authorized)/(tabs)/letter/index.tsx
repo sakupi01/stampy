@@ -14,7 +14,7 @@ export default function LetterScreen() {
       <YStack paddingVertical={vs(50)} paddingHorizontal={s(30)} space={30}>
         <Typography type="h3">完走レター</Typography>
         <YStack space={30}>
-          <SearchBar placeholder="タイトルで検索" zIndex={"$1"} />
+          <SearchBar uid="letter" placeholder="タイトルで検索" zIndex={"$1"} />
           <LetterList query={query} />
         </YStack>
       </YStack>

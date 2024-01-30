@@ -6,14 +6,14 @@ import { useDebouncedCallback } from "use-debounce";
 import { Typography } from "../Typography/Typography";
 
 export const SearchBar = ({
+  uid,
   placeholder,
   ...props
-}: { placeholder: string } & ViewProps) => {
+}: { uid: string; placeholder: string } & ViewProps) => {
   const searchParams = useLocalSearchParams<{ query?: string }>();
 
   const handleSearch = useDebouncedCallback((term: string) => {
     if (term) {
-      console.log("term", term);
       router.setParams({ query: term });
     } else {
       router.setParams({ query: "" });
@@ -30,7 +30,7 @@ export const SearchBar = ({
       {...props}
     >
       <YStack space={vs(5)} width="100%">
-        <Label htmlFor="search" color="$text--dark">
+        <Label htmlFor={`search-${uid}`} color="$text--dark">
           <Typography>Search</Typography>
         </Label>
         <Search
@@ -45,7 +45,7 @@ export const SearchBar = ({
           color="#9CA3AF"
         />
         <Input
-          id="search"
+          id={`search-${uid}`}
           style={{
             width: "100%",
             borderRadius: s(5),
