@@ -1,6 +1,6 @@
 import Providers from "@/libs/provider/providers";
 import renderer from "react-test-renderer";
-import { LetterList } from "./LetterList";
+import { ListSkeleton } from "./Skeleton";
 expect.addSnapshotSerializer({
   test: (val) =>
     val?.props && (val.props.clipPath || val.props.fill || val.props.name),
@@ -13,12 +13,12 @@ expect.addSnapshotSerializer({
       .map((propName) => `${propName}=${serialize(val.props[propName])}`)
       .join(" ")}`,
 });
-describe("<LetterList />", () => {
+describe("<Skeleton />", () => {
   test("if renders", () => {
     const snapshot = renderer
       .create(
         <Providers colorScheme={"light"}>
-          <LetterList />
+          <ListSkeleton />
         </Providers>,
       )
       .toJSON();

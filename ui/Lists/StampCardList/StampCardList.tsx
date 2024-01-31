@@ -1,23 +1,53 @@
 import { Badge } from "@/components/Badge";
+import { CardSkeleton } from "@/components/Skeleton/Skeleton";
 import { StyledCard } from "@/components/StyledCard";
 import { Typography } from "@/components/Typography";
+import { sleep } from "@/libs/sleep";
+import { StampCard as StampCardType } from "@/types/StampCard";
 import { StampCard } from "@/ui/StampCard";
 import {
   MockStampCards,
   MockStampNodes,
 } from "@/ui/StampCard/fixture/mock.data";
 import { Link } from "expo-router";
+import { memo, useEffect, useState } from "react";
 import { s, vs } from "react-native-size-matters";
-import { Avatar, XStack } from "tamagui";
+import { Avatar, XStack, YStack } from "tamagui";
 
 export type StampCardListProps = {
   query?: string;
 };
+export const StampCardList = memo(function StampCardList({
+  query,
+}: StampCardListProps) {
+  const [data, setData] = useState<Array<StampCardType> | undefined>(undefined);
 
-export const StampCardList = ({ query }: StampCardListProps) => {
-  const data = [...MockStampCards].filter((item) =>
-    item.title.includes(query ?? ""),
-  );
+  useEffect(() => {
+    const fetchData = async () => {
+      setData(undefined);
+      // const res = await fetch(`http://localhost:3000/api/cards?query=${query}`);
+      // const data = await res.json();
+      await sleep(1000);
+      const data = [...MockStampCards].filter((item) =>
+        item.title.includes(query ?? ""),
+      );
+      setData(data);
+    };
+    fetchData();
+  }, [query]);
+
+  if (!data) {
+    return (
+      <YStack marginTop={s(5)}>
+        <CardSkeleton />
+        <CardSkeleton />
+        <CardSkeleton />
+      </YStack>
+    );
+  }
+  if (data.length === 0) {
+    return <Typography>該当するカードは見つかりませんでした</Typography>;
+  }
   return data.map((card) => (
     <Link
       // @ts-ignore
@@ -78,4 +108,4 @@ export const StampCardList = ({ query }: StampCardListProps) => {
       </StyledCard.Card>
     </Link>
   ));
-};
+});
