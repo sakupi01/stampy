@@ -1,3 +1,5 @@
+import { assertTruthy } from "@/libs/assertTruthy";
+import { uploadToFirebase } from "@/libs/firebase/upload-image";
 import { AccountSettingsType } from "@/schema/accountSetting";
 import { Pencil } from "@tamagui/lucide-icons";
 import { useToastController } from "@tamagui/toast";
@@ -20,15 +22,21 @@ export const AvatarPicker = ({ defaultUrl, setValue }: AvatarPickerProps) => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [1, 1],
       quality: 1,
     });
-
     if (!result.canceled) {
-      // upload to server
-      // get image url
-      setImage(result.assets[0].uri);
-      setValue("avatarUrl", result.assets[0].uri);
+      const { uri } = result.assets[0];
+      const fileName = uri.split("/").pop();
+      assertTruthy(fileName);
+      const uploadResult = await uploadToFirebase(
+        uri,
+        fileName,
+        "avatar",
+        (v) => console.log(v),
+      );
+      setImage(uploadResult.downloadUrl);
+      setValue("avatarUrl", uploadResult.downloadUrl);
       toast.show("🌟 画像がアップロードされました");
     }
   };

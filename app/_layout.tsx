@@ -1,7 +1,9 @@
+import { firebaseConfig } from "@/libs/firebase/firebaseConfig";
 import Providers from "@/libs/provider/providers";
 import { FontAwesome } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import { Slot, SplashScreen } from "expo-router";
+import { getApps, initializeApp } from "firebase/app";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 
@@ -52,6 +54,9 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
+    }
+    if (getApps().length === 0) {
+      initializeApp(firebaseConfig);
     }
   }, [loaded]);
 
