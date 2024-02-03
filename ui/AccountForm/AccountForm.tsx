@@ -1,3 +1,4 @@
+import { AvatarPicker } from "@/components/AvatarPicker/AvatarPicker";
 import { SimpleList } from "@/components/SimpleList";
 import { StyledButton } from "@/components/StyledButton";
 import { Typography } from "@/components/Typography";
@@ -13,7 +14,6 @@ import { useForm } from "react-hook-form";
 import { ScrollView, StyleSheet } from "react-native";
 import { s, vs } from "react-native-size-matters";
 import { Spinner, Square, YStack } from "tamagui";
-import { AvatarPicker } from "../AvatarPicker/AvatarPicker";
 import { PasswordChangeForm } from "../PasswordChangeForm/PasswordChangeForm";
 import { listData } from "./fixture/mock.data";
 
@@ -67,13 +67,13 @@ export const AccountForm = () => {
               flexDirection="column"
               alignItems="flex-start"
             >
-              {errors.avatarUrl && (
+              {errors.avatar && (
                 <YStack>
                   <Typography type="small" color="$text--destructive">
-                    {errors.avatarUrl.ref?.name}:
+                    {errors.avatar.ref?.name}:
                   </Typography>
                   <Typography type="small" color="$text--destructive">
-                    😕{errors.avatarUrl.message}
+                    😕{errors.avatar.message}
                   </Typography>
                 </YStack>
               )}

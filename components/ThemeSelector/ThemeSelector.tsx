@@ -2,35 +2,26 @@ import { Typography } from "@/components/Typography";
 import { ShadowProperties } from "@/constants/MaterialBoxshadow";
 import { StampCardFormType } from "@/schema/stampCard";
 import { Plus } from "@tamagui/lucide-icons";
-import * as ImagePicker from "expo-image-picker";
+import { useToastController } from "@tamagui/toast";
 import { useState } from "react";
 import { UseFormSetValue } from "react-hook-form";
 import { ImageBackground, Pressable } from "react-native";
 import { ScrollView } from "react-native";
 import { s } from "react-native-size-matters";
 import { XStack, YStack } from "tamagui";
+import { pickImage } from "../libs/imagePicker";
 import { DEFAULT_IMG } from "./fixtures/mock.data";
 
 type ThemeSelectorProps = {
   setValue: UseFormSetValue<StampCardFormType>;
 };
+
+const DEFAULT_IMAGE_RESOURCE = "https://source.unsplash.com/ZkOt0N7rP4s";
+
 export const ThemeSelector = ({ setValue, ...props }: ThemeSelectorProps) => {
-  const [image, setImage] = useState<string | null>(null);
+  const [image, setImage] = useState<string>(DEFAULT_IMAGE_RESOURCE);
+  const toast = useToastController();
 
-  const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      setImage(result.assets[0].uri);
-      setValue("theme", result.assets[0].uri);
-    }
-  };
   const selectFromDefault = (source: string) => {
     setImage(source);
     setValue("theme", source);
@@ -79,36 +70,42 @@ export const ThemeSelector = ({ setValue, ...props }: ThemeSelectorProps) => {
               </YStack>
             </Pressable>
           ))}
-          <Pressable onPress={pickImage}>
+          <YStack
+            width={150}
+            height={300}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            borderRadius={6}
+            borderWidth={1}
+            animation={"bouncy"} // linkになると先に遷移してしまうので、bouncyがあんまりわかんない
+            scale={0.9}
+            hoverStyle={{ scale: 0.925 }}
+            pressStyle={{ scale: 0.925 }}
+            onPress={() =>
+              pickImage<StampCardFormType>({
+                setImage,
+                aspect: [3, 4],
+                toast,
+                setValue,
+                rfhKey: "theme",
+              })
+            }
+          >
             <YStack
-              width={150}
-              height={300}
               display="flex"
               justifyContent="center"
               alignItems="center"
-              borderRadius={6}
+              borderRadius={50}
+              width={50}
+              height={50}
+              backgroundColor="#fff"
+              borderColor="rgba(3, 10, 18, 0.81)"
               borderWidth={1}
-              animation={"bouncy"} // linkになると先に遷移してしまうので、bouncyがあんまりわかんない
-              scale={0.9}
-              hoverStyle={{ scale: 0.925 }}
-              pressStyle={{ scale: 0.925 }}
-              onPress={pickImage}
             >
-              <YStack
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                borderRadius={50}
-                width={50}
-                height={50}
-                backgroundColor="#fff"
-                borderColor="rgba(3, 10, 18, 0.81)"
-                borderWidth={1}
-              >
-                <Plus color="$text--dark" />
-              </YStack>
+              <Plus color="$text--dark" />
             </YStack>
-          </Pressable>
+          </YStack>
         </XStack>
       </ScrollView>
       {image && (
