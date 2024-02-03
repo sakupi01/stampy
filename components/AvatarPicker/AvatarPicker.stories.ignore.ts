@@ -15,5 +15,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    defaultUrl: "https://via.placeholder.com/150",
+    setValue: (value: string) => console.log(value),
+  },
 };

@@ -1,13 +1,11 @@
-import { assertTruthy } from "@/libs/assertTruthy";
-import { uploadToFirebase } from "@/libs/firebase/upload-image";
 import { AccountSettingsType } from "@/schema/accountSetting";
 import { Pencil } from "@tamagui/lucide-icons";
 import { useToastController } from "@tamagui/toast";
-import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
 import { UseFormSetValue } from "react-hook-form";
 import { s } from "react-native-size-matters";
 import { Avatar, View } from "tamagui";
+import { pickImage } from "../libs/imagePicker";
 
 type AvatarPickerProps = {
   defaultUrl: string;
@@ -16,30 +14,6 @@ type AvatarPickerProps = {
 export const AvatarPicker = ({ defaultUrl, setValue }: AvatarPickerProps) => {
   const [image, setImage] = useState<string>(defaultUrl);
   const toast = useToastController();
-
-  const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
-    });
-    if (!result.canceled) {
-      const { uri } = result.assets[0];
-      const fileName = uri.split("/").pop();
-      assertTruthy(fileName);
-      const uploadResult = await uploadToFirebase(
-        uri,
-        fileName,
-        "avatar",
-        (v) => console.log(v),
-      );
-      setImage(uploadResult.downloadUrl);
-      setValue("avatarUrl", uploadResult.downloadUrl);
-      toast.show("🌟 画像がアップロードされました");
-    }
-  };
 
   return (
     <View>
@@ -58,7 +32,14 @@ export const AvatarPicker = ({ defaultUrl, setValue }: AvatarPickerProps) => {
         right={0}
         zIndex={1}
         pressStyle={{ backgroundColor: "$accent--background" }}
-        onPress={pickImage}
+        onPress={() =>
+          pickImage<AccountSettingsType>({
+            setImage,
+            toast,
+            setValue,
+            rfhKey: "avatar",
+          })
+        }
       >
         <Pencil color="$text--subtle" size={s(18)} />
       </View>
