@@ -15,9 +15,11 @@ import { ScrollView, StyleSheet } from "react-native";
 import { s, vs } from "react-native-size-matters";
 import { Spinner, Square, YStack } from "tamagui";
 import { PasswordChangeForm } from "../PasswordChangeForm/PasswordChangeForm";
-import { listData } from "./fixture/mock.data";
+import { useAccount } from "./hooks/useAccount";
 
 export const AccountForm = () => {
+  const { formData } = useAccount();
+
   const toast = useToastController();
   const [passwordFormVisible, setPasswordFormVisible] = useState(false);
   const {
@@ -43,10 +45,10 @@ export const AccountForm = () => {
   };
   return (
     <YStack space={vs(30)} alignItems="center" width="100%">
-      <AvatarPicker defaultUrl={listData[0].data} setValue={setValue} />
+      <AvatarPicker defaultUrl={formData[0].data} setValue={setValue} />
       <SimpleList
         // except index 0: avatar
-        data={listData.slice(1)}
+        data={formData.slice(1)}
         control={control}
       />
       <ScrollView style={styles.scrollView}>
