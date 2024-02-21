@@ -5,6 +5,7 @@ import { CreateCardForm } from "./CreateCardForm";
 jest.useFakeTimers();
 const mockDate = new Date("2024/01/18");
 jest.setSystemTime(mockDate);
+jest.mock("@/libs/firebase/upload-image", () => {});
 
 describe("<CreateCardForm />", () => {
   test("if renders", () => {

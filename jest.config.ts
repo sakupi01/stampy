@@ -12,8 +12,8 @@ const config: Config = {
   transform: {
     "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
     "node_modules/react-redux/dist/.+.(j|t)sx?$": "ts-jest",
-    "node_modules\\/firebase\\/storage\\/dist\\/.+\\.(esm\\.js|js|jsx|ts|tsx)$":
-      "ts-jest",
+    "node_modules/@firebase/app/dist/.+.(j|t)sx?$": "babel-jest",
+    "node_modules/@firebase/storage/dist/.+.(j|t)sx?$": "babel-jest",
     "\\.(ts)$": "ts-jest",
     "^.+\\.tsx?$": "babel-jest",
   },
@@ -26,7 +26,7 @@ const config: Config = {
     },
   },
   transformIgnorePatterns: [
-    "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg|react-redux|firebase/storage/dist/.+\\.(esm\\.js|js|jsx|ts|tsx)$)",
+    "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg|react-redux|@firebase/storage|@firebase/app)",
   ],
   collectCoverage: true,
   collectCoverageFrom: [
@@ -36,9 +36,12 @@ const config: Config = {
     "!**/babel.config.js",
     "!**/jest.setup.js",
   ],
-  moduleNameMapper: t.pathsToModuleNameMapper(compilerOptions.paths, {
-    prefix: "<rootDir>/",
-  }),
+  moduleNameMapper: {
+    firebase: require.resolve("@firebase/storage"),
+    ...t.pathsToModuleNameMapper(compilerOptions.paths, {
+      prefix: "<rootDir>/",
+    }),
+  },
 };
 
 export default config;

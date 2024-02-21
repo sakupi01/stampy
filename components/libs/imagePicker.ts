@@ -1,10 +1,10 @@
+import { uploadToFirebase } from "@/libs/firebase/upload-image";
 import { AccountSettingsType } from "@/schema/accountSetting";
 import { StampCardFormType } from "@/schema/stampCard";
 import { useToastController } from "@tamagui/toast";
 import * as ImagePicker from "expo-image-picker";
 import { FieldPath, UseFormSetValue } from "react-hook-form";
 import { assertTruthy } from "../../libs/assertTruthy";
-import { uploadToFirebase } from "../../libs/firebase/upload-image";
 
 type ToastContextI = ReturnType<typeof useToastController>;
 type AllowedFormType = AccountSettingsType | StampCardFormType;
@@ -17,7 +17,7 @@ export const pickImage = async <FieldType extends AllowedFormType>({
   rfhKey,
 }: {
   setImage: (value: React.SetStateAction<string>) => void;
-  aspect: [number, number];
+  aspect?: [number, number];
   toast: ToastContextI;
   setValue: UseFormSetValue<FieldType>;
   rfhKey: FieldPath<FieldType>;

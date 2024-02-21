@@ -5,7 +5,8 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-const uploadImage = async (
+
+export const uploadToFirebase = async (
   uri: string,
   name: string,
   destination: "avatar" | "theme",
@@ -44,5 +45,3 @@ const uploadImage = async (
     );
   });
 };
-
-export { uploadImage as uploadToFirebase };
