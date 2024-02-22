@@ -3,6 +3,7 @@ import renderer from "react-test-renderer";
 import { ThemeSelector } from "./ThemeSelector";
 jest.useFakeTimers();
 const mockSetState = jest.fn();
+jest.mock("@/libs/firebase/upload-image", () => {});
 describe("<ThemeSelector />", () => {
   test("if renders", () => {
     const snapshot = renderer

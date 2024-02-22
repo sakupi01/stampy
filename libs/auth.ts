@@ -15,9 +15,10 @@ async function registerUser({
     sessionId: "123-xxxxx",
     user: {
       id: "1",
-      username: "user",
-      email: "mail",
-      avatarUrl: "url",
+      username: username,
+      email: email,
+      avatarUrl:
+        "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
     },
   };
 }
@@ -32,8 +33,9 @@ async function getUser({
     user: {
       id: "1",
       username: "user",
-      email: "mail",
-      avatarUrl: "url",
+      email: email,
+      avatarUrl:
+        "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
     },
   };
 }

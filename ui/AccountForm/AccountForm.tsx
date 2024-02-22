@@ -1,3 +1,4 @@
+import { AvatarPicker } from "@/components/AvatarPicker/AvatarPicker";
 import { SimpleList } from "@/components/SimpleList";
 import { StyledButton } from "@/components/StyledButton";
 import { Typography } from "@/components/Typography";
@@ -13,11 +14,12 @@ import { useForm } from "react-hook-form";
 import { ScrollView, StyleSheet } from "react-native";
 import { s, vs } from "react-native-size-matters";
 import { Spinner, Square, YStack } from "tamagui";
-import { AvatarPicker } from "../AvatarPicker/AvatarPicker";
 import { PasswordChangeForm } from "../PasswordChangeForm/PasswordChangeForm";
-import { listData } from "./fixture/mock.data";
+import { useAccount } from "./hooks/useAccount";
 
 export const AccountForm = () => {
+  const { formData } = useAccount();
+
   const toast = useToastController();
   const [passwordFormVisible, setPasswordFormVisible] = useState(false);
   const {
@@ -43,10 +45,10 @@ export const AccountForm = () => {
   };
   return (
     <YStack space={vs(30)} alignItems="center" width="100%">
-      <AvatarPicker defaultUrl={listData[0].data} setValue={setValue} />
+      <AvatarPicker defaultUrl={formData[0].data} setValue={setValue} />
       <SimpleList
         // except index 0: avatar
-        data={listData.slice(1)}
+        data={formData.slice(1)}
         control={control}
       />
       <ScrollView style={styles.scrollView}>
@@ -67,13 +69,13 @@ export const AccountForm = () => {
               flexDirection="column"
               alignItems="flex-start"
             >
-              {errors.avatarUrl && (
+              {errors.avatar && (
                 <YStack>
                   <Typography type="small" color="$text--destructive">
-                    {errors.avatarUrl.ref?.name}:
+                    {errors.avatar.ref?.name}:
                   </Typography>
                   <Typography type="small" color="$text--destructive">
-                    😕{errors.avatarUrl.message}
+                    😕{errors.avatar.message}
                   </Typography>
                 </YStack>
               )}
