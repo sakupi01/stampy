@@ -3,53 +3,68 @@ import { SignUpFormType } from "@/schema/signUp";
 import { User } from "@/types";
 import * as Crypto from "expo-crypto";
 
+async function getUser(token: string): Promise<User | undefined> {
+  // get user info by token
+  // /get/user
+  const res = {
+    id: "",
+    username: "",
+    email: "",
+    avatarUrl: "",
+  };
+  return res;
+}
+
 async function registerUser({
   username,
   email,
   hashedPassword,
 }: { username: string; email: string; hashedPassword: string }): Promise<
-  { sessionId: string; user: User } | undefined
+  { token: string } | undefined
 > {
   // register and return user from database
-  return {
-    sessionId: "123-xxxxx",
-    user: {
-      id: "1",
-      username: username,
-      email: email,
-      avatarUrl:
-        "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
-    },
+  // /signup
+  const res = {
+    token: "123-xxxxx",
   };
+  return res;
 }
 
-async function getUser({
+async function login({
   email,
-  password,
-}: SignInFormType): Promise<{ sessionId: string; user: User } | undefined> {
+  hashedPassword,
+}: { email: string; hashedPassword: string }): Promise<
+  { token: string } | undefined
+> {
   // get user from database
-  return {
-    sessionId: "123-xxxxx",
-    user: {
-      id: "1",
-      username: "user",
-      email: email,
-      avatarUrl:
-        "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
-    },
+  // /login
+  const res = {
+    token: "123-xxxxx",
   };
+  return res;
 }
 
 async function checkUser(email: string): Promise<boolean | undefined> {
   // get user from database
-  return;
+  // /check-user
+  const res = { doesUserExist: false };
+  return res.doesUserExist;
 }
 
 async function signIn(credentials: SignInFormType) {
   try {
-    const data = await getUser(credentials);
-    if (!data) {
+    const { email, password } = credentials;
+    const hashedPassword = await Crypto.digestStringAsync(
+      Crypto.CryptoDigestAlgorithm.SHA256,
+      password,
+    );
+    const res = await login({ email, hashedPassword });
+    if (!res) {
       throw new Error("ユーザが登録されていません");
+    }
+    const data = await getUser(res.token);
+    if (!data) {
+      throw new Error("ユーザ情報の取得に失敗しました");
     }
     return data;
   } catch (error: unknown) {
@@ -71,9 +86,13 @@ async function signUp(credentials: SignUpFormType) {
       Crypto.CryptoDigestAlgorithm.SHA256,
       password,
     );
-    const data = await registerUser({ username, email, hashedPassword });
-    if (!data) {
+    const res = await registerUser({ username, email, hashedPassword });
+    if (!res) {
       throw new Error("ユーザの登録に失敗しました");
+    }
+    const data = await getUser(res.token);
+    if (!data) {
+      throw new Error("ユーザ情報の取得に失敗しました");
     }
     return data;
   } catch (error: unknown) {
