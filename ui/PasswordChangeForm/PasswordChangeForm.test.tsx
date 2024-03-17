@@ -6,7 +6,7 @@ describe("<PasswordChangeForm />", () => {
     const snapshot = renderer
       .create(
         <Providers colorScheme={"light"}>
-          <PasswordChangeForm />
+          <PasswordChangeForm setPasswordFormVisible={() => {}} />
         </Providers>,
       )
       .toJSON();

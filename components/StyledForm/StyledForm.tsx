@@ -11,7 +11,7 @@ type StyledFormProps = {
   isSubmitting?: boolean;
   isSubmitted?: boolean;
   isDirty?: boolean;
-  isValid: boolean;
+  isValid?: boolean;
   buttonLabel?: string;
   // @ts-ignore
   buttonProps?: Omit<StyledButtonProps, "children" | "ref">;

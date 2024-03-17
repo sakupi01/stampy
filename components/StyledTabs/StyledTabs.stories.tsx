@@ -18,7 +18,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  // @ts-ignore
+  //@ts-ignore: <as it's defined in components in render fn>
   args: {},
   decorators: [
     (Story) => (

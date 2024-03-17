@@ -26,6 +26,7 @@ export const KansouLetter = ({ letter }: KansouLetterProps) => {
           </Typography>
         </YGroup.Item>
         <YGroup.Item>
+          {/* @ts-ignore */}
           <Typography type="medium" textAlign="left" lineHeight="$h3">
             {letter.content}
           </Typography>

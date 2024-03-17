@@ -23,6 +23,7 @@ const TextArea = styled(DefaultTextArea, {
   padding: s(10),
   color: "$text--dark",
   fontSize: "$ui",
+  //@ts-ignore
   lineHeight: "$ui",
 });
 type StyledTextAreaProps = TextAreaProps & {

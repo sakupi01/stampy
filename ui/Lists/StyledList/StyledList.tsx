@@ -1,5 +1,6 @@
 import { StampWrapper } from "@/components/StampWrapper";
 import { StyledAlertDialog } from "@/components/StyledAlertDialog";
+import { DialogActionType } from "@/components/StyledAlertDialog/StyledAlertDialog";
 import { StyledButton } from "@/components/StyledButton";
 import { StyledInput } from "@/components/StyledInput";
 import { Typography } from "@/components/Typography/Typography";
@@ -86,7 +87,7 @@ const resolveListItem = (item: RenderItemParams) => {
         return (
           <DialogProvider>
             <StyledAlertDialog
-              triggerButton={(toggleModal) => (
+              triggerButton={(toggleModal: () => void) => (
                 <Pressable
                   onPress={toggleModal}
                   style={{
@@ -96,7 +97,7 @@ const resolveListItem = (item: RenderItemParams) => {
                   <TextListItem title={item.title} content={item.content} />
                 </Pressable>
               )}
-              cancelButton={(untoggleModal) => (
+              cancelButton={(untoggleModal: () => void) => (
                 <Typography type="small" underlined onPress={untoggleModal}>
                   今はやめておく
                 </Typography>
@@ -160,7 +161,7 @@ function resolveReceiverDialogContent({
   if (isLastDay) {
     return (
       <StyledAlertDialog
-        triggerButton={(toggleModal) => (
+        triggerButton={(toggleModal: () => void) => (
           <Pressable
             onPress={toggleModal}
             style={{
@@ -170,12 +171,12 @@ function resolveReceiverDialogContent({
             <TextListItem title={item.title} content={item.content} />
           </Pressable>
         )}
-        cancelButton={(untoggleModal) => (
+        cancelButton={(untoggleModal: () => void) => (
           <StyledButton onPress={untoggleModal} type="secondary">
             <Typography>やめておく</Typography>
           </StyledButton>
         )}
-        actionButton={(action) => (
+        actionButton={(action: DialogActionType) => (
           <StyledButton
             onPress={() =>
               action(async () => {
@@ -200,7 +201,7 @@ function resolveReceiverDialogContent({
   }
   return (
     <StyledAlertDialog
-      triggerButton={(toggleModal) => (
+      triggerButton={(toggleModal: () => void) => (
         <Pressable
           onPress={toggleModal}
           style={{
@@ -210,12 +211,12 @@ function resolveReceiverDialogContent({
           <TextListItem title={item.title} content={item.content} />
         </Pressable>
       )}
-      cancelButton={(untoggleModal) => (
+      cancelButton={(untoggleModal: () => void) => (
         <StyledButton onPress={untoggleModal} type="secondary">
           <Typography>やめておく</Typography>
         </StyledButton>
       )}
-      actionButton={(action) => (
+      actionButton={(action: DialogActionType) => (
         <StyledButton
           onPress={() =>
             action(async () => {

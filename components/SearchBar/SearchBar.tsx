@@ -1,7 +1,7 @@
 import { Search } from "@tamagui/lucide-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import { s, vs } from "react-native-size-matters";
-import { Input, Label, View, ViewProps, YStack } from "tamagui";
+import { GetProps, Input, Label, View, YStack } from "tamagui";
 import { useDebouncedCallback } from "use-debounce";
 import { Typography } from "../Typography/Typography";
 
@@ -9,7 +9,7 @@ export const SearchBar = ({
   uid,
   placeholder,
   ...props
-}: { uid: string; placeholder: string } & ViewProps) => {
+}: { uid: string; placeholder: string } & GetProps<typeof View>) => {
   const searchParams = useLocalSearchParams<{ query?: string }>();
 
   const handleSearch = useDebouncedCallback((term: string) => {

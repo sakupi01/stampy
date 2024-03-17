@@ -1,3 +1,4 @@
+import { assertNonNullable } from "@/libs/assertNonNullable";
 import LottieView, { AnimationObject } from "lottie-react-native";
 
 export default function AnimatedView({
@@ -6,6 +7,7 @@ export default function AnimatedView({
 }: {
   assetUri: string | AnimationObject | { uri: string } | undefined;
 } & Omit<LottieView["props"], "source">) {
+  assertNonNullable(assetUri);
   return (
     <LottieView
       source={assetUri}

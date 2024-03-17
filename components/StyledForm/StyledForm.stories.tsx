@@ -20,7 +20,6 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {},
   decorators: [
     (Story) => (
       <div style={{ display: "flex", justifyContent: "center" }}>

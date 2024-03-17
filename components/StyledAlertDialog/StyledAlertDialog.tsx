@@ -1,12 +1,13 @@
 import { useDialogContext } from "@/libs/context/Dialog/useDialogContext";
+import { sleep } from "@/libs/sleep";
 import React, { useState } from "react";
 import { Modal, ModalProps, StyleSheet } from "react-native";
 import { s, vs } from "react-native-size-matters";
-import { View, ViewProps, XStack, YStack } from "tamagui";
+import { GetProps, View, XStack, YStack } from "tamagui";
 import { Typography } from "../Typography/Typography";
 import AnimatedView from "../lotties/LottieView";
 
-type DialogActionType = () => Promise<void>;
+export type DialogActionType = (fn: () => Promise<void>) => void;
 type StyledAlertDialogProps = {
   children?: React.ReactNode;
   triggerButton?: (toggleModal: () => void) => React.ReactNode;
@@ -16,7 +17,7 @@ type StyledAlertDialogProps = {
   ) => React.ReactNode;
   description?: string;
   modalProps?: ModalProps;
-} & ViewProps;
+} & GetProps<typeof View>;
 export function StyledAlertDialog({
   children,
   triggerButton,
@@ -37,7 +38,7 @@ export function StyledAlertDialog({
   };
   const someAction = async (action: DialogActionType) => {
     // サーバと通信する処理
-    await action();
+    await action(async () => await sleep(300));
     // アニメーションを開始
     setAnimationStarted(true);
     // 3.3秒後にアニメーションを終了

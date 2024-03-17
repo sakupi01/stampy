@@ -1,5 +1,8 @@
 import { StampWrapper } from "@/components/StampWrapper/StampWrapper";
-import { StyledAlertDialog } from "@/components/StyledAlertDialog/StyledAlertDialog";
+import {
+  DialogActionType,
+  StyledAlertDialog,
+} from "@/components/StyledAlertDialog/StyledAlertDialog";
 import { StyledButton } from "@/components/StyledButton";
 import { StyledInput } from "@/components/StyledInput";
 import { Typography } from "@/components/Typography/Typography";
@@ -119,7 +122,7 @@ export const StampCard = ({
               >
                 <DialogProvider>
                   <StyledAlertDialog
-                    triggerButton={(toggleModal) => (
+                    triggerButton={(toggleModal: () => void) => (
                       <StyledButton
                         circular
                         // @ts-ignore
@@ -129,7 +132,7 @@ export const StampCard = ({
                         <Typography>{stamp}</Typography>
                       </StyledButton>
                     )}
-                    cancelButton={(untoggleModal) => (
+                    cancelButton={(untoggleModal: () => void) => (
                       // @ts-ignore
                       <StyledButton type="secondary" onPress={untoggleModal}>
                         <Typography>{closeMessage}</Typography>
@@ -165,7 +168,7 @@ export const StampCard = ({
               >
                 <DialogProvider>
                   <StyledAlertDialog
-                    triggerButton={(toggleModal) => (
+                    triggerButton={(toggleModal: () => void) => (
                       <StyledButton
                         circular
                         // @ts-ignore
@@ -175,28 +178,29 @@ export const StampCard = ({
                         <Typography>{stamp}</Typography>
                       </StyledButton>
                     )}
-                    cancelButton={(untoggleModal) => (
+                    cancelButton={(untoggleModal: () => void) => (
                       // @ts-ignore
                       <StyledButton type="secondary" onPress={untoggleModal}>
                         <Typography>{cancelMessage}</Typography>
                       </StyledButton>
                     )}
-                    actionButton={(action) => (
-                      // @ts-ignore
-                      <StyledButton
-                        type="primary"
-                        onPress={() =>
-                          action(async () => {
-                            console.log("claim stamp start");
-                            // TODO: スタンプをclaimする処理
-                            await sleep(1000);
-                            console.log("claim stamp end");
-                          })
-                        }
-                      >
-                        <Typography>{yesMessage}</Typography>
-                      </StyledButton>
-                    )}
+                    actionButton={(action: DialogActionType) => {
+                      return (
+                        <StyledButton
+                          type="primary"
+                          onPress={() =>
+                            action(async () => {
+                              console.log("claim stamp start");
+                              // TODO: スタンプをclaimする処理
+                              await sleep(1000);
+                              console.log("claim stamp end");
+                            })
+                          }
+                        >
+                          <Typography>{yesMessage}</Typography>
+                        </StyledButton>
+                      );
+                    }}
                     description={`${readyStampMessage}`}
                   />
                 </DialogProvider>
@@ -217,7 +221,7 @@ export const StampCard = ({
             >
               <DialogProvider>
                 <StyledAlertDialog
-                  triggerButton={(toggleModal) => (
+                  triggerButton={(toggleModal: () => void) => (
                     <StyledButton
                       circular
                       // @ts-ignore
@@ -227,7 +231,7 @@ export const StampCard = ({
                       <Typography>{stampId}</Typography>
                     </StyledButton>
                   )}
-                  cancelButton={(untoggleModal) => (
+                  cancelButton={(untoggleModal: () => void) => (
                     // @ts-ignore
                     <StyledButton type="secondary" onPress={untoggleModal}>
                       <Typography>{closeMessage}</Typography>

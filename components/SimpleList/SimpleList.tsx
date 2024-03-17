@@ -36,8 +36,10 @@ const Item = ({ id, label, data, isEditable, ...props }: ListItemProps) => {
         borderWidth={0}
         color={!isEditable ? "$text--subtle" : "$text--dark"}
         fontSize="$ui"
+        //@ts-ignore
         lineHeight="$ui"
         height="$ui"
+        //@ts-ignore
         fontWeight="$medium"
         placeholderTextColor={"$text--subtle"}
         {...props}

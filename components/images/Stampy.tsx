@@ -1,6 +1,7 @@
 import Svg, { SvgProps, G, Path, Defs, ClipPath, Rect } from "react-native-svg";
 const SvgComponent = (props: SvgProps) => (
   <Svg
+    // @ts-ignore
     xmlns="http://www.w3.org/2000/svg"
     width={93}
     height={213}
