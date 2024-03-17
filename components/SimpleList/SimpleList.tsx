@@ -51,7 +51,7 @@ const Item = ({ id, label, data, isEditable, ...props }: ListItemProps) => {
 
 type SimpleListProps = {
   data: Array<{ id: string; label: string; data: string; formLabel?: string }>;
-  control: Control<AccountSettingsType>;
+  control?: Control<AccountSettingsType>;
 };
 export const SimpleList = ({ data, control }: SimpleListProps) => {
   return (

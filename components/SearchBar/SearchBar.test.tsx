@@ -6,7 +6,7 @@ describe("<SearchBar />", () => {
     const snapshot = renderer
       .create(
         <Providers colorScheme={"light"}>
-          <SearchBar uid="searchbar" placeholder="search..." />
+          <SearchBar uid="undefined" placeholder="search..." />
         </Providers>,
       )
       .toJSON();
