@@ -9,10 +9,16 @@ import { useLocalSearchParams } from "expo-router";
 import { s, vs } from "react-native-size-matters";
 import { YStack } from "tamagui";
 
-export default function LetterScreen() {
+export default function StampCardScreen() {
   const { id } = useLocalSearchParams();
+  // /stampcard/:id
+  // const repository = new Repository();
+  // const res = await repository.get(
+  //   "/stampcard/id"
+  // );
   const card = MockStampCards.find((card) => card.cardId === id);
   assertNonNullable(card);
+  // if (res.ok) {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
@@ -46,6 +52,15 @@ export default function LetterScreen() {
       </ScrollView>
     </SafeAreaView>
   );
+  // } else {
+  //   return (
+  //     <SafeAreaView style={styles.container}>
+  //       <ScrollView style={styles.scrollView}>
+  //         <Typography type="h2">カードが見つかりませんでした</Typography>
+  //       </ScrollView>
+  //     </SafeAreaView>
+  //   );
+  // }
 }
 
 const styles = StyleSheet.create({
