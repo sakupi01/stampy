@@ -3,16 +3,22 @@ import { DatePicker } from "@/components/DatePicker";
 import { StyledButton } from "@/components/StyledButton";
 import { ThemeSelector } from "@/components/ThemeSelector";
 import { Typography } from "@/components/Typography";
+import { useAppSelector } from "@/libs/AsyncStorage/store";
+import { assertNonNullable } from "@/libs/assertNonNullable";
 import { sleep } from "@/libs/sleep";
 import { StampCardFormSchema, StampCardFormType } from "@/schema/stampCard";
 import { valibotResolver } from "@hookform/resolvers/valibot";
+import { useToastController } from "@tamagui/toast";
 import { useEffect, useRef } from "react";
-import { Controller, FieldValues, useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { KeyboardAvoidingView, TextInput } from "react-native";
 import { ms, vs } from "react-native-size-matters";
 import { Spinner, YStack } from "tamagui";
 
 export const CreateCardForm = () => {
+  const toast = useToastController();
+  const user = useAppSelector((state) => state.auth.user);
+  assertNonNullable(user);
   const titleRef = useRef<TextInput>(null);
   const {
     control,
@@ -34,18 +40,34 @@ export const CreateCardForm = () => {
 
   const watchStartDate = watch("startDate", undefined);
 
-  const onSubmit = async (data: FieldValues) => {
+  const onSubmit = async (data: StampCardFormType) => {
     console.log(data);
+    // const saveData = {
+    //   ...data,
+    //   startDate: data.startDate.toISOString(),
+    //   endDate: data.endDate.toISOString(),
+    //   createdBy: user.email,
+    //   ...(data.receiver ? { joinedUser: data.receiver } : {}),
+    // };
     // save card to server
+    // /stampcard
+    // const repository = new Repository();
+    // const res = await repository.post(
+    //   "/stampcard",
+    //   JSON.stringify(saveData),
+    // );
+    // if (res.ok) {
+
     await sleep(1000);
     // clear submitting state
     reset();
-    // 作成したカード一覧へ遷移
-    // router.push("/cards");
+    toast.show("✅ カードを作成しました");
+    // 作成したカードへ遷移
+    // router.push("/home/{id}");
+    // }else{
+    //   toast.show("🚫 カードの作成に失敗しました");
+    // }
   };
-  const onError = (data: FieldValues) =>
-    console.error("Something went wrong:", data);
-
   return (
     <YStack marginBottom={vs(100)}>
       <YStack marginBottom={vs(30)}>
@@ -134,9 +156,9 @@ export const CreateCardForm = () => {
           render={() => <ThemeSelector setValue={setValue} />}
           name="endDate"
         />
-        {errors.theme && (
+        {errors.backgroundUrl && (
           <Typography type="small" color="$text--destructive">
-            😕{errors.theme.message}
+            😕{errors.backgroundUrl.message}
           </Typography>
         )}
       </YStack>
@@ -157,7 +179,7 @@ export const CreateCardForm = () => {
       </YStack>
 
       <StyledButton
-        onPress={handleSubmit(onSubmit, onError)}
+        onPress={handleSubmit(onSubmit)}
         icon={
           isSubmitting
             ? () => <Spinner size="small" color={"$secondary--background"} />

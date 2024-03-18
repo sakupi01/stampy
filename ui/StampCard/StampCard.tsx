@@ -100,8 +100,6 @@ export const StampCard = ({
           <Path
             d={pathData}
             stroke="#E8E8E8"
-            // stroke="#D9D9D9"
-            // stroke="#BF6E55"
             strokeOpacity={0.8}
             strokeWidth={5}
           />
