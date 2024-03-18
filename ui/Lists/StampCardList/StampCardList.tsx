@@ -2,7 +2,6 @@ import { Badge } from "@/components/Badge";
 import { CardSkeleton } from "@/components/Skeleton/Skeleton";
 import { StyledCard } from "@/components/StyledCard";
 import { Typography } from "@/components/Typography";
-import { sleep } from "@/libs/sleep";
 import { StampCard as StampCardType } from "@/types/StampCard";
 import { StampCard } from "@/ui/StampCard";
 import {
@@ -27,11 +26,17 @@ export const StampCardList = memo(function StampCardList({
       setData(undefined);
       // const res = await fetch(`http://localhost:3000/api/cards?query=${query}`);
       // const data = await res.json();
-      await sleep(1000);
+      // /stampcard
+      // const repository = new Repository();
+      // const res = await repository.get(
+      //   "/stampcard?query=${keyword}"
+      // );
+      // if (res.ok) {
       const data = [...MockStampCards].filter((item) =>
         item.title.includes(query ?? ""),
       );
       setData(data);
+      // };
     };
     fetchData();
   }, [query]);

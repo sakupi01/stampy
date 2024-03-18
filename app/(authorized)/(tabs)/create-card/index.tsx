@@ -1,12 +1,16 @@
+import { useAppSelector } from "@/libs/AsyncStorage/store";
+import { assertNonNullable } from "@/libs/assertNonNullable";
 import { CreateCardForm } from "@/ui/CreateCardForm";
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import { s, vs } from "react-native-size-matters";
 
 export default function CreateCardScreen() {
+  const user = useAppSelector((state) => state.auth.user);
+  assertNonNullable(user);
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
-        <CreateCardForm />
+        <CreateCardForm user={user} />
       </ScrollView>
     </SafeAreaView>
   );
