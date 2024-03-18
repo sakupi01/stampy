@@ -1,5 +1,6 @@
 import { StyledInput } from "@/components/StyledInput";
 import { Typography } from "@/components/Typography";
+import { sleep } from "@/libs/sleep";
 import {
   RenewPasswordFormSchema,
   RenewPasswordFormType,
@@ -36,12 +37,27 @@ export const PasswordChangeForm = ({
           render={({ field: { onChange, onBlur, value } }) => {
             return (
               <StyledInput
-                label="新しいパスワード"
-                placeholder="password"
+                label="現在のパスワード"
+                placeholder="現在のパスワード"
                 value={value}
                 onChangeText={onChange}
                 onBlur={onBlur}
-                placeholderTextColor={"#E5E7EB"}
+                isPassword
+              />
+            );
+          }}
+          name="oldPassword"
+        />
+        <Controller
+          control={control}
+          render={({ field: { onChange, onBlur, value } }) => {
+            return (
+              <StyledInput
+                label="新しいパスワード"
+                placeholder="新しいパスワード"
+                value={value}
+                onChangeText={onChange}
+                onBlur={onBlur}
                 isPassword
               />
             );
@@ -54,11 +70,10 @@ export const PasswordChangeForm = ({
             return (
               <StyledInput
                 label="再度入力"
-                placeholder="password"
+                placeholder="新しいパスワード"
                 value={value}
                 onChangeText={onChange}
                 onBlur={onBlur}
-                placeholderTextColor={"#E5E7EB"}
                 isPassword
               />
             );
@@ -77,6 +92,11 @@ export const PasswordChangeForm = ({
             flexDirection="column"
             alignItems="flex-start"
           >
+            {errors.oldPassword && (
+              <Typography type="small" color="$text--destructive">
+                😕{errors.oldPassword.message}
+              </Typography>
+            )}
             {errors.password && (
               <Typography type="small" color="$text--destructive">
                 😕{errors.password.message}
@@ -107,15 +127,25 @@ export const PasswordChangeForm = ({
             type="ui"
             underlined
             color={isValid ? "$destructive--background" : "$text--subtle"}
-            onPress={handleSubmit((data) => {
+            onPress={handleSubmit(async (data) => {
               console.log(data);
-              // save card to server
-              // await sleep(1000);
-              toast.show("📧 パスワードを変更メールを送信しました");
+              // save password to Server
+              // /user/pwd
+              // const repository = new Repository();
+              // const res = await repository.put(
+              //   "/user/pwd",
+              //   JSON.stringify({data.oldPassword, data.password}),
+              // );
+              // if (res.ok) {
+              await sleep(1000);
+              toast.show("🔑 パスワードを変更しました");
               // clear submitting state
               reset();
               // 作成したカード一覧へ遷移
               // router.push("/cards");
+              // } else {
+              //   toast.show("🚫 パスワードの更新に失敗しました");
+              // }
             })}
           >
             変更する

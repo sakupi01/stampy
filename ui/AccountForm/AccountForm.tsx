@@ -49,6 +49,8 @@ export const AccountForm = () => {
     reset();
     // 作成したカード一覧へ遷移
     // router.push("/cards");
+    // }else{
+    // toast.show("🚫 情報の更新に失敗しました");
     // }
   };
   return (

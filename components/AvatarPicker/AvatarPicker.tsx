@@ -37,7 +37,7 @@ export const AvatarPicker = ({ defaultUrl, setValue }: AvatarPickerProps) => {
             setImage,
             toast,
             setValue,
-            rfhKey: "avatar",
+            rfhKey: "avatarUrl",
           })
         }
       >
