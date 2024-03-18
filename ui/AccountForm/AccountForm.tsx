@@ -35,13 +35,21 @@ export const AccountForm = () => {
   });
   const onSubmit = async (data: AccountSettingsType) => {
     console.log(data);
-    // save card to server
+    // save user info changes to server
+    // /user
+    // const repository = new Repository();
+    // const res = await repository.put(
+    //   "/user",
+    //   JSON.stringify(data),
+    // );
+    // if (res.ok) {
     await sleep(1000);
     toast.show("✅ 変更を保存しました");
     // clear submitting state
     reset();
     // 作成したカード一覧へ遷移
     // router.push("/cards");
+    // }
   };
   return (
     <YStack space={vs(30)} alignItems="center" width="100%">
@@ -69,13 +77,13 @@ export const AccountForm = () => {
               flexDirection="column"
               alignItems="flex-start"
             >
-              {errors.avatar && (
+              {errors.avatarUrl && (
                 <YStack>
                   <Typography type="small" color="$text--destructive">
-                    {errors.avatar.ref?.name}:
+                    {errors.avatarUrl.ref?.name}:
                   </Typography>
                   <Typography type="small" color="$text--destructive">
-                    😕{errors.avatar.message}
+                    😕{errors.avatarUrl.message}
                   </Typography>
                 </YStack>
               )}
@@ -148,7 +156,5 @@ const styles = StyleSheet.create({
   scrollView: {
     width: "100%",
     height: vs(180),
-    // paddingBottom: vs(50),
-    // backgroundColor: "#fff",
   },
 });
