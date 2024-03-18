@@ -26,13 +26,13 @@ export async function setStorageItemAsync(key: string, value: string | null) {
 
 type AuthState = {
   user: User | null;
-  session: string | null;
+  token: string | null;
   isLoading: boolean;
 };
 
 const INITIAL_AUTH_STATE: AuthState = {
   user: null,
-  session: null,
+  token: null,
   isLoading: false,
 };
 export const { actions, reducer } = createSlice({
@@ -41,15 +41,15 @@ export const { actions, reducer } = createSlice({
   reducers: {
     authorize: (
       state,
-      action: PayloadAction<{ session: string; user: User }>,
+      action: PayloadAction<{ token: string; user: User }>,
     ) => {
-      setStorageItemAsync("session", action.payload.session);
-      state.session = action.payload.session;
+      setStorageItemAsync("token", action.payload.token);
+      state.token = action.payload.token;
       state.user = action.payload.user;
     },
     unAuthorize: (state) => {
-      setStorageItemAsync("session", null);
-      state.session = null;
+      setStorageItemAsync("token", null);
+      state.token = null;
       state.user = null;
     },
     isLoading: (state, action) => {
