@@ -78,14 +78,6 @@ export default function StampCardScreen() {
       </ScrollView>
     </SafeAreaView>
   );
-  // }
-  // return (
-  //   <SafeAreaView style={styles.container}>
-  //     <ScrollView style={styles.scrollView}>
-  //       <Typography type="h2">カードが見つかりませんでした</Typography>
-  //     </ScrollView>
-  //   </SafeAreaView>
-  // );
 }
 
 const styles = StyleSheet.create({

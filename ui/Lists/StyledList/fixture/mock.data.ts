@@ -1,6 +1,6 @@
 import { Letter } from "@/types/Letter";
 import { Notification } from "@/types/Notification";
-export const DATA: Array<Notification | Letter> = [
+export const DATA: Array<Notification> = [
   {
     type: "notification",
     id: "1",
@@ -203,7 +203,7 @@ export const DATA: Array<Notification | Letter> = [
   },
 ];
 
-export const DATA_LETTER: Array<Notification | Letter> = [
+export const DATA_LETTER: Array<Letter> = [
   {
     type: "letter",
     id: "1",

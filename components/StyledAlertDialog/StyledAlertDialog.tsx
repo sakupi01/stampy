@@ -38,7 +38,7 @@ export function StyledAlertDialog({
   };
   const someAction = async (action: DialogActionType) => {
     // サーバと通信する処理
-    await action(async () => await sleep(300));
+    action(async () => await sleep(300));
     // アニメーションを開始
     setAnimationStarted(true);
     // 3.3秒後にアニメーションを終了

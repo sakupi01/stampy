@@ -7,13 +7,41 @@ import { assertNonNullable } from "@/libs/assertNonNullable";
 import { Letter } from "@/types/Letter";
 import { DATA_LETTER } from "@/ui/Lists/StyledList/fixture/mock.data";
 import { useLocalSearchParams } from "expo-router";
+import { useEffect, useState } from "react";
 import { s, vs } from "react-native-size-matters";
 import { YStack } from "tamagui";
 
 export default function LetterScreen() {
   const { id } = useLocalSearchParams();
+  const [letters, setData] = useState<Letter | undefined>(undefined);
+
   const letter = DATA_LETTER.find((letter) => letter.id === id);
   assertNonNullable(letter);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      // /stampcard/:id
+      // const repository = new Repository();
+      // const res = await repository.get(`/stampcard/${id}`);
+      // if (res.ok) {
+      const letter = DATA_LETTER.find((letter) => letter.id === id);
+      assertNonNullable(letter);
+
+      setData(letter);
+      // setData(res.val);
+      // }else{
+      //     return(
+      //       <SafeAreaView style={styles.container}>
+      //         <ScrollView style={styles.scrollView}>
+      //           <Typography type="h2">カードが見つかりませんでした</Typography>
+      //         </ScrollView>
+      //       </SafeAreaView>
+      //     )
+      // }
+    };
+    fetchData();
+  }, [id]);
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>

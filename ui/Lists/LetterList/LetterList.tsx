@@ -1,10 +1,9 @@
 import { ListSkeleton } from "@/components/Skeleton/Skeleton";
 import { Typography } from "@/components/Typography";
-import { sleep } from "@/libs/sleep";
+import { useAppSelector } from "@/libs/AsyncStorage/store";
 import { Letter } from "@/types/Letter";
 import { Notification } from "@/types/Notification";
 import { StyledList } from "@/ui/Lists/StyledList";
-import { DATA_LETTER } from "@/ui/Lists/StyledList/fixture/mock.data";
 import { useEffect, useState } from "react";
 
 export type LetterListProps = {
@@ -15,19 +14,15 @@ export const LetterList = ({ query }: LetterListProps) => {
   const [data, setData] = useState<Array<Notification | Letter> | undefined>(
     undefined,
   );
+  const letters = useAppSelector((state) => state.list.letters);
+
   useEffect(() => {
-    const fetchData = async () => {
-      setData(undefined);
-      // const res = await fetch(`http://localhost:3000/api/cards?query=${query}`);
-      // const data = await res.json();
-      await sleep(1000);
-      const data = [...DATA_LETTER].filter((item) =>
-        item.title.includes(query ?? ""),
-      );
-      setData(data);
-    };
-    fetchData();
-  }, [query]);
+    const extractedLetters = letters?.filter((item) =>
+      item.title.includes(query ?? ""),
+    );
+
+    setData(extractedLetters);
+  }, [letters, query]);
 
   if (!data) {
     return <ListSkeleton />;

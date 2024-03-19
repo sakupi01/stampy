@@ -2,43 +2,31 @@ import { Badge } from "@/components/Badge";
 import { CardSkeleton } from "@/components/Skeleton/Skeleton";
 import { StyledCard } from "@/components/StyledCard";
 import { Typography } from "@/components/Typography";
-import { Repository } from "@/repository/api";
+import { useAppSelector } from "@/libs/AsyncStorage/store";
 import { StampCard as StampCardType } from "@/types/StampCard";
 import { StampCard } from "@/ui/StampCard";
-import {
-  MockStampCards,
-  MockStampNodes,
-} from "@/ui/StampCard/fixture/mock.data";
+import { MockStampNodes } from "@/ui/StampCard/fixture/mock.data";
 import { Link } from "expo-router";
-import { memo, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { s, vs } from "react-native-size-matters";
 import { Avatar, XStack, YStack } from "tamagui";
 
 export type StampCardListProps = {
   query?: string;
 };
-export const StampCardList = memo(function StampCardList({
+export const StampCardList = function StampCardList({
   query,
 }: StampCardListProps) {
   const [data, setData] = useState<Array<StampCardType> | undefined>(undefined);
+  const cards = useAppSelector((state) => state.list.stampCards);
 
   useEffect(() => {
-    const fetchData = async () => {
-      setData(undefined);
-      // /stampcard
-      const repository = new Repository();
-      const res = await repository.get("/stampcard");
-      if (res.ok) {
-        // TODO: delete this code
-        const data = [...MockStampCards].filter((item) =>
-          item.title.includes(query ?? ""),
-        );
+    const extractedCards = cards?.filter((item) =>
+      item.title.includes(query ?? ""),
+    );
 
-        setData(res.val.cards);
-      }
-    };
-    fetchData();
-  }, [query]);
+    setData(extractedCards);
+  }, [cards, query]);
 
   if (!data) {
     return (
@@ -112,4 +100,4 @@ export const StampCardList = memo(function StampCardList({
       </StyledCard.Card>
     </Link>
   ));
-});
+};
