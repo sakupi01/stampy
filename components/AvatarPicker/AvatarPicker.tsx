@@ -7,6 +7,8 @@ import { s } from "react-native-size-matters";
 import { Avatar, View } from "tamagui";
 import { pickImage } from "../libs/imagePicker";
 
+const DEFAULT_IMAGE =
+  "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80" as const;
 type AvatarPickerProps = {
   defaultUrl: string;
   setValue: UseFormSetValue<AccountSettingsType>;
@@ -44,7 +46,10 @@ export const AvatarPicker = ({ defaultUrl, setValue }: AvatarPickerProps) => {
         <Pencil color="$text--subtle" size={s(18)} />
       </View>
       <Avatar circular size="$9">
-        <Avatar.Image accessibilityLabel={image} src={image} />
+        <Avatar.Image
+          accessibilityLabel={"アバター画像です"}
+          src={image === "" ? DEFAULT_IMAGE : image}
+        />
         <Avatar.Fallback backgroundColor="$blue10" />
       </Avatar>
     </View>

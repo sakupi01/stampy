@@ -24,7 +24,7 @@ const Item = ({ id, label, data, isEditable, ...props }: ListItemProps) => {
       </Label>
       <Input
         id={`${id}-${label}`}
-        placeholder={data}
+        placeholder={data.toString()}
         defaultValue={data}
         editable={isEditable}
         disabled={!isEditable}
@@ -44,7 +44,6 @@ const Item = ({ id, label, data, isEditable, ...props }: ListItemProps) => {
         placeholderTextColor={"$text--subtle"}
         {...props}
       />
-      {/* <Typography type="ui">{data}</Typography> */}
     </XStack>
   );
 };

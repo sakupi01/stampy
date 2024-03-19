@@ -53,6 +53,7 @@ export const AccountForm = () => {
     // toast.show("🚫 情報の更新に失敗しました");
     // }
   };
+
   return (
     <YStack space={vs(30)} alignItems="center" width="100%">
       <AvatarPicker defaultUrl={formData[0].data} setValue={setValue} />

@@ -2,7 +2,7 @@ import { StyledForm } from "@/components/StyledForm";
 import { StyledInput } from "@/components/StyledInput";
 import { Typography } from "@/components/Typography";
 import { authActions } from "@/libs/AsyncStorage/Auth/slice";
-import { signIn, signUp } from "@/libs/auth";
+import { getUser, signIn, signUp } from "@/libs/auth";
 import { SignInFormSchema, SignInFormType } from "@/schema/signIn";
 import { SignUpFormSchema, SignUpFormType } from "@/schema/signUp";
 import { valibotResolver } from "@hookform/resolvers/valibot";
@@ -48,24 +48,24 @@ export function SignInForm() {
           console.log("Submitted! :", data);
           dispatch(authActions.isLoading(true));
           // authorization logic with server
-          const res = await signIn(data);
-          console.log("res:", res);
-
-          if (res.ok) {
-            // // async dispatch so need to wait
-            // set user to redux
-            dispatch(
-              authActions.authorize({
-                token: res.val.token,
-                user: res.val.user,
-              }),
-            );
-            dispatch(authActions.isLoading(false));
-            // clear submitting state
-            reset();
-            // Navigate after signing in. You may want to tweak this to ensure sign-in is
-            // successful before navigating.
-            router.replace("/");
+          const token = await signIn(data);
+          if (token.ok) {
+            const user = await getUser();
+            if (user.ok) {
+              // set user to redux
+              dispatch(
+                authActions.authorize({
+                  token: token.val,
+                  user: user.val,
+                }),
+              );
+              dispatch(authActions.isLoading(false));
+              // clear submitting state
+              reset();
+              // Navigate after signing in. You may want to tweak this to ensure sign-in is
+              // successful before navigating.
+              router.replace("/");
+            }
           }
         })}
       >
@@ -159,22 +159,30 @@ export function SignUpForm() {
           console.log("Submitted! :", data);
           dispatch(authActions.isLoading(true));
           // authorization logic with server
-          const res = await signUp(data);
-          if (res.ok) {
-            // // async dispatch so need to wait
-            // set user to redux
+          const token = await signUp(data);
+          if (token.ok) {
+            console.log(token.val);
+
             dispatch(
-              authActions.authorize({
-                token: res.val.token,
-                user: res.val.user,
+              authActions.setToken({
+                token: token.val,
               }),
             );
-            dispatch(authActions.isLoading(false));
-            // clear submitting state
-            reset();
-            // Navigate after signing in. You may want to tweak this to ensure sign-in is
-            // successful before navigating.
-            router.replace("/");
+            const user = await getUser();
+            if (user.ok) {
+              // set user to redux
+              dispatch(
+                authActions.setUser({
+                  user: user.val,
+                }),
+              );
+              dispatch(authActions.isLoading(false));
+              // clear submitting state
+              reset();
+              // Navigate after signing in. You may want to tweak this to ensure sign-in is
+              // successful before navigating.
+              router.replace("/");
+            }
           }
         })}
       >

@@ -47,6 +47,13 @@ export const { actions, reducer } = createSlice({
       state.token = action.payload.token;
       state.user = action.payload.user;
     },
+    setToken: (state, action: PayloadAction<{ token: string }>) => {
+      setStorageItemAsync("token", action.payload.token);
+      state.token = action.payload.token;
+    },
+    setUser: (state, action: PayloadAction<{ user: User }>) => {
+      state.user = action.payload.user;
+    },
     unAuthorize: (state) => {
       setStorageItemAsync("token", null);
       state.token = null;

@@ -1,5 +1,5 @@
 import { assertNonNullable } from "@/libs/assertNonNullable";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SecureStore from "expo-secure-store";
 import { assertHttpStatusCode } from "./assertHttpStatusCode";
 import { statusCodeToError } from "./error/statusCodeToError";
 import { resultError, resultOk } from "./result";
@@ -9,15 +9,18 @@ function isStatusCode200Series(statusCode: number) {
 }
 
 const withToken = async (endpoint: string, options?: RequestInit) => {
-  const token = await AsyncStorage.getItem("token");
+  const token = await SecureStore.getItemAsync("token");
   assertNonNullable(token);
-  const response = await fetch(`${process.env.API_BASE_URL}${endpoint}`, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+  const response = await fetch(
+    `${process.env.EXPO_PUBLIC_API_BASE_URL}/auth${endpoint}`,
+    {
+      ...options,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     },
-  });
+  );
   // 200番台以外のステータスコードの場合、例外
   const status = response.status;
   if (!isStatusCode200Series(status)) {
@@ -29,12 +32,16 @@ const withToken = async (endpoint: string, options?: RequestInit) => {
 };
 
 const withoutToken = async (endpoint: string, options?: RequestInit) => {
-  const response = await fetch(`${process.env.API_BASE_URL}${endpoint}`, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
+  const response = await fetch(
+    `${process.env.EXPO_PUBLIC_API_BASE_URL}${endpoint}`,
+    {
+      ...options,
+      headers: {
+        "Content-Type": "application/json",
+      },
     },
-  });
+  );
+
   // 200番台以外のステータスコードの場合、例外
   const status = response.status;
   if (!isStatusCode200Series(status)) {

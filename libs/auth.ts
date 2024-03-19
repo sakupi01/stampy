@@ -1,26 +1,27 @@
+import { Repository } from "@/repository/api";
 import { Err, Ok } from "@/repository/result";
 import { SignInFormType } from "@/schema/signIn";
 import { SignUpFormType } from "@/schema/signUp";
 import { User } from "@/types";
 import * as Crypto from "expo-crypto";
 
-async function getUser(token: string): Promise<Err<Error> | Ok<User>> {
-  // get user info by token
+export async function getUser(): Promise<Err<Error> | Ok<User>> {
+  // get user info
   // /user
-  // const repository = new Repository();
-  // const res = await repository.get("/user", false);
-  const mockres = {
-    ok: true,
-    val: {
-      id: "1",
-      username: "saku",
-      email: "saku@mail.com",
-      avatarUrl:
-        "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
-    },
-    err: null,
-  } as Ok<User>;
-  return mockres;
+  const repository = new Repository();
+  const res = await repository.get("/user");
+  // const mockres = {
+  //   ok: true,
+  //   val: {
+  //     id: "1",
+  //     username: "saku",
+  //     email: "saku@mail.com",
+  //     avatarUrl:
+  //       "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
+  //   },
+  //   err: null,
+  // } as Ok<User>;
+  return res;
 }
 
 async function registerUser({
@@ -32,19 +33,17 @@ async function registerUser({
 > {
   // register and return user from database
   // /signup
-  // const repository = new Repository();
-  // const res = await repository.post(
-  //   "/signup",
-  //   JSON.stringify({ username, email, hashedPassword }),
-  //   false,
-  // );
-  const res = {
-    ok: true,
-    val: {
-      token: "123-xxxxx",
-    },
-    err: null,
-  } as Ok<{ token: string }>;
+  const repository = new Repository();
+  const res = await repository.post(
+    "/signup",
+    JSON.stringify({ username, email, password: hashedPassword }),
+    false,
+  );
+
+  if (!res.ok) {
+    return res;
+  }
+
   return res;
 }
 
@@ -56,19 +55,17 @@ async function login({
 > {
   // get user from database
   // /login
-  // const repository = new Repository();
-  // const res = await repository.post(
-  //   "/login",
-  //   JSON.stringify({ email, hashedPassword }),
-  //   false,
-  // );
-  const res = {
-    ok: true,
-    val: {
-      token: "123-xxxxx",
-    },
-    err: null,
-  } as Ok<{ token: string }>;
+  const repository = new Repository();
+  const res = await repository.post(
+    "/login",
+    JSON.stringify({ email, password: hashedPassword }),
+    false,
+  );
+
+  if (!res.ok) {
+    return res;
+  }
+
   return res;
 }
 
@@ -77,17 +74,13 @@ async function checkUser(
 ): Promise<Err<Error> | Ok<{ doesUserExist: boolean }>> {
   // get user from database
   // /check-user
-  // const repository = new Repository();
-  // const res = await repository.put(
-  //   "/check-user",
-  //   JSON.stringify({ email }),
-  //   false,
-  // );
-  const res = {
-    ok: true,
-    val: { doesUserExist: false },
-    err: null,
-  } as Ok<{ doesUserExist: boolean }>;
+
+  const repository = new Repository();
+  const res = await repository.post(
+    "/check-email",
+    JSON.stringify({ email }),
+    false,
+  );
 
   if (!res.ok) {
     return res;
@@ -106,13 +99,9 @@ async function signIn(credentials: SignInFormType) {
   if (!res.ok) {
     return res;
   }
-  const data = await getUser(res.val.token);
-  if (!data.ok) {
-    return data;
-  }
   return {
     ok: true,
-    val: { token: res.val.token, user: data.val },
+    val: res.val.token,
     err: null,
   };
 }
@@ -120,7 +109,7 @@ async function signIn(credentials: SignInFormType) {
 async function signUp(credentials: SignUpFormType) {
   const { username, email, password } = credentials;
 
-  const doesUserExist = await checkUser(username);
+  const doesUserExist = await checkUser(email);
   if (!doesUserExist.ok) {
     return doesUserExist;
   }
@@ -132,7 +121,6 @@ async function signUp(credentials: SignUpFormType) {
       err: new Error("User already exists"),
     } as Err<Error>;
   }
-
   const hashedPassword = await Crypto.digestStringAsync(
     Crypto.CryptoDigestAlgorithm.SHA256,
     password,
@@ -141,13 +129,9 @@ async function signUp(credentials: SignUpFormType) {
   if (!res.ok) {
     return res;
   }
-  const data = await getUser(res.val.token);
-  if (!data.ok) {
-    return data;
-  }
   return {
     ok: true,
-    val: { token: res.val.token, user: data.val },
+    val: res.val.token,
     err: null,
   };
 }

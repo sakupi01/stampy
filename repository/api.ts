@@ -1,13 +1,19 @@
 import { fetcher } from "./fetcher";
 
 export class Repository {
-  async get(endpoint: string, withToken?: boolean) {
+  async get(endpoint: string, body?: BodyInit, withToken = true) {
     const res = withToken
-      ? await fetcher.withToken(endpoint)
-      : await fetcher.withoutToken(endpoint);
+      ? await fetcher.withToken(endpoint, {
+          method: "GET",
+          body: body,
+        })
+      : await fetcher.withoutToken(endpoint, {
+          method: "GET",
+          body: body,
+        });
     return res;
   }
-  async put(endpoint: string, body: BodyInit, withToken?: boolean) {
+  async put(endpoint: string, body: BodyInit, withToken = true) {
     const res = withToken
       ? await fetcher.withToken(endpoint, {
           method: "PUT",
@@ -19,7 +25,7 @@ export class Repository {
         });
     return res;
   }
-  async post(endpoint: string, body: BodyInit, withToken?: boolean) {
+  async post(endpoint: string, body: BodyInit, withToken = true) {
     const res = withToken
       ? await fetcher.withToken(endpoint, {
           method: "POST",
