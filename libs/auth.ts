@@ -3,24 +3,13 @@ import { Err, Ok } from "@/repository/result";
 import { SignInFormType } from "@/schema/signIn";
 import { SignUpFormType } from "@/schema/signUp";
 import { User } from "@/types";
-import * as Crypto from "expo-crypto";
+import { hashString } from "./hash";
 
 export async function getUser(): Promise<Err<Error> | Ok<User>> {
   // get user info
   // /user
   const repository = new Repository();
   const res = await repository.get("/user");
-  // const mockres = {
-  //   ok: true,
-  //   val: {
-  //     id: "1",
-  //     username: "saku",
-  //     email: "saku@mail.com",
-  //     avatarUrl:
-  //       "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
-  //   },
-  //   err: null,
-  // } as Ok<User>;
   return res;
 }
 
@@ -91,10 +80,7 @@ async function checkUser(
 
 async function signIn(credentials: SignInFormType) {
   const { email, password } = credentials;
-  const hashedPassword = await Crypto.digestStringAsync(
-    Crypto.CryptoDigestAlgorithm.SHA256,
-    password,
-  );
+  const hashedPassword = await hashString(password);
   const res = await login({ email, hashedPassword });
   if (!res.ok) {
     return res;
@@ -121,10 +107,7 @@ async function signUp(credentials: SignUpFormType) {
       err: new Error("User already exists"),
     } as Err<Error>;
   }
-  const hashedPassword = await Crypto.digestStringAsync(
-    Crypto.CryptoDigestAlgorithm.SHA256,
-    password,
-  );
+  const hashedPassword = await hashString(password);
   const res = await registerUser({ username, email, hashedPassword });
   if (!res.ok) {
     return res;

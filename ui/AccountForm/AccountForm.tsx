@@ -2,7 +2,8 @@ import { AvatarPicker } from "@/components/AvatarPicker/AvatarPicker";
 import { SimpleList } from "@/components/SimpleList";
 import { StyledButton } from "@/components/StyledButton";
 import { Typography } from "@/components/Typography";
-import { sleep } from "@/libs/sleep";
+import { authActions } from "@/libs/AsyncStorage/Auth/slice";
+import { Repository } from "@/repository/api";
 import {
   AccountSettingsSchema,
   AccountSettingsType,
@@ -13,13 +14,14 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { ScrollView, StyleSheet } from "react-native";
 import { s, vs } from "react-native-size-matters";
+import { useDispatch } from "react-redux";
 import { Spinner, Square, YStack } from "tamagui";
 import { PasswordChangeForm } from "../PasswordChangeForm/PasswordChangeForm";
 import { useAccount } from "./hooks/useAccount";
 
 export const AccountForm = () => {
   const { formData } = useAccount();
-
+  const dispatch = useDispatch();
   const toast = useToastController();
   const [passwordFormVisible, setPasswordFormVisible] = useState(false);
   const {
@@ -37,21 +39,20 @@ export const AccountForm = () => {
     console.log(data);
     // save user info changes to server
     // /user
-    // const repository = new Repository();
-    // const res = await repository.put(
-    //   "/user",
-    //   JSON.stringify(data),
-    // );
-    // if (res.ok) {
-    await sleep(1000);
-    toast.show("✅ 変更を保存しました");
-    // clear submitting state
-    reset();
-    // 作成したカード一覧へ遷移
-    // router.push("/cards");
-    // }else{
-    // toast.show("🚫 情報の更新に失敗しました");
-    // }
+    const repository = new Repository();
+    const res = await repository.put("/user", JSON.stringify(data));
+    if (res.ok) {
+      dispatch(
+        authActions.setUser({
+          user: res.val,
+        }),
+      );
+      toast.show("✅ 変更を保存しました");
+      // clear submitting state
+      reset();
+    } else {
+      toast.show("🚫 情報の更新に失敗しました");
+    }
   };
 
   return (
