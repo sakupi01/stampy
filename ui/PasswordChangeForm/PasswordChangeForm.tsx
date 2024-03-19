@@ -1,6 +1,7 @@
 import { StyledInput } from "@/components/StyledInput";
 import { Typography } from "@/components/Typography";
-import { sleep } from "@/libs/sleep";
+import { hashString } from "@/libs/hash";
+import { Repository } from "@/repository/api";
 import {
   RenewPasswordFormSchema,
   RenewPasswordFormType,
@@ -129,23 +130,26 @@ export const PasswordChangeForm = ({
             color={isValid ? "$destructive--background" : "$text--subtle"}
             onPress={handleSubmit(async (data) => {
               console.log(data);
+              const hashedOldPassword = await hashString(data.oldPassword);
+              const hashedPassword = await hashString(data.password);
+
               // save password to Server
               // /user/pwd
-              // const repository = new Repository();
-              // const res = await repository.put(
-              //   "/user/pwd",
-              //   JSON.stringify({data.oldPassword, data.password}),
-              // );
-              // if (res.ok) {
-              await sleep(1000);
-              toast.show("🔑 パスワードを変更しました");
-              // clear submitting state
-              reset();
-              // 作成したカード一覧へ遷移
-              // router.push("/cards");
-              // } else {
-              //   toast.show("🚫 パスワードの更新に失敗しました");
-              // }
+              const repository = new Repository();
+              const res = await repository.put(
+                "/user/pwd",
+                JSON.stringify({
+                  oldPass: hashedOldPassword,
+                  newPass: hashedPassword,
+                }),
+              );
+              if (res.ok) {
+                toast.show("🔑 パスワードを変更しました");
+                // clear submitting state
+                reset();
+              } else {
+                toast.show("🚫 パスワードの更新に失敗しました");
+              }
             })}
           >
             変更する
