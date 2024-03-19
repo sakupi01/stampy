@@ -47,18 +47,23 @@ export function SignInForm() {
         onSubmitAction={handleSubmit(async (data: SignInFormType) => {
           console.log("Submitted! :", data);
           dispatch(authActions.isLoading(true));
-          // authorization logic with server
           const token = await signIn(data);
+
           if (token.ok) {
+            dispatch(
+              authActions.setToken({
+                token: token.val,
+              }),
+            );
             const user = await getUser();
             if (user.ok) {
               // set user to redux
               dispatch(
-                authActions.authorize({
-                  token: token.val,
+                authActions.setUser({
                   user: user.val,
                 }),
               );
+
               dispatch(authActions.isLoading(false));
               // clear submitting state
               reset();
@@ -161,8 +166,6 @@ export function SignUpForm() {
           // authorization logic with server
           const token = await signUp(data);
           if (token.ok) {
-            console.log(token.val);
-
             dispatch(
               authActions.setToken({
                 token: token.val,
