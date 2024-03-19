@@ -3,11 +3,12 @@ import { DatePicker } from "@/components/DatePicker";
 import { StyledButton } from "@/components/StyledButton";
 import { ThemeSelector } from "@/components/ThemeSelector";
 import { Typography } from "@/components/Typography";
-import { sleep } from "@/libs/sleep";
+import { Repository } from "@/repository/api";
 import { StampCardFormSchema, StampCardFormType } from "@/schema/stampCard";
 import { User } from "@/types";
 import { valibotResolver } from "@hookform/resolvers/valibot";
 import { useToastController } from "@tamagui/toast";
+import { useRouter } from "expo-router";
 import { useEffect, useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { KeyboardAvoidingView, TextInput } from "react-native";
@@ -16,6 +17,7 @@ import { Spinner, YStack } from "tamagui";
 
 export const CreateCardForm = ({ user }: { user: User }) => {
   const toast = useToastController();
+  const router = useRouter();
   const titleRef = useRef<TextInput>(null);
   const {
     control,
@@ -39,31 +41,26 @@ export const CreateCardForm = ({ user }: { user: User }) => {
 
   const onSubmit = async (data: StampCardFormType) => {
     console.log(data);
-    // const saveData = {
-    //   ...data,
-    //   startDate: data.startDate.toISOString(),
-    //   endDate: data.endDate.toISOString(),
-    //   createdBy: user.email,
-    //   ...(data.receiver ? { joinedUser: data.receiver } : {}),
-    // };
+    const saveData = {
+      ...data,
+      startDate: data.startDate.toISOString(),
+      endDate: data.endDate.toISOString(),
+      createdBy: user.email,
+      ...(data.receiver ? { joinedUser: data.receiver } : {}),
+    };
     // save card to server
     // /stampcard
-    // const repository = new Repository();
-    // const res = await repository.post(
-    //   "/stampcard",
-    //   JSON.stringify(saveData),
-    // );
-    // if (res.ok) {
-
-    await sleep(1000);
-    // clear submitting state
-    reset();
-    toast.show("✅ カードを作成しました");
-    // 作成したカードへ遷移
-    // router.push("/home/{id}");
-    // }else{
-    //   toast.show("🚫 カードの作成に失敗しました");
-    // }
+    const repository = new Repository();
+    const res = await repository.post("/stampcard", JSON.stringify(saveData));
+    if (res.ok) {
+      // clear submitting state
+      reset();
+      toast.show("✅ カードを作成しました");
+      // 作成したカードへ遷移
+      router.push(`/home/${res.val.id}`);
+    } else {
+      toast.show("🚫 カードの作成に失敗しました");
+    }
   };
   return (
     <YStack marginBottom={vs(100)}>
