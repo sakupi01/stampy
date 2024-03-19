@@ -1,24 +1,50 @@
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 
+import { CardSkeleton } from "@/components/Skeleton/Skeleton";
 import { StyledCard } from "@/components/StyledCard";
 import { Typography } from "@/components/Typography";
-import { assertNonNullable } from "@/libs/assertNonNullable";
+import { StampCard as StampCardType } from "@/types/StampCard";
 import { StampCard } from "@/ui/StampCard";
 import { MockStampCards } from "@/ui/StampCard/fixture/mock.data";
 import { useLocalSearchParams } from "expo-router";
+import { useEffect, useState } from "react";
 import { s, vs } from "react-native-size-matters";
 import { YStack } from "tamagui";
 
 export default function StampCardScreen() {
   const { id } = useLocalSearchParams();
-  // /stampcard/:id
-  // const repository = new Repository();
-  // const res = await repository.get(
-  //   "/stampcard/id"
-  // );
-  const card = MockStampCards.find((card) => card.cardId === id);
-  assertNonNullable(card);
-  // if (res.ok) {
+  const [card, setData] = useState<StampCardType | undefined>(undefined);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      // /stampcard/:id
+      // const repository = new Repository();
+      // const res = await repository.get(`/stampcard/${id}`);
+      // if (res.ok) {
+      const card = MockStampCards.find((card) => card.id === id);
+      setData(card);
+      // setData(res.val);
+      // }else{
+      //     return(
+      //       <SafeAreaView style={styles.container}>
+      //         <ScrollView style={styles.scrollView}>
+      //           <Typography type="h2">カードが見つかりませんでした</Typography>
+      //         </ScrollView>
+      //       </SafeAreaView>
+      //     )
+      // }
+    };
+    fetchData();
+  }, [id]);
+
+  if (!card) {
+    return (
+      <YStack marginTop={s(5)}>
+        <CardSkeleton />
+      </YStack>
+    );
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
@@ -52,15 +78,14 @@ export default function StampCardScreen() {
       </ScrollView>
     </SafeAreaView>
   );
-  // } else {
-  //   return (
-  //     <SafeAreaView style={styles.container}>
-  //       <ScrollView style={styles.scrollView}>
-  //         <Typography type="h2">カードが見つかりませんでした</Typography>
-  //       </ScrollView>
-  //     </SafeAreaView>
-  //   );
   // }
+  // return (
+  //   <SafeAreaView style={styles.container}>
+  //     <ScrollView style={styles.scrollView}>
+  //       <Typography type="h2">カードが見つかりませんでした</Typography>
+  //     </ScrollView>
+  //   </SafeAreaView>
+  // );
 }
 
 const styles = StyleSheet.create({

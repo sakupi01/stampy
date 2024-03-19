@@ -2,7 +2,7 @@ import { StampNode } from "./StampNode";
 import { User } from "./User";
 
 export type StampCard = {
-  cardId: string;
+  id: string;
   title: string;
   createdBy: User;
   joinedUser: User;

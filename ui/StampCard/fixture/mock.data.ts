@@ -24,7 +24,7 @@ export const MockStampNodes: StampNode[] = [
 
 export const MockStampCards: StampCard[] = [
   ...Array.from(Array(20)).map((_, i) => ({
-    cardId: `${i + 1}`,
+    id: `${i + 1}`,
     title: `タイトル${i + 1}`,
     createdBy: {
       id: "1",
