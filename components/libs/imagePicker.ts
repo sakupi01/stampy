@@ -38,7 +38,7 @@ export const pickImage = async <FieldType extends AllowedFormType>({
     );
     setImage(uploadResult.downloadUrl);
     // @ts-ignore
-    setValue(rfhKey, uploadResult.downloadUrl);
+    setValue(rfhKey, uploadResult.downloadUrl, { shouldDirty: true });
     toast.show("🌟 画像がアップロードされました");
   }
 };

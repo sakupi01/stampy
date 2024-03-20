@@ -25,7 +25,7 @@ const Item = ({ id, label, data, isEditable, ...props }: ListItemProps) => {
       <Input
         id={`${id}-${label}`}
         placeholder={data.toString()}
-        defaultValue={data}
+        defaultValue={data.toString()}
         editable={isEditable}
         disabled={!isEditable}
         focusable={isEditable}
