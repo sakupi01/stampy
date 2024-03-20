@@ -1,20 +1,58 @@
-import { useAppSelector } from "@/libs/AsyncStorage/store";
-import { assertNonNullable } from "@/libs/assertNonNullable";
+import { Typography } from "@/components/Typography";
 import { CreateCardForm } from "@/ui/CreateCardForm";
+import { Toast, ToastViewport, useToastState } from "@tamagui/toast";
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import { s, vs } from "react-native-size-matters";
 
 export default function CreateCardScreen() {
-  const user = useAppSelector((state) => state.auth.user);
-  assertNonNullable(user);
   return (
     <SafeAreaView style={styles.container}>
+      <CurrentToast />
       <ScrollView style={styles.scrollView}>
-        <CreateCardForm user={user} />
+        <CreateCardForm />
       </ScrollView>
+      <ToastViewport
+        width="100%"
+        height="100%"
+        alignItems="center"
+        flexDirection="column"
+      />
     </SafeAreaView>
   );
 }
+
+const CurrentToast = () => {
+  const currentToast = useToastState();
+
+  if (!currentToast || currentToast.isHandledNatively) return null;
+  return (
+    <Toast
+      unstyled
+      key={currentToast.id}
+      duration={currentToast.duration}
+      enterStyle={{ opacity: 0, scale: 0.5, y: -25 }}
+      exitStyle={{ opacity: 0, scale: 1, y: -20 }}
+      y={0}
+      opacity={1}
+      scale={1}
+      animation="bouncy"
+      viewportName={currentToast.viewportName}
+      borderRadius={50}
+      backgroundColor="rgb(232, 230, 227)"
+      padding={s(15)}
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Toast.Title>
+        <Typography type="medium" color="$text--subtle">
+          {currentToast.title}
+        </Typography>
+      </Toast.Title>
+    </Toast>
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
     width: "100%",

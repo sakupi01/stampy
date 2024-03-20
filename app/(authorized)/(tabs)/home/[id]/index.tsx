@@ -28,7 +28,7 @@ export default function StampCardScreen() {
       //     return(
       //       <SafeAreaView style={styles.container}>
       //         <ScrollView style={styles.scrollView}>
-      //           <Typography type="h2">カードが見つかりませんでした</Typography>
+      //           <Typography type="h2">取得に失敗しました</Typography>
       //         </ScrollView>
       //       </SafeAreaView>
       //     )

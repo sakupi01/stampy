@@ -3,9 +3,10 @@ import { DatePicker } from "@/components/DatePicker";
 import { StyledButton } from "@/components/StyledButton";
 import { ThemeSelector } from "@/components/ThemeSelector";
 import { Typography } from "@/components/Typography";
+import { useAppDispatch, useAppSelector } from "@/libs/AsyncStorage/store";
+import { assertNonNullable } from "@/libs/assertNonNullable";
 import { Repository } from "@/repository/api";
 import { StampCardFormSchema, StampCardFormType } from "@/schema/stampCard";
-import { User } from "@/types";
 import { valibotResolver } from "@hookform/resolvers/valibot";
 import { useToastController } from "@tamagui/toast";
 import { useRouter } from "expo-router";
@@ -15,7 +16,10 @@ import { KeyboardAvoidingView, TextInput } from "react-native";
 import { ms, vs } from "react-native-size-matters";
 import { Spinner, YStack } from "tamagui";
 
-export const CreateCardForm = ({ user }: { user: User }) => {
+export const CreateCardForm = () => {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.auth.user);
+  assertNonNullable(user);
   const toast = useToastController();
   const router = useRouter();
   const titleRef = useRef<TextInput>(null);
@@ -55,11 +59,14 @@ export const CreateCardForm = ({ user }: { user: User }) => {
     if (res.ok) {
       // clear submitting state
       reset();
-      toast.show("✅ カードを作成しました");
       // 作成したカードへ遷移
       router.push(`/home/${res.val.id}`);
     } else {
-      toast.show("🚫 カードの作成に失敗しました");
+      if (res.err.message === "Not Found Error.") {
+        toast.show("🚫 メールアドレスのユーザは登録されていません");
+      } else {
+        toast.show("🚫 カードの作成に失敗しました");
+      }
     }
   };
   return (

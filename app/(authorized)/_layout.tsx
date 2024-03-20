@@ -5,7 +5,6 @@ import { Slot } from "expo-router";
 
 export default function Layout() {
   const { token, isLoading } = useAppSelector((state) => state.auth);
-  console.log("token:", token);
   // You can keep the splash screen open, or render a loading screen like we do here.
   if (isLoading) {
     return <Typography type="ui">Loading...</Typography>;

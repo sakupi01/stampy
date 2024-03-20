@@ -24,6 +24,9 @@ export const { actions, reducer } = createSlice({
     ) => {
       state.stampCards = action.payload.stampCards;
     },
+    addStampCard: (state, action: PayloadAction<{ stampCard: StampCard }>) => {
+      state.stampCards?.push(action.payload.stampCard);
+    },
     setNotifications: (
       state,
       action: PayloadAction<{ notifications: Notification[] }>,
