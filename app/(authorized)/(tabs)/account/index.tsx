@@ -23,6 +23,7 @@ export default function AccountScreen() {
           height="100%"
           alignItems="center"
           flexDirection="column"
+          name="account-vp"
         />
       </YStack>
     </SafeAreaView>
@@ -33,10 +34,11 @@ const CurrentToast = () => {
   const currentToast = useToastState();
 
   if (!currentToast || currentToast.isHandledNatively) return null;
+
   return (
     <Toast
       unstyled
-      key={currentToast.id}
+      key={`account-${currentToast.id}`}
       duration={currentToast.duration}
       enterStyle={{ opacity: 0, scale: 0.5, y: -25 }}
       exitStyle={{ opacity: 0, scale: 1, y: -20 }}
@@ -44,7 +46,7 @@ const CurrentToast = () => {
       opacity={1}
       scale={1}
       animation="bouncy"
-      viewportName={currentToast.viewportName}
+      viewportName="account-vp"
       borderRadius={50}
       backgroundColor="rgb(232, 230, 227)"
       padding={s(15)}

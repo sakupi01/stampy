@@ -28,7 +28,7 @@ export const CreateCardForm = () => {
     control,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting, isSubmitted, isValid },
+    formState: { errors, isSubmitting, isValid },
     setValue,
     setFocus,
     watch,
@@ -37,6 +37,7 @@ export const CreateCardForm = () => {
     mode: "onChange",
     reValidateMode: "onChange",
   });
+
   useEffect(() => {
     titleRef.current?.focus();
     setFocus("title");
