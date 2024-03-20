@@ -18,7 +18,7 @@ describe("<CreateCardForm />", () => {
     const snapshot = renderer
       .create(
         <Providers colorScheme={"light"}>
-          <CreateCardForm user={user} />
+          <CreateCardForm />
         </Providers>,
       )
       .toJSON();

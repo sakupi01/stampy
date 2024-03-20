@@ -4,7 +4,6 @@ import { StyledButton } from "@/components/StyledButton";
 import { ThemeSelector } from "@/components/ThemeSelector";
 import { Typography } from "@/components/Typography";
 import { useAppSelector } from "@/libs/AsyncStorage/store";
-import { assertNonNullable } from "@/libs/assertNonNullable";
 import { Repository } from "@/repository/api";
 import { StampCardFormSchema, StampCardFormType } from "@/schema/stampCard";
 import { valibotResolver } from "@hookform/resolvers/valibot";
@@ -20,7 +19,6 @@ import { Spinner, YStack } from "tamagui";
 export const CreateCardForm = () => {
   const { mutate } = useSWRConfig();
   const user = useAppSelector((state) => state.auth.user);
-  assertNonNullable(user);
   const toast = useToastController();
   const router = useRouter();
   const titleRef = useRef<TextInput>(null);
@@ -51,7 +49,7 @@ export const CreateCardForm = () => {
       ...data,
       startDate: data.startDate.toISOString(),
       endDate: data.endDate.toISOString(),
-      createdBy: user.email,
+      createdBy: user?.email,
       ...(data.receiver ? { joinedUser: data.receiver } : {}),
     };
     // save card to server
