@@ -87,14 +87,22 @@ export const StampCardList = function StampCardList({
             <Avatar circular size="$3">
               <Avatar.Image
                 accessibilityLabel={card.joinedUser.username}
-                src={card.joinedUser.avatarUrl}
+                src={
+                  card.joinedUser.avatarUrl === ""
+                    ? require("../../../assets/images/stampy-icon.png")
+                    : card.joinedUser.avatarUrl
+                }
               />
               <Avatar.Fallback backgroundColor="$blue10" />
             </Avatar>
             <Avatar circular size="$3" marginLeft={s(-10)}>
               <Avatar.Image
                 accessibilityLabel={card.createdBy.username}
-                src={card.createdBy.avatarUrl}
+                src={
+                  card.createdBy.avatarUrl === ""
+                    ? require("../../../assets/images/linerbg.png")
+                    : card.createdBy.avatarUrl
+                }
               />
               <Avatar.Fallback delayMs={600} backgroundColor="$blue10" />
             </Avatar>

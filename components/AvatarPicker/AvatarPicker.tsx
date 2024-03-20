@@ -7,8 +7,7 @@ import { s } from "react-native-size-matters";
 import { Avatar, View } from "tamagui";
 import { pickImage } from "../libs/imagePicker";
 
-const DEFAULT_IMAGE =
-  "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80" as const;
+const DEFAULT_IMAGE = require("../../assets/images/linerbg.png");
 type AvatarPickerProps = {
   defaultUrl: string;
   setValue: UseFormSetValue<AccountSettingsType>;
