@@ -28,7 +28,7 @@ export const CreateCardForm = () => {
     control,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting, isValid },
+    formState: { errors, isSubmitting, isValid, isDirty },
     setValue,
     setFocus,
     watch,
@@ -190,8 +190,8 @@ export const CreateCardForm = () => {
             ? () => <Spinner size="small" color={"$secondary--background"} />
             : undefined
         }
-        type={!isValid ? "disabled" : "primary"}
-        disabled={!isValid || isSubmitting}
+        type={!isValid || !isDirty ? "disabled" : "primary"}
+        disabled={!isValid || !isDirty || isSubmitting}
       >
         <Typography>作成</Typography>
       </StyledButton>

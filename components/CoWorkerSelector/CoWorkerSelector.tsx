@@ -23,14 +23,15 @@ export const CoWorkerSelector = ({
     if (isStampy) {
       inputRef.current?.blur(); // remove focus
       setStampy(isStampy);
-      setValue("isStampy", isStampy);
-      setValue("receiver", undefined);
+
+      setValue("isStampy", isStampy, { shouldDirty: true });
+      setValue("receiver", undefined, { shouldDirty: true });
     } else {
       inputRef.current?.focus(); // remove focus
       setStampy(isStampy);
-      setValue("isStampy", isStampy);
+      setValue("isStampy", isStampy, { shouldDirty: true });
       // メールドレスバリデーションを有効にするために空文字を入れる
-      setValue("receiver", "");
+      setValue("receiver", " ", { shouldDirty: true });
     }
   };
 
