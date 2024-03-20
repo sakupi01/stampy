@@ -2,7 +2,6 @@ import { Badge } from "@/components/Badge";
 import { CardSkeleton } from "@/components/Skeleton/Skeleton";
 import { StyledCard } from "@/components/StyledCard";
 import { Typography } from "@/components/Typography";
-import { useAppSelector } from "@/libs/AsyncStorage/store";
 import { StampCard as StampCardType } from "@/types/StampCard";
 import { StampCard } from "@/ui/StampCard";
 import { MockStampNodes } from "@/ui/StampCard/fixture/mock.data";
@@ -13,12 +12,13 @@ import { Avatar, XStack, YStack } from "tamagui";
 
 export type StampCardListProps = {
   query?: string;
+  cards: StampCardType[];
 };
 export const StampCardList = function StampCardList({
   query,
+  cards,
 }: StampCardListProps) {
   const [data, setData] = useState<Array<StampCardType> | undefined>(undefined);
-  const cards = useAppSelector((state) => state.list.stampCards);
 
   useEffect(() => {
     const extractedCards = cards?.filter((item) =>
