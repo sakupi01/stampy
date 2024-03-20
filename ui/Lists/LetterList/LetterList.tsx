@@ -1,6 +1,5 @@
 import { ListSkeleton } from "@/components/Skeleton/Skeleton";
 import { Typography } from "@/components/Typography";
-import { useAppSelector } from "@/libs/AsyncStorage/store";
 import { Letter } from "@/types/Letter";
 import { Notification } from "@/types/Notification";
 import { StyledList } from "@/ui/Lists/StyledList";
@@ -8,13 +7,13 @@ import { useEffect, useState } from "react";
 
 export type LetterListProps = {
   query?: string;
+  letters?: Letter[];
 };
 
-export const LetterList = ({ query }: LetterListProps) => {
+export const LetterList = ({ query, letters }: LetterListProps) => {
   const [data, setData] = useState<Array<Notification | Letter> | undefined>(
     undefined,
   );
-  const letters = useAppSelector((state) => state.list.letters);
 
   useEffect(() => {
     const extractedLetters = letters?.filter((item) =>

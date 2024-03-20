@@ -1,18 +1,19 @@
 import { ListSkeleton } from "@/components/Skeleton/Skeleton";
 import { Typography } from "@/components/Typography";
-import { useAppSelector } from "@/libs/AsyncStorage/store";
 import { Notification } from "@/types/Notification";
 import { StyledList } from "@/ui/Lists/StyledList";
 import { useEffect, useState } from "react";
 
 export type NotificationListProps = {
   query?: string;
+  notifications?: Notification[];
 };
 
-export const NotificationList = ({ query }: NotificationListProps) => {
+export const NotificationList = ({
+  query,
+  notifications,
+}: NotificationListProps) => {
   const [data, setData] = useState<Array<Notification> | undefined>(undefined);
-
-  const notifications = useAppSelector((state) => state.list.notifications);
 
   useEffect(() => {
     const extractedNotifications = notifications?.filter((item) =>

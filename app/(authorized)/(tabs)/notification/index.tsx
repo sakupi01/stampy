@@ -1,46 +1,24 @@
-import { SafeAreaView, StyleSheet } from "react-native";
-
 import { SearchBar } from "@/components/SearchBar";
+import { ListSkeleton } from "@/components/Skeleton";
 import { Typography } from "@/components/Typography";
-import { listActions } from "@/libs/AsyncStorage/List/slice";
-import { useAppDispatch } from "@/libs/AsyncStorage/store";
-import { Repository } from "@/repository/api";
+import { useApi } from "@/libs/hooks/useApi";
 import { NotificationList } from "@/ui/Lists/NotificationList";
 import { useLocalSearchParams } from "expo-router";
-import { useEffect } from "react";
+import { SafeAreaView, StyleSheet } from "react-native";
 import { s, vs } from "react-native-size-matters";
 import { YStack } from "tamagui";
 
-export default function LetterScreen() {
+export default function NotificationScreen() {
   const { query } = useLocalSearchParams<{ query?: string }>();
 
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    const fetchData = async () => {
-      const repository = new Repository();
-      const res = await repository.get("/notifications");
-      if (res.ok) {
-        dispatch(
-          listActions.setNotifications({
-            notifications: res.val.notifications,
-          }),
-        );
-      } else {
-        return (
-          <SafeAreaView style={styles.container}>
-            <YStack
-              paddingVertical={vs(50)}
-              paddingHorizontal={s(30)}
-              space={30}
-            >
-              <Typography type="h3">取得に失敗しました</Typography>
-            </YStack>
-          </SafeAreaView>
-        );
-      }
-    };
-    fetchData();
-  }, [dispatch]);
+  const { useGet } = useApi();
+  // NOTE: mutateしないのでintervalを設ける
+  const {
+    data: res,
+    isError,
+    isLoading,
+  } = useGet("/notifications", undefined, true, { refreshInterval: 5000 });
+
   return (
     <SafeAreaView style={styles.container}>
       <YStack paddingVertical={vs(50)} paddingHorizontal={s(30)} space={30}>
@@ -50,7 +28,20 @@ export default function LetterScreen() {
           placeholder="タイトルで検索"
           zIndex={"$1"}
         />
-        <NotificationList query={query} />
+        {!res || isLoading ? (
+          <ListSkeleton />
+        ) : isError || res.err ? (
+          <YStack marginTop={s(5)}>
+            <Typography type="h4" textAlign="center">
+              取得に失敗しました
+            </Typography>
+          </YStack>
+        ) : (
+          <NotificationList
+            query={query}
+            notifications={res.val.notifications}
+          />
+        )}
       </YStack>
     </SafeAreaView>
   );

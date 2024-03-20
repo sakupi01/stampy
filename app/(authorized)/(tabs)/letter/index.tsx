@@ -1,42 +1,24 @@
 import { SafeAreaView, StyleSheet } from "react-native";
 
 import { SearchBar } from "@/components/SearchBar";
+import { ListSkeleton } from "@/components/Skeleton";
 import { Typography } from "@/components/Typography";
-import { listActions } from "@/libs/AsyncStorage/List/slice";
-import { useAppDispatch } from "@/libs/AsyncStorage/store";
-import { Repository } from "@/repository/api";
+import { useApi } from "@/libs/hooks/useApi";
 import { LetterList } from "@/ui/Lists/LetterList";
 import { useLocalSearchParams } from "expo-router";
-import { useEffect } from "react";
 import { s, vs } from "react-native-size-matters";
 import { YStack } from "tamagui";
 
 export default function LetterScreen() {
   const { query } = useLocalSearchParams<{ query?: string }>();
 
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    const fetchData = async () => {
-      const repository = new Repository();
-      const res = await repository.get("/letters");
-      if (res.ok) {
-        dispatch(listActions.setLetters({ letters: res.val.letters }));
-      } else {
-        return (
-          <SafeAreaView style={styles.container}>
-            <YStack
-              paddingVertical={vs(50)}
-              paddingHorizontal={s(30)}
-              space={30}
-            >
-              <Typography type="h3">取得に失敗しました</Typography>
-            </YStack>
-          </SafeAreaView>
-        );
-      }
-    };
-    fetchData();
-  }, [dispatch]);
+  const { useGet } = useApi();
+  // NOTE: mutateしないのでintervalを設ける
+  const {
+    data: res,
+    isError,
+    isLoading,
+  } = useGet("/letters", undefined, true, { refreshInterval: 5000 });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -44,7 +26,18 @@ export default function LetterScreen() {
         <Typography type="h3">完走レター</Typography>
         <YStack space={30}>
           <SearchBar uid="letter" placeholder="タイトルで検索" zIndex={"$1"} />
-          <LetterList query={query} />
+
+          {!res || isLoading ? (
+            <ListSkeleton />
+          ) : isError || res.err ? (
+            <YStack marginTop={s(5)}>
+              <Typography type="h4" textAlign="center">
+                取得に失敗しました
+              </Typography>
+            </YStack>
+          ) : (
+            <LetterList query={query} letters={res.val.letters} />
+          )}
         </YStack>
       </YStack>
     </SafeAreaView>
