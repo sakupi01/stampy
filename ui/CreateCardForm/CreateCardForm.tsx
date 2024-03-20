@@ -3,7 +3,7 @@ import { DatePicker } from "@/components/DatePicker";
 import { StyledButton } from "@/components/StyledButton";
 import { ThemeSelector } from "@/components/ThemeSelector";
 import { Typography } from "@/components/Typography";
-import { useAppDispatch, useAppSelector } from "@/libs/AsyncStorage/store";
+import { useAppSelector } from "@/libs/AsyncStorage/store";
 import { assertNonNullable } from "@/libs/assertNonNullable";
 import { Repository } from "@/repository/api";
 import { StampCardFormSchema, StampCardFormType } from "@/schema/stampCard";
@@ -14,10 +14,11 @@ import { useEffect, useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { KeyboardAvoidingView, TextInput } from "react-native";
 import { ms, vs } from "react-native-size-matters";
+import { useSWRConfig } from "swr";
 import { Spinner, YStack } from "tamagui";
 
 export const CreateCardForm = () => {
-  const dispatch = useAppDispatch();
+  const { mutate } = useSWRConfig();
   const user = useAppSelector((state) => state.auth.user);
   assertNonNullable(user);
   const toast = useToastController();
@@ -57,6 +58,8 @@ export const CreateCardForm = () => {
     const repository = new Repository();
     const res = await repository.post("/stampcard", JSON.stringify(saveData));
     if (res.ok) {
+      // 再検証
+      mutate(["/stampcard", undefined, true]);
       // clear submitting state
       reset();
       // 作成したカードへ遷移

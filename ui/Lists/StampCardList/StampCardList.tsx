@@ -24,6 +24,9 @@ export const StampCardList = function StampCardList({
     const extractedCards = cards?.filter((item) =>
       item.title.includes(query ?? ""),
     );
+    console.log("***********");
+    console.log(extractedCards);
+    console.log("***********");
 
     setData(extractedCards);
   }, [cards, query]);

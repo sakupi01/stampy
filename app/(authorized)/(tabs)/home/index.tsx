@@ -1,42 +1,50 @@
-import { StyleSheet } from "react-native";
-
 import { SearchBar } from "@/components/SearchBar";
 import { Typography } from "@/components/Typography";
 import { listActions } from "@/libs/AsyncStorage/List/slice";
 import { useAppDispatch } from "@/libs/AsyncStorage/store";
-import { Repository } from "@/repository/api";
+import { useApi } from "@/libs/hooks/useApi";
 import { useLocalSearchParams } from "expo-router";
-import { useEffect } from "react";
+import { StyleSheet } from "react-native";
 import { SafeAreaView, ScrollView } from "react-native";
 import { s, vs } from "react-native-size-matters";
 import { YStack } from "tamagui";
 import { StampCardList } from "../../../../ui/Lists/StampCardList/StampCardList";
 export default function Home() {
   const { query } = useLocalSearchParams<{ query?: string }>();
-
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    const fetchData = async () => {
-      const repository = new Repository();
-      const res = await repository.get("/stampcard");
-      if (res.ok) {
-        dispatch(listActions.setStampCards({ stampCards: res.val.cards }));
-      } else {
-        return (
-          <SafeAreaView style={styles.container}>
-            <YStack
-              paddingVertical={vs(50)}
-              paddingHorizontal={s(30)}
-              space={30}
-            >
-              <Typography type="h3">取得に失敗しました</Typography>
-            </YStack>
-          </SafeAreaView>
-        );
-      }
-    };
-    fetchData();
-  }, [dispatch]);
+  const { useGet } = useApi();
+  const { data: res, isError, isLoading } = useGet("/stampcard");
+
+  if (!res || isError) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <YStack paddingVertical={vs(50)} paddingHorizontal={s(30)} space={30}>
+          <Typography type="h3">取得に失敗しました</Typography>
+        </YStack>
+      </SafeAreaView>
+    );
+  }
+  if (isLoading) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <YStack paddingVertical={vs(50)} paddingHorizontal={s(30)} space={30}>
+          <Typography type="h3">ロード中</Typography>
+        </YStack>
+      </SafeAreaView>
+    );
+  }
+
+  if (res.ok) {
+    dispatch(listActions.setStampCards({ stampCards: res.val.cards }));
+  } else {
+    return (
+      <SafeAreaView style={styles.container}>
+        <YStack paddingVertical={vs(50)} paddingHorizontal={s(30)} space={30}>
+          <Typography type="h3">取得に失敗しました</Typography>
+        </YStack>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
