@@ -28,12 +28,18 @@ export default function NotificationScreen() {
           placeholder="タイトルで検索"
           zIndex={"$1"}
         />
-        {!res || isLoading ? (
+        {!res ? (
+          <YStack marginTop={s(5)}>
+            <Typography type="h4" textAlign="center">
+              ここはまだとても静かです。
+            </Typography>
+          </YStack>
+        ) : isLoading ? (
           <ListSkeleton />
         ) : isError || res.err ? (
           <YStack marginTop={s(5)}>
             <Typography type="h4" textAlign="center">
-              取得に失敗しました
+              取得に失敗しました。
             </Typography>
           </YStack>
         ) : (
@@ -51,6 +57,6 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: "100%",
-    backgroundColor: "#fff",
+    backgroundColor: "#ffffff",
   },
 });

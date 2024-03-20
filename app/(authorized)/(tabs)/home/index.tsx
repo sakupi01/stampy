@@ -26,7 +26,13 @@ export default function Home() {
       </YStack>
       <ScrollView style={styles.scrollView}>
         <YStack alignItems="center" width="100%" height="100%">
-          {!res || isLoading ? (
+          {!res || res.val.cards === null ? (
+            <YStack marginTop={s(5)}>
+              <Typography type="h4" textAlign="center">
+                スタンプカードを作ってみましょう！
+              </Typography>
+            </YStack>
+          ) : isLoading ? (
             <YStack marginTop={s(5)}>
               <CardSkeleton />
               <CardSkeleton />
@@ -35,7 +41,7 @@ export default function Home() {
           ) : isError || res.err ? (
             <YStack marginTop={s(5)}>
               <Typography type="h4" textAlign="center">
-                取得に失敗しました
+                取得に失敗しました。
               </Typography>
             </YStack>
           ) : (

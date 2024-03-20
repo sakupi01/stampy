@@ -1,5 +1,4 @@
 import { Badge } from "@/components/Badge";
-import { CardSkeleton } from "@/components/Skeleton/Skeleton";
 import { StyledCard } from "@/components/StyledCard";
 import { Typography } from "@/components/Typography";
 import { StampCard as StampCardType } from "@/types/StampCard";
@@ -8,7 +7,7 @@ import { MockStampNodes } from "@/ui/StampCard/fixture/mock.data";
 import { Link } from "expo-router";
 import { useEffect, useState } from "react";
 import { s, vs } from "react-native-size-matters";
-import { Avatar, XStack, YStack } from "tamagui";
+import { Avatar, XStack } from "tamagui";
 
 export type StampCardListProps = {
   query?: string;
@@ -18,10 +17,10 @@ export const StampCardList = function StampCardList({
   query,
   cards,
 }: StampCardListProps) {
-  const [data, setData] = useState<Array<StampCardType> | undefined>(undefined);
+  const [data, setData] = useState<Array<StampCardType>>(cards);
 
   useEffect(() => {
-    const extractedCards = cards?.filter((item) =>
+    const extractedCards = cards.filter((item) =>
       item.title.includes(query ?? ""),
     );
     console.log("***********");
@@ -31,15 +30,6 @@ export const StampCardList = function StampCardList({
     setData(extractedCards);
   }, [cards, query]);
 
-  if (!data) {
-    return (
-      <YStack marginTop={s(5)}>
-        <CardSkeleton />
-        <CardSkeleton />
-        <CardSkeleton />
-      </YStack>
-    );
-  }
   if (data.length === 0) {
     return <Typography>該当するカードは見つかりませんでした</Typography>;
   }

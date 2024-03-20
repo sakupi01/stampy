@@ -26,13 +26,18 @@ export default function LetterScreen() {
         <Typography type="h3">完走レター</Typography>
         <YStack space={30}>
           <SearchBar uid="letter" placeholder="タイトルで検索" zIndex={"$1"} />
-
-          {!res || isLoading ? (
+          {!res ? (
+            <YStack marginTop={s(5)}>
+              <Typography type="h4" textAlign="center">
+                レターが届くのが待ち遠しいですね！
+              </Typography>
+            </YStack>
+          ) : isLoading ? (
             <ListSkeleton />
           ) : isError || res.err ? (
             <YStack marginTop={s(5)}>
               <Typography type="h4" textAlign="center">
-                取得に失敗しました
+                取得に失敗しました。
               </Typography>
             </YStack>
           ) : (
