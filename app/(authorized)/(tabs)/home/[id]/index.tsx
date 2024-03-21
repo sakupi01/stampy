@@ -3,7 +3,6 @@ import { StyledCard } from "@/components/StyledCard";
 import { Typography } from "@/components/Typography";
 import { useApi } from "@/libs/hooks/useApi";
 import { StampCard } from "@/ui/StampCard";
-import { MockStampCards } from "@/ui/StampCard/fixture/mock.data";
 import { useLocalSearchParams } from "expo-router";
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import { s, vs } from "react-native-size-matters";
@@ -15,12 +14,12 @@ export default function StampCardScreen() {
   const { data, isError, isLoading } = useGet(`/stampcard/${id}`);
 
   // TODO: 本来はAPIから取得できるようになったら削除
-  const card = MockStampCards.find((card) => card.id === id);
+  // const card = MockStampCards.find((card) => card.id === id);
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
-        {!card || !data || isLoading ? (
+        {!data || isLoading ? (
           <YStack marginTop={s(5)}>
             <CardSkeleton />
           </YStack>
@@ -38,7 +37,7 @@ export default function StampCardScreen() {
               textAlign="left"
               width="100%"
             >
-              {card.title}
+              {data.val.title}
             </Typography>
             <StyledCard.Card
               margin={s(5)}
@@ -47,11 +46,11 @@ export default function StampCardScreen() {
               maxWidth={s(300)}
               maxHeight={vs(500)}
               isBouncy={false}
-              imageSource={{ uri: card.backgroundUrl }}
+              imageSource={{ uri: data.val.backgroundUrl }}
             >
               <StampCard
-                currentDay={card.currentDay}
-                stampNodes={card.stampNodes}
+                currentDay={data.val.currentDay}
+                stampNodes={data.val.stampNodes}
                 fixedWidth={s(300)}
                 fixedHeight={vs(500)}
                 isEditable
