@@ -207,8 +207,8 @@ export const DATA_LETTER: Array<Letter> = [
   {
     type: "letter",
     id: "1",
-    title: "「カードタイトル」への完走レター",
-    stamp: "🌟",
+    title: "「ピアノの練習をする」への完走レター",
+    stamp: "🎹",
     content:
       "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
     hrefPrefix: "/letter",
@@ -234,21 +234,21 @@ export const DATA_LETTER: Array<Letter> = [
   {
     type: "letter",
     id: "2",
-    title: "「カードタイトル」への完走レター",
+    title: "「A11yを勉強する期間」への完走レター",
     content:
-      "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
-    stamp: "🌟",
+      "さいごまで継続してほんと偉い！\n私も達成したいことを諦めずに頑張ろうって思えました。\nありがとう。",
+    stamp: "❤️‍🔥",
     hrefPrefix: "/letter",
     sender: {
       id: "1",
-      username: "username",
+      username: "Stampy",
       email: "email",
       avatarUrl:
         "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
     receiver: {
       id: "1",
-      username: "username",
+      username: "saku",
       email: "email",
       avatarUrl:
         "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
@@ -261,10 +261,10 @@ export const DATA_LETTER: Array<Letter> = [
   {
     type: "letter",
     id: "3",
-    title: "「カードタイトル」への完走レター",
+    title: "「外食しない」への完走レター",
     content:
       "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
-    stamp: "🌟",
+    stamp: "🍜",
     hrefPrefix: "/letter",
     sender: {
       id: "1",
@@ -288,10 +288,10 @@ export const DATA_LETTER: Array<Letter> = [
   {
     type: "letter",
     id: "4",
-    title: "「カードタイトル」への完走レター",
+    title: "「お風呂掃除をする」への完走レター",
     content:
       "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
-    stamp: "🌟",
+    stamp: "🛁",
     hrefPrefix: "/letter",
     sender: {
       id: "1",
@@ -315,10 +315,10 @@ export const DATA_LETTER: Array<Letter> = [
   {
     type: "letter",
     id: "5",
-    title: "「カードタイトル」への完走レター",
+    title: "「本を読む」への完走レター",
     content:
       "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
-    stamp: "🌟",
+    stamp: "📚",
     hrefPrefix: "/letter",
     sender: {
       id: "1",
