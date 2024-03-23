@@ -1,11 +1,11 @@
 import { User } from "./User";
 
 export type StampNode = {
-  stampId: string;
+  id: string;
   stamp: string;
   message: string;
   stamped: boolean;
-  nthDay: number;
+  nthday: number;
   stampedAt: Date;
   stampedBy: User;
   x: number;

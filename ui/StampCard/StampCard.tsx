@@ -105,10 +105,10 @@ export const StampCard = ({
           />
         </Svg>
         {nodesWithPosition.map((node, index) => {
-          const { stamp, stampId, stamped, nthDay, message } = node;
+          const { stamp, id, stamped, nthday, message } = node;
           // stamped node
           if (stamped) {
-            const uniqueId = `${stampId}-stamped-${index}`;
+            const uniqueId = `${id}-stamped-${index}`;
             return (
               <Node
                 key={uniqueId}
@@ -136,7 +136,7 @@ export const StampCard = ({
                         <Typography>{closeMessage}</Typography>
                       </StyledButton>
                     )}
-                    description={nthDay + givenStampMessage}
+                    description={nthday + givenStampMessage}
                   >
                     <YStack gap={20} alignItems="center">
                       <StampWrapper stamp={stamp} />
@@ -153,8 +153,8 @@ export const StampCard = ({
             );
           }
           // today's un-stamped node
-          if (currentDay === nthDay) {
-            const uniqueId = `${stampId}-currentday-${index}`;
+          if (currentDay === nthday) {
+            const uniqueId = `${id}-currentday-${index}`;
             return (
               <Node
                 key={uniqueId}
@@ -207,7 +207,7 @@ export const StampCard = ({
           }
 
           // future stamp nodes
-          const uniqueId = `${stampId}-future-${index}`;
+          const uniqueId = `${id}-future-${index}`;
           return (
             <Node
               key={uniqueId}
@@ -226,7 +226,7 @@ export const StampCard = ({
                       type="ghost"
                       onPress={toggleModal}
                     >
-                      <Typography>{stampId}</Typography>
+                      <Typography>{id}</Typography>
                     </StyledButton>
                   )}
                   cancelButton={(untoggleModal: () => void) => (
@@ -236,7 +236,7 @@ export const StampCard = ({
                     </StyledButton>
                   )}
                   description={`まだスタンプをもらえません\n${
-                    nthDay - currentDay
+                    nthday - currentDay
                   }日後にもらえます`}
                 />
               </DialogProvider>

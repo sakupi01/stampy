@@ -12,6 +12,7 @@ export default function Home() {
   const { query } = useLocalSearchParams<{ query?: string }>();
   const { useGet } = useApi();
   const { data: res, isError, isLoading } = useGet("/stampcard");
+  console.log(res?.val);
 
   return (
     <SafeAreaView style={styles.container}>
