@@ -17,7 +17,7 @@ export default function NotificationScreen() {
     data: res,
     isError,
     isLoading,
-  } = useGet("/notifications", undefined, true, { refreshInterval: 5000 });
+  } = useGet("/notice", undefined, true, { refreshInterval: 5000 });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -28,7 +28,7 @@ export default function NotificationScreen() {
           placeholder="タイトルで検索"
           zIndex={"$1"}
         />
-        {!res ? (
+        {!res?.val.notice ? (
           <YStack marginTop={s(5)}>
             <Typography type="h4" textAlign="center">
               ここはまだとても静かです。
@@ -43,10 +43,7 @@ export default function NotificationScreen() {
             </Typography>
           </YStack>
         ) : (
-          <NotificationList
-            query={query}
-            notifications={res.val.notifications}
-          />
+          <NotificationList query={query} notifications={res.val.notice} />
         )}
       </YStack>
     </SafeAreaView>

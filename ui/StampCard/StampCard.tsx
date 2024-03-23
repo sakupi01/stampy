@@ -8,8 +8,9 @@ import { StyledInput } from "@/components/StyledInput";
 import { Typography } from "@/components/Typography/Typography";
 import { selectWordByKey } from "@/libs/AsyncStorage/Word/state";
 import { useAppSelector } from "@/libs/AsyncStorage/store";
+import { useApi } from "@/libs/hooks/useApi";
 import DialogProvider from "@/libs/provider/dialog";
-import { sleep } from "@/libs/sleep";
+import { Repository } from "@/repository/api";
 import { StampNode } from "@/types";
 import React from "react";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
@@ -63,6 +64,7 @@ export const StampCard = ({
   const rows = fixedHeight / (stampNodes.length / 2.6);
   const nodesWithPosition = getPositionedNode(stampNodes, 3, rows, columns);
   const pathData = drawEdges(nodesWithPosition);
+  const { usePost } = useApi();
 
   return (
     <View
@@ -190,8 +192,15 @@ export const StampCard = ({
                             action(async () => {
                               console.log("claim stamp start");
                               // TODO: スタンプをclaimする処理
-                              await sleep(1000);
-                              console.log("claim stamp end");
+                              const repository = new Repository();
+                              const res = await repository.post(
+                                "/notice",
+                                JSON.stringify({
+                                  stampId: id,
+                                }),
+                              );
+
+                              console.log("claim stamp end:", res);
                             })
                           }
                         >

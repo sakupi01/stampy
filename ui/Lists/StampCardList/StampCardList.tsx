@@ -22,9 +22,6 @@ export const StampCardList = function StampCardList({
     const extractedCards = cards.filter((item) =>
       item.title.includes(query ?? ""),
     );
-    console.log("***********");
-    console.log(extractedCards);
-    console.log("***********");
 
     setData(extractedCards);
   }, [cards, query]);
@@ -34,7 +31,6 @@ export const StampCardList = function StampCardList({
   }
 
   return data.map((card) => {
-    console.log(card.stampNodes);
     return (
       <Link
         // @ts-ignore
@@ -64,7 +60,7 @@ export const StampCardList = function StampCardList({
           />
           <StyledCard.Thumbnail>
             <StampCard
-              currentDay={5}
+              currentDay={card.currentDay}
               stampNodes={card.stampNodes}
               fixedWidth={s(300)}
               fixedHeight={vs(500)}

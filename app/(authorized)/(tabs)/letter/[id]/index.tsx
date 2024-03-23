@@ -4,7 +4,6 @@ import { StampWrapper } from "@/components/StampWrapper/StampWrapper";
 import { Typography } from "@/components/Typography";
 import { useApi } from "@/libs/hooks/useApi";
 import { Letter } from "@/types/Letter";
-import { DATA_LETTER } from "@/ui/Lists/StyledList/fixture/mock.data";
 import { useLocalSearchParams } from "expo-router";
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import { s, vs } from "react-native-size-matters";
@@ -13,15 +12,13 @@ import { YStack } from "tamagui";
 export default function LetterScreen() {
   const { id } = useLocalSearchParams();
   const { useGet } = useApi();
-  const { data, isError, isLoading } = useGet(`/letters/${id}`);
-
+  const { data, isError, isLoading } = useGet(`/letter/${id}`);
   // TODO: 本来はAPIから取得できるようになったら削除
-  const letter = DATA_LETTER.find((letter) => letter.id === id);
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        {!letter || !data || isLoading ? (
+        {!data || isLoading ? (
           <YStack marginTop={s(5)}>
             <CardSkeleton />
           </YStack>
@@ -34,14 +31,14 @@ export default function LetterScreen() {
         ) : (
           <YStack space={50}>
             <Typography type="h2" marginBottom={vs(30)}>
-              {letter.title}
+              {data.val.notice.title}
             </Typography>
             <YStack space={10} justifyContent="center" alignItems="center">
-              <StampWrapper stamp={letter.stamp} />
+              <StampWrapper stamp={data.val.notice.stamp} />
               <Typography type="small" color="$text--subtle">
-                {letter.createdAt}日に完了しました
+                {data.val.notice.createdAt}日に完了しました
               </Typography>
-              <KansouLetter letter={letter as Letter} />
+              <KansouLetter letter={data.val.notice as Letter} />
             </YStack>
           </YStack>
         )}

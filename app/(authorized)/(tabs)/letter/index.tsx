@@ -18,7 +18,7 @@ export default function LetterScreen() {
     data: res,
     isError,
     isLoading,
-  } = useGet("/letters", undefined, true, { refreshInterval: 5000 });
+  } = useGet("/letter", undefined, true, { refreshInterval: 5000 });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -41,7 +41,7 @@ export default function LetterScreen() {
               </Typography>
             </YStack>
           ) : (
-            <LetterList query={query} letters={res.val.letters} />
+            <LetterList query={query} letters={res.val.notice} />
           )}
         </YStack>
       </YStack>

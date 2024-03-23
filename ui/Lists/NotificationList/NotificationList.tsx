@@ -13,12 +13,17 @@ export const NotificationList = ({
   query,
   notifications,
 }: NotificationListProps) => {
+  console.log(notifications);
+
   const [data, setData] = useState<Array<Notification> | undefined>(undefined);
 
   useEffect(() => {
     const extractedNotifications = notifications?.filter((item) =>
       item.title.includes(query ?? ""),
     );
+    console.log("***********");
+    console.log(extractedNotifications);
+    console.log("***********");
 
     setData(extractedNotifications);
   }, [notifications, query]);
