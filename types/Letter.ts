@@ -13,4 +13,5 @@ export type Letter = {
   createdAt: string;
   sendAt: string;
   listType: "link";
+  isVisible: boolean;
 };

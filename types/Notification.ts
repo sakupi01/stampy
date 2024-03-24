@@ -9,6 +9,7 @@ export type Notification = {
   stamp: string | undefined;
   currentDay?: number;
   isLastDay?: boolean;
+  letterId?: string;
   hrefPrefix: string | undefined;
   sender: User;
   receiver: User;

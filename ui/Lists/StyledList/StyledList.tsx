@@ -24,7 +24,12 @@ export const StyledList = ({ data }: StyledListProps) => {
       sections={[
         {
           title: "未開封",
-          data: data.filter((item) => item.read === false),
+          data: data.filter((item) => {
+            if (item.type === "letter") {
+              return item.isVisible && item.read === false;
+            }
+            return item.read === false;
+          }),
         },
         {
           title: "開封済み",
@@ -122,11 +127,10 @@ const resolveListItem = (item: RenderItemParams) => {
         );
       case "receiver-dialog":
         assertNonNullable(item.currentDay);
-        assertNonNullable(item.isLastDay);
         return (
           <DialogProvider>
             {resolveReceiverDialogContent({
-              isLastDay: item.isLastDay,
+              letterId: item.letterId,
               item: item,
             })}
           </DialogProvider>
@@ -135,6 +139,7 @@ const resolveListItem = (item: RenderItemParams) => {
         return <TextListItem title={item.title} content={item.content} />;
     }
   }
+  // type == 'letter
   return (
     <LinkListItem
       title={item.title}
@@ -153,12 +158,10 @@ const resolveListItem = (item: RenderItemParams) => {
 };
 
 function resolveReceiverDialogContent({
-  isLastDay,
+  letterId,
   item,
-}: { isLastDay: boolean; item: Notification }) {
-  console.log(isLastDay);
-
-  if (isLastDay) {
+}: { letterId: string | undefined; item: Notification }) {
+  if (letterId !== undefined) {
     return (
       <StyledAlertDialog
         triggerButton={(toggleModal: () => void) => (
@@ -180,10 +183,13 @@ function resolveReceiverDialogContent({
           <StyledButton
             onPress={() =>
               action(async () => {
-                console.log("receive stamp start");
-                // TODO: スタンプ・手紙を受け取る処理
+                console.log("mark notice as read");
+                // TODO: 通知をreadにする処理
                 await sleep(1000);
-                console.log("receive stamp end");
+                // TODO: 完走レターを開封する処理
+                console.log("mark letter as visible");
+                await sleep(1000);
+                console.log("done");
               })
             }
           >
@@ -220,10 +226,10 @@ function resolveReceiverDialogContent({
         <StyledButton
           onPress={() =>
             action(async () => {
-              console.log("receive stamp start");
-              // TODO: スタンプ・手紙を受け取る処理
+              console.log("mark notice as read");
+              // TODO: 通知をreadにする処理
               await sleep(1000);
-              console.log("receive stamp end");
+              console.log("done");
             })
           }
         >
