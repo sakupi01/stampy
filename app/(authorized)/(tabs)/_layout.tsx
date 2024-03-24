@@ -27,16 +27,18 @@ export default function Layout() {
     isError: isLetterError,
     isLoading: isLetterLoading,
   } = useGet("/letter");
+
   const numNotifications =
-    isNoticeLoading || resNotice === undefined
+    isNoticeLoading || resNotice === undefined || resNotice.val.notice === null
       ? ""
       : resNotice.val.notice.filter((item: Notification) => {
           return item.read === false;
         }).length;
+
   const numLetters =
-    isLetterLoading || resLetter === undefined
+    isLetterLoading || resLetter === undefined || resLetter.val.letters === null
       ? ""
-      : resLetter.val.notice.filter((item: Letter) => {
+      : resLetter.val.letters.filter((item: Letter) => {
           return item.isVisible && item.read === false;
         }).length;
 
