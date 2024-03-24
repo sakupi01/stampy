@@ -8,10 +8,10 @@ import { StyledInput } from "@/components/StyledInput";
 import { Typography } from "@/components/Typography/Typography";
 import { selectWordByKey } from "@/libs/AsyncStorage/Word/state";
 import { useAppSelector } from "@/libs/AsyncStorage/store";
-import { useApi } from "@/libs/hooks/useApi";
 import DialogProvider from "@/libs/provider/dialog";
 import { Repository } from "@/repository/api";
 import { StampNode } from "@/types";
+import { Link } from "expo-router";
 import React from "react";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import { s } from "react-native-size-matters";
@@ -23,6 +23,7 @@ import { getPositionedNode } from "./utils/positionedNode";
 export type StampCardProps = {
   currentDay: number;
   stampNodes: StampNode[];
+  letterId?: string;
   fixedHeight: number;
   fixedWidth: number;
   isEditable?: boolean;
@@ -38,6 +39,7 @@ const Node = ({
 export const StampCard = ({
   currentDay,
   stampNodes,
+  letterId,
   fixedHeight,
   fixedWidth,
   isEditable = false,
@@ -64,7 +66,6 @@ export const StampCard = ({
   const rows = fixedHeight / (stampNodes.length / 2.6);
   const nodesWithPosition = getPositionedNode(stampNodes, 3, rows, columns);
   const pathData = drawEdges(nodesWithPosition);
-  const { usePost } = useApi();
 
   return (
     <View
@@ -107,10 +108,43 @@ export const StampCard = ({
           />
         </Svg>
         {nodesWithPosition.map((node, index) => {
-          const { stamp, id, stamped, nthday, message } = node;
+          const isLastDay = node.nthday === stampNodes.length;
+          const { stamp, id, nthday, stamped, message } = node;
           // stamped node
           if (stamped) {
             const uniqueId = `${id}-stamped-${index}`;
+            if (isLastDay) {
+              return (
+                <Node
+                  key={uniqueId}
+                  style={{
+                    position: "absolute",
+                    top: node.y,
+                    left: node.x,
+                  }}
+                >
+                  <Link
+                    // @ts-ignore
+                    href={{
+                      pathname: "/letter/[id]",
+                      params: {
+                        id: letterId,
+                      },
+                    }}
+                    asChild
+                  >
+                    <StyledButton
+                      circular
+                      // @ts-ignore
+                      type="accent"
+                      onPress={() => console.log("go to letter page")}
+                    >
+                      <Typography>{stamp}</Typography>
+                    </StyledButton>
+                  </Link>
+                </Node>
+              );
+            }
             return (
               <Node
                 key={uniqueId}
@@ -235,7 +269,7 @@ export const StampCard = ({
                       type="ghost"
                       onPress={toggleModal}
                     >
-                      <Typography>{id}</Typography>
+                      <Typography>{nthday}</Typography>
                     </StyledButton>
                   )}
                   cancelButton={(untoggleModal: () => void) => (

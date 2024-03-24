@@ -61,6 +61,7 @@ export const StampCardList = function StampCardList({
             <StampCard
               currentDay={card.currentDay}
               stampNodes={card.stampNodes}
+              letterId={card.letterId}
               fixedWidth={s(300)}
               fixedHeight={vs(500)}
             />
