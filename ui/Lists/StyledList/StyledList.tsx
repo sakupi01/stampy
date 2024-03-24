@@ -12,6 +12,7 @@ import { Notification } from "@/types/Notification";
 import { StampForm } from "@/ui/StampForm";
 import { KeyboardAvoidingView, Pressable, SectionList } from "react-native";
 import { s, vs } from "react-native-size-matters";
+import { mutate } from "swr";
 import { Separator, YStack } from "tamagui";
 import { LinkListItem, TextListItem } from "./ListItem";
 
@@ -189,6 +190,8 @@ function resolveReceiverDialogContent({
                 // TODO: 完走レターを開封する処理
                 console.log("mark letter as visible");
                 await sleep(1000);
+                // 再検証
+                mutate(["/letter", undefined, true]);
                 console.log("done");
               })
             }
@@ -229,6 +232,8 @@ function resolveReceiverDialogContent({
               console.log("mark notice as read");
               // TODO: 通知をreadにする処理
               await sleep(1000);
+              // 再検証
+              mutate(["/stampcard", undefined, true]);
               console.log("done");
             })
           }

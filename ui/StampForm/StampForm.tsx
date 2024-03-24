@@ -6,6 +6,7 @@ import { Typography } from "@/components/Typography/Typography";
 import { selectWordByKey } from "@/libs/AsyncStorage/Word/state";
 import { useAppSelector } from "@/libs/AsyncStorage/store";
 import { useDialogContext } from "@/libs/context/Dialog/useDialogContext";
+import { sleep } from "@/libs/sleep";
 import { MessageFormSchema, MessageFormType } from "@/schema/message";
 import { User } from "@/types";
 import { valibotResolver } from "@hookform/resolvers/valibot";
@@ -107,10 +108,12 @@ export const StampForm = ({
         isSubmitted={isSubmitted}
         isValid={isValid}
         onSubmitAction={handleSubmit(async (data: FieldValues) => {
-          // データ送信処理
-          console.log("Submitted! :", data);
           // アニメーションを開始
           setAnimationStarted(true);
+          // データ送信処理
+          console.log("Submitted! :", data);
+          await sleep(1000);
+          // 送信完了
           // clear submitting state
           reset();
           // 3.3秒後にアニメーションを終了

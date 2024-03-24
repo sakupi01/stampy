@@ -13,12 +13,7 @@ export default function LetterScreen() {
   const { query } = useLocalSearchParams<{ query?: string }>();
 
   const { useGet } = useApi();
-  // NOTE: mutateしないのでintervalを設ける
-  const {
-    data: res,
-    isError,
-    isLoading,
-  } = useGet("/letter", undefined, true, { refreshInterval: 5000 });
+  const { data: res, isError, isLoading } = useGet("/letter");
 
   return (
     <SafeAreaView style={styles.container}>

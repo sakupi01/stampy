@@ -13,9 +13,6 @@ export default function StampCardScreen() {
   const { useGet } = useApi();
   const { data, isError, isLoading } = useGet(`/stampcard/${id}`);
 
-  // TODO: 本来はAPIから取得できるようになったら削除
-  // const card = MockStampCards.find((card) => card.id === id);
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
