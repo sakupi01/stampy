@@ -29,7 +29,6 @@ export const StampCardList = function StampCardList({
   if (data.length === 0) {
     return <Typography>該当するカードは見つかりませんでした</Typography>;
   }
-
   return data.map((card) => {
     return (
       <Link
@@ -76,7 +75,7 @@ export const StampCardList = function StampCardList({
                 <Avatar.Image
                   accessibilityLabel={card.joinedUser.username}
                   src={
-                    card.joinedUser.avatarUrl === ""
+                    card.joinedUser.avatarUrl === "https://stampy.com"
                       ? require("../../../assets/images/stampy-icon.png")
                       : card.joinedUser.avatarUrl
                   }
