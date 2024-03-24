@@ -110,10 +110,13 @@ export const StampCard = ({
         {nodesWithPosition.map((node, index) => {
           const isLastDay = node.nthday === stampNodes.length;
           const { stamp, id, nthday, stamped, message } = node;
+
           // stamped node
           if (stamped) {
             const uniqueId = `${id}-stamped-${index}`;
             if (isLastDay) {
+              console.log(letterId);
+
               return (
                 <Node
                   key={uniqueId}
@@ -137,7 +140,6 @@ export const StampCard = ({
                       circular
                       // @ts-ignore
                       type="accent"
-                      onPress={() => console.log("go to letter page")}
                     >
                       <Typography>{stamp}</Typography>
                     </StyledButton>

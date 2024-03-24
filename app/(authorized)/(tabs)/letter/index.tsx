@@ -36,7 +36,7 @@ export default function LetterScreen() {
               </Typography>
             </YStack>
           ) : (
-            <LetterList query={query} letters={res.val.notice} />
+            <LetterList query={query} letters={res.val.letters} />
           )}
         </YStack>
       </YStack>

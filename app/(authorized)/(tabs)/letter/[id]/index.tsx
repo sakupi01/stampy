@@ -3,24 +3,32 @@ import { CardSkeleton } from "@/components/Skeleton/Skeleton";
 import { StampWrapper } from "@/components/StampWrapper/StampWrapper";
 import { Typography } from "@/components/Typography";
 import { useApi } from "@/libs/hooks/useApi";
+import { Repository } from "@/repository/api";
 import { Letter } from "@/types/Letter";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect } from "react";
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import { s, vs } from "react-native-size-matters";
-import { mutate } from "swr";
+import { useSWRConfig } from "swr";
 import { YStack } from "tamagui";
 
-export default function LetterScreen() {
+export default function lettercreen() {
+  const repository = new Repository();
+  const { id } = useLocalSearchParams();
+  const { mutate } = useSWRConfig();
+
+  const { useGet } = useApi();
+  const { data, isError, isLoading } = useGet(`/letter/${id}`);
+
   useEffect(() => {
     // TODO: 既読にする
     console.log("set as read");
-    // 再検証
-    mutate(["/letter", undefined, true]);
-  }, []);
-  const { id } = useLocalSearchParams();
-  const { useGet } = useApi();
-  const { data, isError, isLoading } = useGet(`/letter/${id}`);
+    async function markRead() {
+      await repository.put(`/letter/read/${id}`);
+      mutate(["/letter", undefined, true]);
+    }
+    markRead();
+  }, [id, repository, mutate]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -38,14 +46,14 @@ export default function LetterScreen() {
         ) : (
           <YStack space={50}>
             <Typography type="h2" marginBottom={vs(30)}>
-              {data.val.notice.title}
+              {data.val.letter.title}
             </Typography>
             <YStack space={10} justifyContent="center" alignItems="center">
-              <StampWrapper stamp={data.val.notice.stamp} />
+              <StampWrapper stamp={data.val.letter.stamp} />
               <Typography type="small" color="$text--subtle">
-                {data.val.notice.createdAt}日に完了しました
+                {data.val.letter.createdAt}日に完了しました
               </Typography>
-              <KansouLetter letter={data.val.notice as Letter} />
+              <KansouLetter letter={data.val.letter as Letter} />
             </YStack>
           </YStack>
         )}

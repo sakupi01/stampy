@@ -19,12 +19,14 @@ import AnimatedView from "../../components/lotties/LottieView";
 export type StampFormProps = {
   cardId: string;
   currentDay: number;
+  notificationId: string;
   buttonLabel?: string;
   isLastDay?: boolean;
 };
 export const StampForm = ({
   cardId,
   currentDay,
+  notificationId,
   buttonLabel = "送る",
   isLastDay = false,
 }: StampFormProps) => {
@@ -117,9 +119,14 @@ export const StampForm = ({
           };
           console.log("Submitted! :", sendData);
           const repository = new Repository();
-          const res = await repository.post("/stamp", JSON.stringify(sendData));
+
+          const res = isLastDay
+            ? await repository.post("/letter", JSON.stringify(sendData))
+            : await repository.post("/stamp", JSON.stringify(sendData));
           console.log(res);
           // 送信完了
+          // 通知を既読に
+          await repository.put(`/notice/read/${notificationId}`);
           // clear submitting state
           reset();
           // 3.3秒後にアニメーションを終了

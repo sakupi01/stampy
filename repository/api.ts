@@ -13,7 +13,7 @@ export class Repository {
         });
     return res;
   }
-  async put(endpoint: string, body: BodyInit, withToken = true) {
+  async put(endpoint: string, body?: BodyInit, withToken = true) {
     const res = withToken
       ? await fetcher.withToken(endpoint, {
           method: "PUT",

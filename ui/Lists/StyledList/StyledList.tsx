@@ -6,13 +6,13 @@ import { StyledInput } from "@/components/StyledInput";
 import { Typography } from "@/components/Typography/Typography";
 import { assertNonNullable } from "@/libs/assertNonNullable";
 import DialogProvider from "@/libs/provider/dialog";
-import { sleep } from "@/libs/sleep";
+import { Repository } from "@/repository/api";
 import { Letter } from "@/types/Letter";
 import { Notification } from "@/types/Notification";
 import { StampForm } from "@/ui/StampForm";
 import { KeyboardAvoidingView, Pressable, SectionList } from "react-native";
 import { s, vs } from "react-native-size-matters";
-import { mutate } from "swr";
+import { useSWRConfig } from "swr";
 import { Separator, YStack } from "tamagui";
 import { LinkListItem, TextListItem } from "./ListItem";
 
@@ -27,14 +27,25 @@ export const StyledList = ({ data }: StyledListProps) => {
           title: "未開封",
           data: data.filter((item) => {
             if (item.type === "letter") {
-              return item.read === false;
+              return item.isVisible === true && item.read === false;
             }
             return item.read === false;
           }),
         },
         {
           title: "開封済み",
-          data: data.filter((item) => item.read === true),
+          data: data.filter((item) => {
+            if (
+              item.type === "notification" &&
+              item.listType === "sender-dialog"
+            ) {
+              return false;
+            }
+            if (item.type === "letter") {
+              return item.isVisible === true && item.read === true;
+            }
+            return item.read === true;
+          }),
         },
       ]}
       renderSectionHeader={({ section }) => (
@@ -111,8 +122,8 @@ const resolveListItem = (item: RenderItemParams) => {
               )}
               description={
                 item.isLastDay
-                  ? `${item.receiver.username}さんへ\n最終日の完走レター\nを送りますか？`
-                  : `${item.receiver.username}さんへ\n${item.currentDay}日目のスタンプ\nを送りますか？`
+                  ? `${item.sender.username}さんへ\n最終日の完走レター\nを送りますか？`
+                  : `${item.sender.username}さんへ\n${item.currentDay}日目のスタンプ\nを送りますか？`
               }
             >
               <KeyboardAvoidingView behavior={"position"}>
@@ -120,6 +131,7 @@ const resolveListItem = (item: RenderItemParams) => {
                   <StampForm
                     cardId={item.cardId}
                     currentDay={item.currentDay}
+                    notificationId={item.id}
                     isLastDay={item.isLastDay}
                   />
                 </YStack>
@@ -127,6 +139,7 @@ const resolveListItem = (item: RenderItemParams) => {
             </StyledAlertDialog>
           </DialogProvider>
         );
+
       case "receiver-dialog":
         assertNonNullable(item.currentDay);
         return (
@@ -141,7 +154,7 @@ const resolveListItem = (item: RenderItemParams) => {
         return <TextListItem title={item.title} content={item.content} />;
     }
   }
-  // type == 'letter
+  // type == 'letter'
   return (
     <LinkListItem
       title={item.title}
@@ -163,7 +176,10 @@ function resolveReceiverDialogContent({
   letterId,
   item,
 }: { letterId: string | undefined; item: Notification }) {
-  if (letterId !== undefined) {
+  const repository = new Repository();
+  const { mutate } = useSWRConfig();
+
+  if (letterId !== "0") {
     return (
       <StyledAlertDialog
         triggerButton={(toggleModal: () => void) => (
@@ -187,10 +203,13 @@ function resolveReceiverDialogContent({
               action(async () => {
                 console.log("mark notice as read");
                 // TODO: 通知をreadにする処理
-                await sleep(1000);
+                await repository.put(`/notice/read/${item.id}`);
                 // TODO: 完走レターを開封する処理
                 console.log("mark letter as visible");
-                await sleep(1000);
+                const res = await repository.put(
+                  `/letter/visible/${item.letterId}`,
+                );
+                console.log("res", res);
                 // 再検証
                 mutate(["/letter", undefined, true]);
                 console.log("done");
@@ -232,7 +251,7 @@ function resolveReceiverDialogContent({
             action(async () => {
               console.log("mark notice as read");
               // TODO: 通知をreadにする処理
-              await sleep(1000);
+              await repository.put(`/notice/read/${item.id}`);
               // 再検証
               mutate(["/stampcard", undefined, true]);
               console.log("done");
