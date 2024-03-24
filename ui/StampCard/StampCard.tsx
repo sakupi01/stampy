@@ -225,7 +225,6 @@ export const StampCard = ({
                           onPress={() =>
                             action(async () => {
                               console.log("claim stamp start");
-                              // TODO: スタンプをclaimする処理
                               const repository = new Repository();
                               const res = await repository.post(
                                 "/notice",

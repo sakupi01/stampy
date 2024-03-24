@@ -21,9 +21,6 @@ export const NotificationList = ({
     const extractedNotifications = notifications?.filter((item) =>
       item.title.includes(query ?? ""),
     );
-    console.log("***********");
-    console.log(extractedNotifications);
-    console.log("***********");
 
     setData(extractedNotifications);
   }, [notifications, query]);

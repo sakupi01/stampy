@@ -27,7 +27,7 @@ export const StyledList = ({ data }: StyledListProps) => {
           title: "未開封",
           data: data.filter((item) => {
             if (item.type === "letter") {
-              return item.isVisible && item.read === false;
+              return item.read === false;
             }
             return item.read === false;
           }),
@@ -90,6 +90,7 @@ const resolveListItem = (item: RenderItemParams) => {
         );
       case "sender-dialog":
         assertNonNullable(item.currentDay);
+        assertNonNullable(item.cardId);
         return (
           <DialogProvider>
             <StyledAlertDialog
@@ -117,7 +118,7 @@ const resolveListItem = (item: RenderItemParams) => {
               <KeyboardAvoidingView behavior={"position"}>
                 <YStack alignItems="center">
                   <StampForm
-                    user={item.receiver}
+                    cardId={item.cardId}
                     currentDay={item.currentDay}
                     isLastDay={item.isLastDay}
                   />

@@ -44,7 +44,6 @@ export function StyledAlertDialog({
     // 3.3秒後にアニメーションを終了
     setTimeout(() => {
       setAnimationStarted(false);
-      // TODO: ダイアログを閉じる
       closeDialog();
     }, 3000);
   };

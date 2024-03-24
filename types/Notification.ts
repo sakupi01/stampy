@@ -10,6 +10,7 @@ export type Notification = {
   currentDay?: number;
   isLastDay?: boolean;
   letterId?: string;
+  cardId?: string;
   hrefPrefix: string | undefined;
   sender: User;
   receiver: User;

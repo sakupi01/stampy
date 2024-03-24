@@ -5,15 +5,22 @@ import { Typography } from "@/components/Typography";
 import { useApi } from "@/libs/hooks/useApi";
 import { Letter } from "@/types/Letter";
 import { useLocalSearchParams } from "expo-router";
+import { useEffect } from "react";
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import { s, vs } from "react-native-size-matters";
+import { mutate } from "swr";
 import { YStack } from "tamagui";
 
 export default function LetterScreen() {
+  useEffect(() => {
+    // TODO: 既読にする
+    console.log("set as read");
+    // 再検証
+    mutate(["/letter", undefined, true]);
+  }, []);
   const { id } = useLocalSearchParams();
   const { useGet } = useApi();
   const { data, isError, isLoading } = useGet(`/letter/${id}`);
-  // TODO: 本来はAPIから取得できるようになったら削除
 
   return (
     <SafeAreaView style={styles.container}>

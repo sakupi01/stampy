@@ -26,7 +26,7 @@ export default function Layout() {
     data: resLetter,
     isError: isLetterError,
     isLoading: isLetterLoading,
-  } = useGet("/letter", undefined, true, { refreshInterval: 5000 });
+  } = useGet("/letter");
   const numNotifications =
     isNoticeLoading || resNotice === undefined
       ? ""
