@@ -18,7 +18,9 @@ export default function NotificationScreen() {
     isError,
     isLoading,
   } = useGet("/notice", undefined, true, { refreshInterval: 5000 });
-
+  console.log("**********");
+  console.log(res?.val.notice);
+  console.log("**********");
   return (
     <SafeAreaView style={styles.container}>
       <YStack paddingVertical={vs(50)} paddingHorizontal={s(30)} space={30}>

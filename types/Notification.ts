@@ -5,7 +5,7 @@ export type Notification = {
   type: "notification";
   id: string;
   title: string;
-  content: string;
+  message: string;
   stamp: string | undefined;
   currentDay?: number;
   isLastDay?: boolean;

@@ -53,6 +53,7 @@ export const CreateCardForm = () => {
       ...(data.receiver ? { joinedUser: data.receiver } : {}),
     };
     // save card to server
+    console.log(JSON.stringify(saveData));
 
     // /stampcard
     const repository = new Repository();

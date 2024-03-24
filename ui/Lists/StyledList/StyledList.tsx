@@ -96,7 +96,7 @@ const resolveListItem = (item: RenderItemParams) => {
               },
             }}
             // 完走レター一覧の場合は、contentを表示しない
-            content={item.hrefPrefix?.startsWith("/letter") ? "" : item.content}
+            content={item.hrefPrefix?.startsWith("/letter") ? "" : item.message}
           />
         );
       case "sender-dialog":
@@ -112,7 +112,7 @@ const resolveListItem = (item: RenderItemParams) => {
                     width: "100%",
                   }}
                 >
-                  <TextListItem title={item.title} content={item.content} />
+                  <TextListItem title={item.title} content={item.message} />
                 </Pressable>
               )}
               cancelButton={(untoggleModal: () => void) => (
@@ -151,7 +151,7 @@ const resolveListItem = (item: RenderItemParams) => {
           </DialogProvider>
         );
       default:
-        return <TextListItem title={item.title} content={item.content} />;
+        return <TextListItem title={item.title} content={item.message} />;
     }
   }
   // type == 'letter'
@@ -167,7 +167,7 @@ const resolveListItem = (item: RenderItemParams) => {
         },
       }}
       // 完走レター一覧の場合は、contentを表示しない
-      content={item.hrefPrefix?.startsWith("/letter") ? "" : item.content}
+      content={item.hrefPrefix?.startsWith("/letter") ? "" : item.message}
     />
   );
 };
@@ -179,7 +179,7 @@ function resolveReceiverDialogContent({
   const repository = new Repository();
   const { mutate } = useSWRConfig();
 
-  if (letterId !== "0") {
+  if (letterId?.toString() !== "0") {
     return (
       <StyledAlertDialog
         triggerButton={(toggleModal: () => void) => (
@@ -189,7 +189,7 @@ function resolveReceiverDialogContent({
               width: "100%",
             }}
           >
-            <TextListItem title={item.title} content={item.content} />
+            <TextListItem title={item.title} content={item.message} />
           </Pressable>
         )}
         cancelButton={(untoggleModal: () => void) => (
@@ -228,6 +228,7 @@ function resolveReceiverDialogContent({
       </StyledAlertDialog>
     );
   }
+
   return (
     <StyledAlertDialog
       triggerButton={(toggleModal: () => void) => (
@@ -237,7 +238,7 @@ function resolveReceiverDialogContent({
             width: "100%",
           }}
         >
-          <TextListItem title={item.title} content={item.content} />
+          <TextListItem title={item.title} content={item.message} />
         </Pressable>
       )}
       cancelButton={(untoggleModal: () => void) => (
@@ -267,7 +268,7 @@ function resolveReceiverDialogContent({
         <StampWrapper stamp={item.stamp} />
         <StyledInput
           label="ひとことメッセージ"
-          defaultValue={item.content}
+          defaultValue={item.message}
           id={item.id}
           scrollEnabled
           multiline

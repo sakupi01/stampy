@@ -115,8 +115,6 @@ export const StampCard = ({
           if (stamped) {
             const uniqueId = `${id}-stamped-${index}`;
             if (isLastDay) {
-              console.log(letterId);
-
               return (
                 <Node
                   key={uniqueId}

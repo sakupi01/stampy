@@ -8,7 +8,7 @@ export type Letter = {
   hrefPrefix: string | undefined;
   sender: User;
   receiver: User;
-  content: string;
+  message: string;
   read: boolean;
   createdAt: string;
   sendAt: string;

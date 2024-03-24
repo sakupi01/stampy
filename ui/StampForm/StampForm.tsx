@@ -122,7 +122,7 @@ export const StampForm = ({
 
           const res = isLastDay
             ? await repository.post("/letter", JSON.stringify(sendData))
-            : await repository.post("/stamp", JSON.stringify(sendData));
+            : await repository.put("/stamp", JSON.stringify(sendData));
           console.log(res);
           // 送信完了
           // 通知を既読に

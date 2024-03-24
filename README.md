@@ -19,8 +19,8 @@ bun run ios -- --tunnel
 ```
 -c                           # キャッシュを削除して実行
 --tunnel                     # ネットワークの外部から接続
---lan                        # LAN内から見れる
---localhost                  # 同一ネットワークからのみ接続
+--lan                        # 同一ネットワーク内から見れる
+--localhost                  # 同一機器からのみ接続
 --minify                     # minifyすることで転送速度が速く
 --dev                        # 一緒にchromeのdeveloperツールopen
 ```
