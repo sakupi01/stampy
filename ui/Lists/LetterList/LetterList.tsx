@@ -1,4 +1,3 @@
-import { ListSkeleton } from "@/components/Skeleton/Skeleton";
 import { Typography } from "@/components/Typography";
 import { Letter } from "@/types/Letter";
 import { Notification } from "@/types/Notification";
@@ -7,13 +6,11 @@ import { useEffect, useState } from "react";
 
 export type LetterListProps = {
   query?: string;
-  letters?: Letter[];
+  letters: Letter[];
 };
 
 export const LetterList = ({ query, letters }: LetterListProps) => {
-  const [data, setData] = useState<Array<Notification | Letter> | undefined>(
-    undefined,
-  );
+  const [data, setData] = useState<Array<Notification | Letter>>([]);
 
   useEffect(() => {
     const extractedLetters = letters?.filter((item) =>
@@ -23,9 +20,6 @@ export const LetterList = ({ query, letters }: LetterListProps) => {
     setData(extractedLetters);
   }, [letters, query]);
 
-  if (!data) {
-    return <ListSkeleton />;
-  }
   if (data.length === 0) {
     return <Typography>該当するレターは見つかりませんでした</Typography>;
   }

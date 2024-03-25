@@ -226,14 +226,14 @@ export const StampCard = ({
                             action(async () => {
                               console.log("claim stamp start");
                               const repository = new Repository();
-                              const res = await repository.post(
+                              await repository.post(
                                 "/notice",
                                 JSON.stringify({
                                   stampId: id,
                                 }),
                               );
 
-                              console.log("claim stamp end:", res);
+                              console.log("claim stamp end:");
                             })
                           }
                         >

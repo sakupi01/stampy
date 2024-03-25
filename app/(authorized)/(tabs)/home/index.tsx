@@ -24,19 +24,19 @@ export default function Home() {
         <Typography type="h3">わたしのスタンプカード</Typography>
         <SearchBar uid="card" placeholder="タイトルで検索" zIndex={"$1"} />
       </YStack>
-      <ScrollView style={styles.scrollView}>
+      <ScrollView>
         <YStack alignItems="center" width="100%" height="100%">
-          {!res || res.val.cards === null ? (
+          {!res || isLoading ? (
+            <YStack marginTop={s(5)}>
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+            </YStack>
+          ) : res.val.cards === null || res.val.cards.length === 0 ? (
             <YStack marginTop={s(5)}>
               <Typography type="h4" textAlign="center">
                 スタンプカードを作ってみましょう！
               </Typography>
-            </YStack>
-          ) : isLoading ? (
-            <YStack marginTop={s(5)}>
-              <CardSkeleton />
-              <CardSkeleton />
-              <CardSkeleton />
             </YStack>
           ) : isError || res.err ? (
             <YStack marginTop={s(5)}>
@@ -59,8 +59,5 @@ const styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "#fff",
   },
-  scrollView: {
-    width: "100%",
-    height: "100%",
-  },
+  // scrollViz
 });

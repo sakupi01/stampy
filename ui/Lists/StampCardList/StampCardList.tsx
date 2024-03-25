@@ -18,7 +18,7 @@ export const StampCardList = function StampCardList({
   query,
   cards,
 }: StampCardListProps) {
-  const [data, setData] = useState<Array<StampCardType>>(cards);
+  const [data, setData] = useState<Array<StampCardType>>([]);
   const user = useAppSelector((state) => state.auth.user);
   assertNonNullable(user);
 
