@@ -18,14 +18,14 @@ import AnimatedView from "../../components/lotties/LottieView";
 
 export type StampFormProps = {
   cardId: string;
-  currentDay: number;
+  nthDay: number;
   notificationId: string;
   buttonLabel?: string;
   isLastDay?: boolean;
 };
 export const StampForm = ({
   cardId,
-  currentDay,
+  nthDay,
   notificationId,
   buttonLabel = "送る",
   isLastDay = false,
@@ -114,7 +114,7 @@ export const StampForm = ({
           // データ送信処理
           const sendData = {
             ...data,
-            nthDay: currentDay,
+            nthDay: nthDay,
             cardId: cardId,
           };
           console.log("Submitted! :", sendData);

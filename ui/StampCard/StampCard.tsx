@@ -44,6 +44,8 @@ export const StampCard = ({
   fixedWidth,
   isEditable = false,
 }: StampCardProps) => {
+  console.log(currentDay);
+
   const yesMessage = useAppSelector((state) =>
     selectWordByKey(state, "stampy.word.ok"),
   );
@@ -188,9 +190,9 @@ export const StampCard = ({
               </Node>
             );
           }
-          // today's un-stamped node
-          if (currentDay === nthday) {
-            const uniqueId = `${id}-currentday-${index}`;
+          // nth's un-stamped node
+          if (currentDay >= nthday) {
+            const uniqueId = `${id}-nthday-${index}`;
             return (
               <Node
                 key={uniqueId}
@@ -241,7 +243,7 @@ export const StampCard = ({
                         </StyledButton>
                       );
                     }}
-                    description={`${readyStampMessage}`}
+                    description={`${nthday}日目の${readyStampMessage}`}
                   />
                 </DialogProvider>
               </Node>

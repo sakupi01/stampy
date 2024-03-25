@@ -35,7 +35,7 @@ export const DATA: Array<Notification> = [
     message:
       "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
     stamp: "stamp",
-    currentDay: 10,
+    nthDay: 10,
     isLastDay: true,
     hrefPrefix: "hrefPrefix",
     sender: {
@@ -64,7 +64,7 @@ export const DATA: Array<Notification> = [
     message:
       "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
     stamp: "stamp",
-    currentDay: 1,
+    nthDay: 1,
     isLastDay: false,
     hrefPrefix: "hrefPrefix",
     sender: {
@@ -93,7 +93,7 @@ export const DATA: Array<Notification> = [
     message:
       "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
     stamp: "stamp",
-    currentDay: 1,
+    nthDay: 1,
     isLastDay: false,
     hrefPrefix: "hrefPrefix",
     sender: {
@@ -122,7 +122,7 @@ export const DATA: Array<Notification> = [
     message:
       "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
     stamp: "stamp",
-    currentDay: 1,
+    nthDay: 1,
     isLastDay: false,
     hrefPrefix: "hrefPrefix",
     sender: {
@@ -150,7 +150,7 @@ export const DATA: Array<Notification> = [
     title: "スタンプが届いています",
     message: "今日もよくがんばりました！今日もよくがんばりました！",
     stamp: "❤️‍🔥",
-    currentDay: 1,
+    nthDay: 1,
     isLastDay: false,
     hrefPrefix: "hrefPrefix",
     sender: {
@@ -179,7 +179,7 @@ export const DATA: Array<Notification> = [
     message:
       "完走レターの内容完走レターの内容完走レターの内容完走レターの内容完走レターの内容",
     stamp: "❤️‍🔥",
-    currentDay: 10,
+    nthDay: 10,
     isLastDay: true,
     hrefPrefix: "hrefPrefix",
     sender: {
@@ -219,6 +219,7 @@ export const DATA_LETTER: Array<Letter> = [
       avatarUrl:
         "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
+    isVisible: true,
     receiver: {
       id: "1",
       username: "username",
@@ -246,6 +247,7 @@ export const DATA_LETTER: Array<Letter> = [
       avatarUrl:
         "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
+    isVisible: true,
     receiver: {
       id: "1",
       username: "saku",
@@ -273,6 +275,7 @@ export const DATA_LETTER: Array<Letter> = [
       avatarUrl:
         "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
+    isVisible: true,
     receiver: {
       id: "1",
       username: "username",
@@ -300,6 +303,7 @@ export const DATA_LETTER: Array<Letter> = [
       avatarUrl:
         "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
+    isVisible: true,
     receiver: {
       id: "1",
       username: "username",
@@ -327,6 +331,7 @@ export const DATA_LETTER: Array<Letter> = [
       avatarUrl:
         "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
+    isVisible: true,
     receiver: {
       id: "1",
       username: "username",

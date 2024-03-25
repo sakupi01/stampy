@@ -8,7 +8,8 @@ export type StampCard = {
   joinedUser: User;
   createdAt: Date;
   updatedAt: Date;
-  currentDay: number;
+  startDate: Date;
+  endDate: Date;
   isCompleted: boolean;
   isDeleted: boolean;
   stampNodes: StampNode[];

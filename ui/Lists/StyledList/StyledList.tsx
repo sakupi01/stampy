@@ -100,7 +100,7 @@ const resolveListItem = (item: RenderItemParams) => {
           />
         );
       case "sender-dialog":
-        assertNonNullable(item.currentDay);
+        assertNonNullable(item.nthDay);
         assertNonNullable(item.cardId);
         return (
           <DialogProvider>
@@ -123,14 +123,14 @@ const resolveListItem = (item: RenderItemParams) => {
               description={
                 item.isLastDay
                   ? `${item.sender.username}さんへ\n最終日の完走レター\nを送りますか？`
-                  : `${item.sender.username}さんへ\n${item.currentDay}日目のスタンプ\nを送りますか？`
+                  : `${item.sender.username}さんへ\n${item.nthDay}日目のスタンプ\nを送りますか？`
               }
             >
               <KeyboardAvoidingView behavior={"position"}>
                 <YStack alignItems="center">
                   <StampForm
                     cardId={item.cardId}
-                    currentDay={item.currentDay}
+                    nthDay={item.nthDay}
                     notificationId={item.id}
                     isLastDay={item.isLastDay}
                   />
@@ -141,7 +141,7 @@ const resolveListItem = (item: RenderItemParams) => {
         );
 
       case "receiver-dialog":
-        assertNonNullable(item.currentDay);
+        assertNonNullable(item.nthDay);
         return (
           <DialogProvider>
             {resolveReceiverDialogContent({
@@ -262,7 +262,7 @@ function resolveReceiverDialogContent({
           <Typography>受け取る</Typography>
         </StyledButton>
       )}
-      description={`${item.sender.username}さんから\n${item.currentDay}日目のスタンプ\nが届いています`}
+      description={`${item.sender.username}さんから\n${item.nthDay}日目のスタンプ\nが届いています`}
     >
       <YStack gap={20} alignItems="center">
         <StampWrapper stamp={item.stamp} />

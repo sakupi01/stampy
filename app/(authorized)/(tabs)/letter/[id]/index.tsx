@@ -51,7 +51,7 @@ export default function lettercreen() {
             <YStack space={10} justifyContent="center" alignItems="center">
               <StampWrapper stamp={data.val.letter.stamp} />
               <Typography type="small" color="$text--subtle">
-                {data.val.letter.createdAt}日に完了しました
+                {data.val.letter.createdAt.split("T")[0]}日に完了しました
               </Typography>
               <KansouLetter letter={data.val.letter as Letter} />
             </YStack>

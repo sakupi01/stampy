@@ -7,7 +7,7 @@ export type Notification = {
   title: string;
   message: string;
   stamp: string | undefined;
-  currentDay?: number;
+  nthDay?: number;
   isLastDay?: boolean;
   letterId?: string;
   cardId?: string;

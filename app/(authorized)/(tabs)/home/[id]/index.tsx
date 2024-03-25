@@ -1,6 +1,7 @@
 import { CardSkeleton } from "@/components/Skeleton/Skeleton";
 import { StyledCard } from "@/components/StyledCard";
 import { Typography } from "@/components/Typography";
+import { calculateDaysFromToday } from "@/libs/date";
 import { useApi } from "@/libs/hooks/useApi";
 import { StampCard } from "@/ui/StampCard";
 import { useLocalSearchParams } from "expo-router";
@@ -46,7 +47,9 @@ export default function StampCardScreen() {
               imageSource={{ uri: data.val.backgroundUrl }}
             >
               <StampCard
-                currentDay={data.val.currentDay}
+                currentDay={calculateDaysFromToday(
+                  data.val.startDate.toISOString(),
+                )}
                 stampNodes={data.val.stampNodes}
                 fixedWidth={s(300)}
                 fixedHeight={vs(500)}
