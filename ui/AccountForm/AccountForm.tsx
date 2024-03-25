@@ -36,7 +36,6 @@ export const AccountForm = () => {
     reValidateMode: "onChange",
   });
   const onSubmit = async (data: AccountSettingsType) => {
-    console.log(data);
     // save user info changes to server
     // /user
     const repository = new Repository();

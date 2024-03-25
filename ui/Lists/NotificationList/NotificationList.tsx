@@ -13,8 +13,6 @@ export const NotificationList = ({
   query,
   notifications,
 }: NotificationListProps) => {
-  console.log(notifications);
-
   const [data, setData] = useState<Array<Notification> | undefined>(undefined);
 
   useEffect(() => {
