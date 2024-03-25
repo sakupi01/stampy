@@ -2,7 +2,7 @@ import { CardSkeleton } from "@/components/Skeleton/Skeleton";
 import { StyledCard } from "@/components/StyledCard";
 import { Typography } from "@/components/Typography";
 import { useApi } from "@/libs/hooks/useApi";
-import { StyledPopover } from "@/ui/Popover/Popover";
+import { StyledPopover } from "@/ui/Popover/StyledPopover";
 import { StampCard } from "@/ui/StampCard";
 import { BadgeInfo } from "@tamagui/lucide-icons";
 import { useLocalSearchParams } from "expo-router";

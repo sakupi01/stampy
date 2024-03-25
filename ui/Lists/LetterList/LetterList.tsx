@@ -1,8 +1,8 @@
 import { Typography } from "@/components/Typography";
 import { Letter } from "@/types/Letter";
 import { Notification } from "@/types/Notification";
-import { StyledList } from "@/ui/Lists/StyledList";
 import { useEffect, useState } from "react";
+import { StyledList } from "../StyledList";
 
 export type LetterListProps = {
   query?: string;

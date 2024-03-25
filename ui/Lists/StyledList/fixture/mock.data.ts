@@ -27,6 +27,7 @@ export const DATA: Array<Notification> = [
     createdAt: "createdAt",
     sendAt: "sendAt",
     listType: "text",
+    cardId: "1",
   },
   {
     type: "notification",
@@ -56,6 +57,7 @@ export const DATA: Array<Notification> = [
     createdAt: "createdAt",
     sendAt: "sendAt",
     listType: "sender-dialog",
+    cardId: "1",
   },
   {
     type: "notification",
@@ -85,6 +87,7 @@ export const DATA: Array<Notification> = [
     createdAt: "createdAt",
     sendAt: "sendAt",
     listType: "sender-dialog",
+    cardId: "1",
   },
   {
     type: "notification",
@@ -114,6 +117,7 @@ export const DATA: Array<Notification> = [
     createdAt: "createdAt",
     sendAt: "sendAt",
     listType: "sender-dialog",
+    cardId: "1",
   },
   {
     type: "notification",
@@ -143,6 +147,7 @@ export const DATA: Array<Notification> = [
     createdAt: "createdAt",
     sendAt: "sendAt",
     listType: "sender-dialog",
+    cardId: "1",
   },
   {
     type: "notification",
@@ -171,6 +176,7 @@ export const DATA: Array<Notification> = [
     createdAt: "createdAt",
     sendAt: "sendAt",
     listType: "receiver-dialog",
+    cardId: "1",
   },
   {
     type: "notification",
@@ -200,6 +206,7 @@ export const DATA: Array<Notification> = [
     createdAt: "createdAt",
     sendAt: "sendAt",
     listType: "receiver-dialog",
+    cardId: "1",
   },
 ];
 
@@ -219,6 +226,7 @@ export const DATA_LETTER: Array<Letter> = [
       avatarUrl:
         "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
+    isVisible: true,
     receiver: {
       id: "1",
       username: "username",
@@ -246,6 +254,7 @@ export const DATA_LETTER: Array<Letter> = [
       avatarUrl:
         "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
+    isVisible: true,
     receiver: {
       id: "1",
       username: "saku",
@@ -273,6 +282,7 @@ export const DATA_LETTER: Array<Letter> = [
       avatarUrl:
         "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
+    isVisible: true,
     receiver: {
       id: "1",
       username: "username",
@@ -300,6 +310,7 @@ export const DATA_LETTER: Array<Letter> = [
       avatarUrl:
         "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
+    isVisible: true,
     receiver: {
       id: "1",
       username: "username",
@@ -327,6 +338,7 @@ export const DATA_LETTER: Array<Letter> = [
       avatarUrl:
         "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
+    isVisible: true,
     receiver: {
       id: "1",
       username: "username",

@@ -1,7 +1,7 @@
 import { Typography } from "@/components/Typography";
 import { Notification } from "@/types/Notification";
-import { StyledList } from "@/ui/Lists/StyledList";
 import { useEffect, useState } from "react";
+import { StyledList } from "../StyledList/StyledList";
 
 export type NotificationListProps = {
   query?: string;
