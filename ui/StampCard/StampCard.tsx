@@ -44,8 +44,6 @@ export const StampCard = ({
   fixedWidth,
   isEditable = false,
 }: StampCardProps) => {
-  console.log("currentDay:", currentDay);
-
   const yesMessage = useAppSelector((state) =>
     selectWordByKey(state, "stampy.word.ok"),
   );
@@ -226,7 +224,6 @@ export const StampCard = ({
                           type="primary"
                           onPress={() =>
                             action(async () => {
-                              console.log("claim stamp start");
                               const repository = new Repository();
                               await repository.post(
                                 "/notice",
@@ -234,8 +231,6 @@ export const StampCard = ({
                                   stampId: id,
                                 }),
                               );
-
-                              console.log("claim stamp end:");
                             })
                           }
                         >

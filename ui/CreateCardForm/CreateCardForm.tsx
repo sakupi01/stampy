@@ -4,7 +4,7 @@ import { StyledButton } from "@/components/StyledButton";
 import { ThemeSelector } from "@/components/ThemeSelector";
 import { Typography } from "@/components/Typography";
 import { useAppSelector } from "@/libs/AsyncStorage/store";
-import { convertToDate } from "@/libs/date";
+import { getDateStringWithZeroTime } from "@/libs/date";
 import { Repository } from "@/repository/api";
 import { StampCardFormSchema, StampCardFormType } from "@/schema/stampCard";
 import { valibotResolver } from "@hookform/resolvers/valibot";
@@ -47,15 +47,18 @@ export const CreateCardForm = () => {
   const onSubmit = async (data: StampCardFormType) => {
     const saveData = {
       ...data,
-      startDate: convertToDate(data.startDate),
-      endDate: convertToDate(data.endDate),
+      startDate: getDateStringWithZeroTime(data.startDate.toString()),
+      endDate: getDateStringWithZeroTime(data.endDate.toString()),
       createdBy: user?.email,
       ...(data.receiver ? { joinedUser: data.receiver } : {}),
     };
+
     // save card to server
     // /stampcard
     const repository = new Repository();
     const res = await repository.post("/stampcard", JSON.stringify(saveData));
+    console.log("res:", res.val);
+
     if (res.ok) {
       // 再検証
       mutate(["/stampcard", undefined, true]);

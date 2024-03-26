@@ -201,18 +201,14 @@ function resolveReceiverDialogContent({
           <StyledButton
             onPress={() =>
               action(async () => {
-                console.log("mark notice as read");
                 // TODO: 通知をreadにする処理
                 await repository.put(`/notice/read/${item.id}`);
                 // TODO: 完走レターを開封する処理
-                console.log("mark letter as visible");
                 const res = await repository.put(
                   `/letter/visible/${item.letterId}`,
                 );
-                console.log("res", res);
                 // 再検証
                 mutate(["/letter", undefined, true]);
-                console.log("done");
               })
             }
           >
@@ -250,12 +246,10 @@ function resolveReceiverDialogContent({
         <StyledButton
           onPress={() =>
             action(async () => {
-              console.log("mark notice as read");
               // TODO: 通知をreadにする処理
               await repository.put(`/notice/read/${item.id}`);
               // 再検証
               mutate(["/stampcard", undefined, true]);
-              console.log("done");
             })
           }
         >

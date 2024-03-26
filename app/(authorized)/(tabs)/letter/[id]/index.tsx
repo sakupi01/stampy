@@ -22,7 +22,6 @@ export default function lettercreen() {
 
   useEffect(() => {
     // TODO: 既読にする
-    console.log("set as read");
     async function markRead() {
       await repository.put(`/letter/read/${id}`);
       mutate(["/letter", undefined, true]);

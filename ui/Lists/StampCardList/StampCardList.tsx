@@ -3,6 +3,7 @@ import { StyledCard } from "@/components/StyledCard";
 import { Typography } from "@/components/Typography";
 import { useAppSelector } from "@/libs/AsyncStorage/store";
 import { assertNonNullable } from "@/libs/assertNonNullable";
+import { calculateDaysFromToday } from "@/libs/date";
 import { StampCard as StampCardType } from "@/types/StampCard";
 import { StampCard } from "@/ui/StampCard";
 import { Link } from "expo-router";
@@ -64,7 +65,9 @@ export const StampCardList = function StampCardList({
           />
           <StyledCard.Thumbnail>
             <StampCard
-              currentDay={card.currentDay}
+              currentDay={calculateDaysFromToday(
+                card.startDate.toString().split("T")[0],
+              )}
               stampNodes={card.stampNodes}
               letterId={card.letterId}
               fixedWidth={s(300)}
