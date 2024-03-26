@@ -17,6 +17,10 @@ export default function Layout() {
         name="[id]/index"
         options={{
           headerShown: false,
+          headerTitle: "",
+          headerStyle: {
+            backgroundColor: "white",
+          },
           headerLeft: () => (
             <Pressable onPress={() => router.back()}>
               {({ pressed }) => (
@@ -34,6 +38,10 @@ export default function Layout() {
             </Pressable>
           ),
         }}
+      />
+      <Stack.Screen
+        name="[id]/modal/index"
+        options={{ presentation: "modal", headerShown: false }}
       />
     </Stack>
   );
