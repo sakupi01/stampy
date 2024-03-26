@@ -22,12 +22,16 @@ export const StampCardList = function StampCardList({
   const [data, setData] = useState<Array<StampCardType>>([]);
   const user = useAppSelector((state) => state.auth.user);
   assertNonNullable(user);
-  console.log("cards:", cards);
 
   useEffect(() => {
-    const extractedCards = cards.filter((item) =>
-      item.title.includes(query ?? ""),
-    );
+    const extractedCards = cards
+      .filter((item) => item.title.includes(query ?? ""))
+      .sort((a, b) => {
+        return a.isCompleted > b.isCompleted ? 1 : -1;
+      })
+      .sort((a, b) => {
+        return a.createdAt < b.createdAt ? 1 : -1;
+      });
 
     setData(extractedCards);
   }, [cards, query]);

@@ -27,7 +27,7 @@ export function StyledPopover({
     <Popover size="$5" allowFlip {...props}>
       <Popover.Trigger asChild>{children}</Popover.Trigger>
 
-      <Adapt platform="touch">
+      <Adapt when={"sm" as unknown as undefined} platform="touch">
         <Popover.Sheet modal dismissOnSnapToBottom>
           <Popover.Sheet.Frame
             paddingVertical={vs(50)}

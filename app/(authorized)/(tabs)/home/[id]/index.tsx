@@ -15,7 +15,6 @@ export default function StampCardScreen() {
   const { id } = useLocalSearchParams();
   const { useGet } = useApi();
   const { data, isError, isLoading } = useGet(`/stampcard/${id}`);
-  console.log("data:", data);
 
   return (
     <SafeAreaView style={styles.container}>
