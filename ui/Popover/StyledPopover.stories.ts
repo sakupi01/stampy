@@ -1,19 +1,23 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { Popover } from "./StyledPopover";
+import { MockStampCards } from "../StampCard/fixture/mock.data";
+import { StyledPopover } from "./StyledPopover";
 
 const meta = {
-  title: "Popover",
-  component: Popover,
+  title: "StyledPopover",
+  component: StyledPopover,
   tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
   },
   argTypes: {},
-} satisfies Meta<typeof Popover>;
+} satisfies Meta<typeof StyledPopover>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    data: MockStampCards[0],
+    children: "Popover",
+  },
 };
