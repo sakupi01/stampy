@@ -36,9 +36,15 @@ export const pickImage = async <FieldType extends AllowedFormType>({
     const uploadResult = await uploadToFirebase(uri, fileName, "avatar", (v) =>
       console.log(v),
     );
-    setImage(uploadResult.downloadUrl);
+
+    const downloadUrl =
+      process.env.EXPO_PUBLIC_GCP_CLOUD_STORE_BASE_URL +
+      uploadResult.metadata.fullPath;
+
+    setImage(downloadUrl);
+
     // @ts-ignore
-    setValue(rfhKey, uploadResult.downloadUrl, { shouldDirty: true });
+    setValue(rfhKey, downloadUrl, { shouldDirty: true });
     toast.show("🌟 画像がアップロードされました");
   }
 };

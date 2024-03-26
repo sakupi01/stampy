@@ -18,9 +18,7 @@ export default function NotificationScreen() {
     isError,
     isLoading,
   } = useGet("/notice", undefined, true, { refreshInterval: 5000 });
-  console.log("**********");
-  console.log(res?.val.notice);
-  console.log("**********");
+
   return (
     <SafeAreaView style={styles.container}>
       <YStack paddingVertical={vs(50)} paddingHorizontal={s(30)} space={30}>
@@ -30,14 +28,14 @@ export default function NotificationScreen() {
           placeholder="タイトルで検索"
           zIndex={"$1"}
         />
-        {!res?.val.notice ? (
+        {!res || isLoading ? (
+          <ListSkeleton />
+        ) : res.val.notice === null || res.val.notice.length === 0 ? (
           <YStack marginTop={s(5)}>
             <Typography type="h4" textAlign="center">
               ここはまだとても静かです。
             </Typography>
           </YStack>
-        ) : isLoading ? (
-          <ListSkeleton />
         ) : isError || res.err ? (
           <YStack marginTop={s(5)}>
             <Typography type="h4" textAlign="center">

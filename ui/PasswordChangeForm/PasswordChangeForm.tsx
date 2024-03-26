@@ -129,7 +129,6 @@ export const PasswordChangeForm = ({
             underlined
             color={isValid ? "$destructive--background" : "$text--subtle"}
             onPress={handleSubmit(async (data) => {
-              console.log(data);
               const hashedOldPassword = await hashString(data.oldPassword);
               const hashedPassword = await hashString(data.password);
 

@@ -117,13 +117,12 @@ export const StampForm = ({
             nthDay: nthDay,
             cardId: cardId,
           };
-          console.log("Submitted! :", sendData);
           const repository = new Repository();
 
           const res = isLastDay
             ? await repository.post("/letter", JSON.stringify(sendData))
             : await repository.put("/stamp", JSON.stringify(sendData));
-          console.log(res);
+
           // 送信完了
           // 通知を既読に
           await repository.put(`/notice/read/${notificationId}`);

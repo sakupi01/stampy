@@ -45,7 +45,6 @@ export function SignInForm() {
         isSubmitting={isSubmitting}
         isSubmitted={isSubmitted}
         onSubmitAction={handleSubmit(async (data: SignInFormType) => {
-          console.log("Submitted! :", data);
           dispatch(authActions.isLoading(true));
           const token = await signIn(data);
 
@@ -161,7 +160,6 @@ export function SignUpForm() {
         isSubmitting={isSubmitting}
         isSubmitted={isSubmitted}
         onSubmitAction={handleSubmit(async (data: SignUpFormType) => {
-          console.log("Submitted! :", data);
           dispatch(authActions.isLoading(true));
           // authorization logic with server
           const token = await signUp(data);

@@ -27,6 +27,7 @@ export const DATA: Array<Notification> = [
     createdAt: "createdAt",
     sendAt: "sendAt",
     listType: "text",
+    cardId: "1",
   },
   {
     type: "notification",
@@ -56,6 +57,7 @@ export const DATA: Array<Notification> = [
     createdAt: "createdAt",
     sendAt: "sendAt",
     listType: "sender-dialog",
+    cardId: "1",
   },
   {
     type: "notification",
@@ -85,6 +87,7 @@ export const DATA: Array<Notification> = [
     createdAt: "createdAt",
     sendAt: "sendAt",
     listType: "sender-dialog",
+    cardId: "1",
   },
   {
     type: "notification",
@@ -114,6 +117,7 @@ export const DATA: Array<Notification> = [
     createdAt: "createdAt",
     sendAt: "sendAt",
     listType: "sender-dialog",
+    cardId: "1",
   },
   {
     type: "notification",
@@ -143,6 +147,7 @@ export const DATA: Array<Notification> = [
     createdAt: "createdAt",
     sendAt: "sendAt",
     listType: "sender-dialog",
+    cardId: "1",
   },
   {
     type: "notification",
@@ -171,6 +176,7 @@ export const DATA: Array<Notification> = [
     createdAt: "createdAt",
     sendAt: "sendAt",
     listType: "receiver-dialog",
+    cardId: "1",
   },
   {
     type: "notification",
@@ -200,6 +206,7 @@ export const DATA: Array<Notification> = [
     createdAt: "createdAt",
     sendAt: "sendAt",
     listType: "receiver-dialog",
+    cardId: "1",
   },
 ];
 

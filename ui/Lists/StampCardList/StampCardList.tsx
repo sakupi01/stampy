@@ -1,6 +1,8 @@
 import { Badge } from "@/components/Badge";
 import { StyledCard } from "@/components/StyledCard";
 import { Typography } from "@/components/Typography";
+import { useAppSelector } from "@/libs/AsyncStorage/store";
+import { assertNonNullable } from "@/libs/assertNonNullable";
 import { calculateDaysFromToday } from "@/libs/date";
 import { StampCard as StampCardType } from "@/types/StampCard";
 import { StampCard } from "@/ui/StampCard";
@@ -17,7 +19,9 @@ export const StampCardList = function StampCardList({
   query,
   cards,
 }: StampCardListProps) {
-  const [data, setData] = useState<Array<StampCardType>>(cards);
+  const [data, setData] = useState<Array<StampCardType>>([]);
+  const user = useAppSelector((state) => state.auth.user);
+  assertNonNullable(user);
 
   useEffect(() => {
     const extractedCards = cards.filter((item) =>
@@ -79,7 +83,9 @@ export const StampCardList = function StampCardList({
                   src={
                     card.joinedUser.avatarUrl === "https://stampy.com"
                       ? require("../../../assets/images/stampy-icon.png")
-                      : card.joinedUser.avatarUrl
+                      : card.joinedUser.avatarUrl === ""
+                        ? require("../../../assets/images/linerbg.png")
+                        : card.joinedUser.avatarUrl
                   }
                 />
                 <Avatar.Fallback backgroundColor="$blue10" />
@@ -88,9 +94,9 @@ export const StampCardList = function StampCardList({
                 <Avatar.Image
                   accessibilityLabel={card.createdBy.username}
                   src={
-                    card.createdBy.avatarUrl === ""
+                    user.avatarUrl === ""
                       ? require("../../../assets/images/linerbg.png")
-                      : card.createdBy.avatarUrl
+                      : user.avatarUrl
                   }
                 />
                 <Avatar.Fallback delayMs={600} backgroundColor="$blue10" />

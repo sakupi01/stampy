@@ -3,11 +3,13 @@ import { StyledCard } from "@/components/StyledCard";
 import { Typography } from "@/components/Typography";
 import { calculateDaysFromToday } from "@/libs/date";
 import { useApi } from "@/libs/hooks/useApi";
+import { StyledPopover } from "@/ui/Popover/StyledPopover";
 import { StampCard } from "@/ui/StampCard";
+import { BadgeInfo } from "@tamagui/lucide-icons";
 import { useLocalSearchParams } from "expo-router";
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import { s, vs } from "react-native-size-matters";
-import { YStack } from "tamagui";
+import { XStack, YStack } from "tamagui";
 
 export default function StampCardScreen() {
   const { id } = useLocalSearchParams();
@@ -29,14 +31,23 @@ export default function StampCardScreen() {
           </YStack>
         ) : (
           <YStack alignItems="center" width="100%" height="100%">
-            <Typography
-              type="h2"
-              marginBottom={vs(30)}
-              textAlign="left"
-              width="100%"
-            >
-              {data.val.title}
-            </Typography>
+            <XStack>
+              <StyledPopover
+                placement="bottom"
+                Name="bottom-popover"
+                data={data.val}
+              >
+                <BadgeInfo color={"$text--subtle"} size={18} />
+              </StyledPopover>
+              <Typography
+                type="h3"
+                marginBottom={vs(10)}
+                textAlign="left"
+                width="100%"
+              >
+                {data.val.title}
+              </Typography>
+            </XStack>
             <StyledCard.Card
               margin={s(5)}
               width={s(300)}

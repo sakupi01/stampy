@@ -115,10 +115,10 @@ export const CoWorkerSelector = ({
               />
 
               <Typography type="small" color="$text--subtle">
-                ※スタンプカードを作成すると自動的に相手に招待リンクが送信されます
+                ※スタンプカードを作成すると自動的に相手が登録されます
               </Typography>
             </YStack>
-            <Typography type="ui">招待メールを送信</Typography>
+            <Typography type="ui">招待を送信</Typography>
           </YStack>
         ) : (
           <></>
