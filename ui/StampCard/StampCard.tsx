@@ -44,7 +44,7 @@ export const StampCard = ({
   fixedWidth,
   isEditable = false,
 }: StampCardProps) => {
-  console.log(currentDay);
+  console.log("currentDay:", currentDay);
 
   const yesMessage = useAppSelector((state) =>
     selectWordByKey(state, "stampy.word.ok"),

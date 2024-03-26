@@ -15,6 +15,7 @@ export default function StampCardScreen() {
   const { id } = useLocalSearchParams();
   const { useGet } = useApi();
   const { data, isError, isLoading } = useGet(`/stampcard/${id}`);
+  console.log("data:", data);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -59,7 +60,7 @@ export default function StampCardScreen() {
             >
               <StampCard
                 currentDay={calculateDaysFromToday(
-                  data.val.startDate.toISOString(),
+                  data.val.startDate.toString().split("T")[0],
                 )}
                 stampNodes={data.val.stampNodes}
                 fixedWidth={s(300)}

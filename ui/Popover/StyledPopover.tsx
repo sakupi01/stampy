@@ -79,7 +79,8 @@ export function StyledPopover({
                 width="100%"
                 color={"$destructive--background"}
               >
-                このカードはdata.startDateから利用可能です
+                このカードは{data.startDate.toString().split("T")[0]}
+                から利用可能です
               </Typography>
             </XStack>
           </YStack>
@@ -167,7 +168,7 @@ export function StyledPopover({
               開始日
             </Typography>
             <Typography type="ui" textAlign="left" color={"$text--subtle"}>
-              data.startDate
+              {data.startDate.toString().split("T")[0]}
             </Typography>
           </XStack>
           <Separator
@@ -186,7 +187,7 @@ export function StyledPopover({
               終了日
             </Typography>
             <Typography type="ui" textAlign="left" color={"$text--subtle"}>
-              data.endDate
+              {data.endDate.toString().split("T")[0]}
             </Typography>
           </XStack>
           <Separator
