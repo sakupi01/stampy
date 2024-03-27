@@ -17,35 +17,33 @@ export default function Home() {
     <SafeAreaView style={styles.container}>
       <YStack
         paddingTop={vs(50)}
-        paddingBottom={vs(30)}
+        paddingBottom={vs(10)}
         paddingHorizontal={s(30)}
         space={30}
       >
         <Typography type="h3">わたしのスタンプカード</Typography>
         <SearchBar uid="card" placeholder="タイトルで検索" zIndex={"$1"} />
       </YStack>
-      <ScrollView>
-        <YStack alignItems="center" width="100%" height="100%">
+      <ScrollView style={styles.scrollView}>
+        <YStack alignItems="center" paddingBottom={vs(100)}>
           {!res || isLoading ? (
-            <YStack marginTop={s(5)}>
+            <YStack>
               <CardSkeleton />
               <CardSkeleton />
               <CardSkeleton />
             </YStack>
           ) : res.val.cards === null || res.val.cards.length === 0 ? (
-            <YStack marginTop={s(5)}>
-              <Typography type="h4" textAlign="center">
-                スタンプカードを作ってみましょう！
-              </Typography>
-            </YStack>
+            <Typography type="h4" textAlign="center">
+              スタンプカードを作ってみましょう！
+            </Typography>
           ) : isError || res.err ? (
-            <YStack marginTop={s(5)}>
-              <Typography type="h4" textAlign="center">
-                取得に失敗しました。
-              </Typography>
-            </YStack>
+            <Typography type="h4" textAlign="center">
+              取得に失敗しました。
+            </Typography>
           ) : (
-            <StampCardList query={query} cards={res.val.cards} />
+            <YStack paddingBottom={vs(100)}>
+              <StampCardList query={query} cards={res.val.cards} />
+            </YStack>
           )}
         </YStack>
       </ScrollView>
@@ -55,6 +53,10 @@ export default function Home() {
 
 const styles = StyleSheet.create({
   container: {
+    width: "100%",
+    backgroundColor: "#fff",
+  },
+  scrollView: {
     width: "100%",
     height: "100%",
     backgroundColor: "#fff",

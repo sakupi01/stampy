@@ -188,6 +188,61 @@ export const StampCard = ({
               </Node>
             );
           }
+          if (isLastDay) {
+            const uniqueId = `${id}-lastday-${index}`;
+            return (
+              <Node
+                key={uniqueId}
+                style={{
+                  position: "absolute",
+                  top: node.y,
+                  left: node.x,
+                }}
+              >
+                <DialogProvider>
+                  <StyledAlertDialog
+                    triggerButton={(toggleModal: () => void) => (
+                      <StyledButton
+                        circular
+                        // @ts-ignore
+                        type="primary"
+                        onPress={toggleModal}
+                      >
+                        <Typography>{stamp}</Typography>
+                      </StyledButton>
+                    )}
+                    cancelButton={(untoggleModal: () => void) => (
+                      // @ts-ignore
+                      <StyledButton type="secondary" onPress={untoggleModal}>
+                        <Typography>{cancelMessage}</Typography>
+                      </StyledButton>
+                    )}
+                    actionButton={(action: DialogActionType) => {
+                      return (
+                        <StyledButton
+                          type="primary"
+                          onPress={() =>
+                            action(async () => {
+                              const repository = new Repository();
+                              await repository.post(
+                                "/notice",
+                                JSON.stringify({
+                                  stampId: id,
+                                }),
+                              );
+                            })
+                          }
+                        >
+                          <Typography>{yesMessage}</Typography>
+                        </StyledButton>
+                      );
+                    }}
+                    description={"最終日のタスクを完了しましたか？"}
+                  />
+                </DialogProvider>
+              </Node>
+            );
+          }
           // nth's un-stamped node
           if (currentDay >= nthday) {
             const uniqueId = `${id}-nthday-${index}`;

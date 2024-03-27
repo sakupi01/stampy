@@ -30,7 +30,7 @@ export const StampCardList = function StampCardList({
         (item) => item.title.includes(query ?? "") && item.isDeleted === false,
       )
       .sort((a, b) => {
-        return a.isCompleted > b.isCompleted ? 1 : -1;
+        return a.isCompleted < b.isCompleted ? 1 : -1;
       })
       .sort((a, b) => {
         return a.createdAt < b.createdAt ? 1 : -1;

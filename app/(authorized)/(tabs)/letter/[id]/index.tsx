@@ -12,13 +12,14 @@ import { s, vs } from "react-native-size-matters";
 import { useSWRConfig } from "swr";
 import { YStack } from "tamagui";
 
-export default function lettercreen() {
+export default function letterScreen() {
   const repository = new Repository();
   const { id } = useLocalSearchParams();
   const { mutate } = useSWRConfig();
 
   const { useGet } = useApi();
   const { data, isError, isLoading } = useGet(`/letter/${id}`);
+  console.log("letter:", id, data);
 
   useEffect(() => {
     // TODO: 既読にする

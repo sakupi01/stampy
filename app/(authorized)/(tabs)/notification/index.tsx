@@ -21,21 +21,26 @@ export default function NotificationScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <YStack paddingVertical={vs(50)} paddingHorizontal={s(30)} space={30}>
+      <YStack
+        paddingTop={vs(50)}
+        paddingBottom={vs(10)}
+        paddingHorizontal={s(30)}
+        space={30}
+      >
         <Typography type="h3">通知リスト</Typography>
         <SearchBar
           uid="notification"
           placeholder="タイトルで検索"
           zIndex={"$1"}
         />
+      </YStack>
+      <YStack paddingHorizontal={s(30)} paddingBottom={vs(100)}>
         {!res || isLoading ? (
           <ListSkeleton />
         ) : res.val.notice === null || res.val.notice.length === 0 ? (
-          <YStack marginTop={s(5)}>
-            <Typography type="h4" textAlign="center">
-              ここはまだとても静かです。
-            </Typography>
-          </YStack>
+          <Typography type="h4" textAlign="center">
+            ここはまだとても静かです。
+          </Typography>
         ) : isError || res.err ? (
           <YStack marginTop={s(5)}>
             <Typography type="h4" textAlign="center">
@@ -43,7 +48,9 @@ export default function NotificationScreen() {
             </Typography>
           </YStack>
         ) : (
-          <NotificationList query={query} notifications={res.val.notice} />
+          <YStack paddingBottom={vs(80)}>
+            <NotificationList query={query} notifications={res.val.notice} />
+          </YStack>
         )}
       </YStack>
     </SafeAreaView>
