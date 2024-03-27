@@ -5,14 +5,18 @@ import { Typography } from "@/components/Typography";
 import { useAppSelector } from "@/libs/AsyncStorage/store";
 import { assertNonNullable } from "@/libs/assertNonNullable";
 import { useApi } from "@/libs/hooks/useApi";
+import { Repository } from "@/repository/api";
 import { FontAwesome } from "@expo/vector-icons";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { s, vs } from "react-native-size-matters";
+import { useSWRConfig } from "swr";
 import { Avatar, Separator, XStack, YStack } from "tamagui";
 
 export default function ModalScreen() {
   const { id } = useLocalSearchParams();
-  console.log("id:", id);
+  const repository = new Repository();
+  const { mutate } = useSWRConfig();
+  const router = useRouter();
   const { useGet } = useApi();
   const { data, isError, isLoading } = useGet(`/stampcard/${id}`);
   const user = useAppSelector((state) => state.auth.user);
@@ -181,6 +185,37 @@ export default function ModalScreen() {
                 {data.val.isCompleted ? "完了🎉" : "未完了🏃🏻‍♀️"}
               </Typography>
             </XStack>
+            <Typography
+              marginTop={vs(100)}
+              textAlign="center"
+              type="ui"
+              underlined
+              color={"$destructive--background"}
+              onPress={async () => {
+                // save password to Server
+                // /user/pwd
+
+                const res = await repository.put(
+                  `/stampcard/${id}`,
+                  JSON.stringify({
+                    isDeleted: true,
+                  }),
+                );
+                if (res.ok) {
+                  console.log("res:", res);
+
+                  // 再検証
+                  mutate(["/stampcard", undefined, true]);
+                  // 作成したカードへ遷移
+                  router.push("/home");
+                } else {
+                  console.error("error", res.err);
+                }
+              }}
+            >
+              {/* <Trash2 color={"$destructive--background"} size={18} /> */}
+              カードを削除
+            </Typography>
           </YStack>
         )}
       </View>

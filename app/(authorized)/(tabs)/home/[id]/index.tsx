@@ -4,7 +4,7 @@ import { Typography } from "@/components/Typography";
 import { calculateDaysFromToday } from "@/libs/date";
 import { useApi } from "@/libs/hooks/useApi";
 import { StampCard } from "@/ui/StampCard";
-import { BadgeInfo, Trash2 } from "@tamagui/lucide-icons";
+import { BadgeInfo } from "@tamagui/lucide-icons";
 import { Link, useLocalSearchParams } from "expo-router";
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import { s, vs } from "react-native-size-matters";
@@ -51,7 +51,6 @@ export default function StampCardScreen() {
               >
                 {data.val.title}
               </Typography>
-              <Trash2 color={"$destructive--background"} size={18} />
             </XStack>
             <StyledCard.Card
               margin={s(5)}

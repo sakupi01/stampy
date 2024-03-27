@@ -23,9 +23,12 @@ export const StampCardList = function StampCardList({
   const user = useAppSelector((state) => state.auth.user);
   assertNonNullable(user);
 
+  // filter not isDeleted === true
   useEffect(() => {
     const extractedCards = cards
-      .filter((item) => item.title.includes(query ?? ""))
+      .filter(
+        (item) => item.title.includes(query ?? "") && item.isDeleted === false,
+      )
       .sort((a, b) => {
         return a.isCompleted > b.isCompleted ? 1 : -1;
       })
