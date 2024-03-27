@@ -1,4 +1,4 @@
-import { CardSkeleton } from "@/components/Skeleton/Skeleton";
+import { OneCardSkeleton } from "@/components/Skeleton/Skeleton";
 import { StyledCard } from "@/components/StyledCard";
 import { Typography } from "@/components/Typography";
 import { calculateDaysFromToday } from "@/libs/date";
@@ -20,7 +20,7 @@ export default function StampCardScreen() {
       <ScrollView style={styles.scrollView}>
         {!data || isLoading ? (
           <YStack marginTop={s(5)}>
-            <CardSkeleton />
+            <OneCardSkeleton />
           </YStack>
         ) : isError || data.err ? (
           <YStack marginTop={s(5)}>

@@ -1,3 +1,5 @@
+/** @format */
+
 import { assertNonNullable } from "@/libs/assertNonNullable";
 import * as SecureStore from "expo-secure-store";
 import { assertHttpStatusCode } from "./assertHttpStatusCode";
@@ -21,11 +23,15 @@ const withToken = async (endpoint: string, options?: RequestInit) => {
       },
     },
   );
+
   // 200番台以外のステータスコードの場合、例外
   const status = response.status;
   if (!isStatusCode200Series(status)) {
     assertHttpStatusCode(status);
     return resultError(statusCodeToError(status));
+  }
+  if (response.status === 204) {
+    return resultOk({});
   }
   const data = await response.json();
   return resultOk(data);

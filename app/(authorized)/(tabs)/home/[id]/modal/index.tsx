@@ -1,6 +1,6 @@
 import { SafeAreaView, StyleSheet, View } from "react-native";
 
-import { CardSkeleton } from "@/components/Skeleton/Skeleton";
+import { AvatarSkeleton, CardSkeleton } from "@/components/Skeleton/Skeleton";
 import { Typography } from "@/components/Typography";
 import { useAppSelector } from "@/libs/AsyncStorage/store";
 import { assertNonNullable } from "@/libs/assertNonNullable";
@@ -88,7 +88,9 @@ export default function ModalScreen() {
                             : data.val.joinedUser.avatarUrl
                       }
                     />
-                    <Avatar.Fallback backgroundColor="$blue10" />
+                    <Avatar.Fallback delayMs={600}>
+                      <AvatarSkeleton />
+                    </Avatar.Fallback>
                   </Avatar>
                   <Typography
                     type="small"
@@ -114,7 +116,9 @@ export default function ModalScreen() {
                           : user.avatarUrl
                       }
                     />
-                    <Avatar.Fallback delayMs={600} backgroundColor="$blue10" />
+                    <Avatar.Fallback delayMs={600}>
+                      <AvatarSkeleton />
+                    </Avatar.Fallback>
                   </Avatar>
                   <Typography
                     type="small"
@@ -192,25 +196,11 @@ export default function ModalScreen() {
               underlined
               color={"$destructive--background"}
               onPress={async () => {
-                // save password to Server
-                // /user/pwd
-
-                const res = await repository.put(
-                  `/stampcard/${id}`,
-                  JSON.stringify({
-                    isDeleted: true,
-                  }),
-                );
-                if (res.ok) {
-                  console.log("res:", res);
-
-                  // 再検証
-                  mutate(["/stampcard", undefined, true]);
-                  // 作成したカードへ遷移
-                  router.push("/home");
-                } else {
-                  console.error("error", res.err);
-                }
+                await repository.put(`/stampcard/delete/${id}`);
+                // 再検証
+                mutate(["/stampcard", undefined, true]);
+                // 作成したカードへ遷移
+                router.push("/home");
               }}
             >
               {/* <Trash2 color={"$destructive--background"} size={18} /> */}

@@ -1,4 +1,5 @@
 import { Badge } from "@/components/Badge";
+import { AvatarSkeleton } from "@/components/Skeleton/Skeleton";
 import { StyledCard } from "@/components/StyledCard";
 import { Typography } from "@/components/Typography";
 import { useAppSelector } from "@/libs/AsyncStorage/store";
@@ -97,7 +98,9 @@ export const StampCardList = function StampCardList({
                         : card.joinedUser.avatarUrl
                   }
                 />
-                <Avatar.Fallback backgroundColor="$blue10" />
+                <Avatar.Fallback>
+                  <AvatarSkeleton />
+                </Avatar.Fallback>
               </Avatar>
               <Avatar circular size="$3" marginLeft={s(-10)}>
                 <Avatar.Image
@@ -108,7 +111,9 @@ export const StampCardList = function StampCardList({
                       : user.avatarUrl
                   }
                 />
-                <Avatar.Fallback delayMs={600} backgroundColor="$blue10" />
+                <Avatar.Fallback>
+                  <AvatarSkeleton />
+                </Avatar.Fallback>
               </Avatar>
             </XStack>
           </StyledCard.Footer>

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { UseFormSetValue } from "react-hook-form";
 import { s } from "react-native-size-matters";
 import { Avatar, View } from "tamagui";
+import { AvatarSkeleton } from "../Skeleton/Skeleton";
 import { pickImage } from "../libs/imagePicker";
 
 const DEFAULT_IMAGE = require("../../assets/images/linerbg.png");
@@ -44,12 +45,14 @@ export const AvatarPicker = ({ defaultUrl, setValue }: AvatarPickerProps) => {
       >
         <Pencil color="$text--subtle" size={s(18)} />
       </View>
-      <Avatar circular size="$9">
+      <Avatar circular size={100}>
         <Avatar.Image
           accessibilityLabel={"アバター画像です"}
           src={image === "" ? DEFAULT_IMAGE : image}
         />
-        <Avatar.Fallback backgroundColor="$blue10" />
+        <Avatar.Fallback delayMs={600}>
+          <AvatarSkeleton />
+        </Avatar.Fallback>
       </Avatar>
     </View>
   );
