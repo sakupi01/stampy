@@ -1,9 +1,8 @@
 import { Search } from "@tamagui/lucide-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import { s, vs } from "react-native-size-matters";
-import { GetProps, Input, Label, View, YStack } from "tamagui";
+import { GetProps, Input, View, YStack } from "tamagui";
 import { useDebouncedCallback } from "use-debounce";
-import { Typography } from "../Typography/Typography";
 
 export const SearchBar = ({
   uid,
@@ -30,16 +29,13 @@ export const SearchBar = ({
       {...props}
     >
       <YStack space={vs(5)} width="100%">
-        <Label htmlFor={`search-${uid}`} color="$text--dark">
-          <Typography>Search</Typography>
-        </Label>
         <Search
           style={{
             width: vs(18),
             height: vs(18),
             position: "absolute",
             zIndex: 1,
-            top: "60%",
+            top: "35%",
             right: s(10),
           }}
           color="#9CA3AF"

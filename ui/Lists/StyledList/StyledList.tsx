@@ -6,12 +6,13 @@ import { StyledInput } from "@/components/StyledInput";
 import { Typography } from "@/components/Typography/Typography";
 import { assertNonNullable } from "@/libs/assertNonNullable";
 import DialogProvider from "@/libs/provider/dialog";
-import { sleep } from "@/libs/sleep";
+import { Repository } from "@/repository/api";
 import { Letter } from "@/types/Letter";
 import { Notification } from "@/types/Notification";
 import { StampForm } from "@/ui/StampForm";
 import { KeyboardAvoidingView, Pressable, SectionList } from "react-native";
 import { s, vs } from "react-native-size-matters";
+import { useSWRConfig } from "swr";
 import { Separator, YStack } from "tamagui";
 import { LinkListItem, TextListItem } from "./ListItem";
 
@@ -24,11 +25,27 @@ export const StyledList = ({ data }: StyledListProps) => {
       sections={[
         {
           title: "未開封",
-          data: data.filter((item) => item.read === false),
+          data: data.filter((item) => {
+            if (item.type === "letter") {
+              return item.isVisible === true && item.read === false;
+            }
+            return item.read === false;
+          }),
         },
         {
           title: "開封済み",
-          data: data.filter((item) => item.read === true),
+          data: data.filter((item) => {
+            if (
+              item.type === "notification" &&
+              item.listType === "sender-dialog"
+            ) {
+              return false;
+            }
+            if (item.type === "letter") {
+              return item.isVisible === true && item.read === true;
+            }
+            return item.read === true;
+          }),
         },
       ]}
       renderSectionHeader={({ section }) => (
@@ -79,11 +96,12 @@ const resolveListItem = (item: RenderItemParams) => {
               },
             }}
             // 完走レター一覧の場合は、contentを表示しない
-            content={item.hrefPrefix?.startsWith("/letter") ? "" : item.content}
+            content={item.hrefPrefix?.startsWith("/letter") ? "" : item.message}
           />
         );
       case "sender-dialog":
-        assertNonNullable(item.currentDay);
+        assertNonNullable(item.nthDay);
+        assertNonNullable(item.cardId);
         return (
           <DialogProvider>
             <StyledAlertDialog
@@ -94,7 +112,7 @@ const resolveListItem = (item: RenderItemParams) => {
                     width: "100%",
                   }}
                 >
-                  <TextListItem title={item.title} content={item.content} />
+                  <TextListItem title={item.title} content={item.message} />
                 </Pressable>
               )}
               cancelButton={(untoggleModal: () => void) => (
@@ -104,15 +122,16 @@ const resolveListItem = (item: RenderItemParams) => {
               )}
               description={
                 item.isLastDay
-                  ? `${item.receiver.username}さんへ\n最終日の完走レター\nを送りますか？`
-                  : `${item.receiver.username}さんへ\n${item.currentDay}日目のスタンプ\nを送りますか？`
+                  ? `${item.sender.username}さんへ\n最終日の完走レター\nを送りますか？`
+                  : `${item.sender.username}さんへ\n${item.nthDay}日目のスタンプ\nを送りますか？`
               }
             >
               <KeyboardAvoidingView behavior={"position"}>
                 <YStack alignItems="center">
                   <StampForm
-                    user={item.receiver}
-                    currentDay={item.currentDay}
+                    cardId={item.cardId}
+                    nthDay={item.nthDay}
+                    notificationId={item.id}
                     isLastDay={item.isLastDay}
                   />
                 </YStack>
@@ -120,21 +139,22 @@ const resolveListItem = (item: RenderItemParams) => {
             </StyledAlertDialog>
           </DialogProvider>
         );
+
       case "receiver-dialog":
-        assertNonNullable(item.currentDay);
-        assertNonNullable(item.isLastDay);
+        assertNonNullable(item.nthDay);
         return (
           <DialogProvider>
             {resolveReceiverDialogContent({
-              isLastDay: item.isLastDay,
+              letterId: item.letterId,
               item: item,
             })}
           </DialogProvider>
         );
       default:
-        return <TextListItem title={item.title} content={item.content} />;
+        return <TextListItem title={item.title} content={item.message} />;
     }
   }
+  // type == 'letter'
   return (
     <LinkListItem
       title={item.title}
@@ -147,18 +167,19 @@ const resolveListItem = (item: RenderItemParams) => {
         },
       }}
       // 完走レター一覧の場合は、contentを表示しない
-      content={item.hrefPrefix?.startsWith("/letter") ? "" : item.content}
+      content={item.hrefPrefix?.startsWith("/letter") ? "" : item.message}
     />
   );
 };
 
 function resolveReceiverDialogContent({
-  isLastDay,
+  letterId,
   item,
-}: { isLastDay: boolean; item: Notification }) {
-  console.log(isLastDay);
+}: { letterId: string | undefined; item: Notification }) {
+  const repository = new Repository();
+  const { mutate } = useSWRConfig();
 
-  if (isLastDay) {
+  if (letterId?.toString() !== "0") {
     return (
       <StyledAlertDialog
         triggerButton={(toggleModal: () => void) => (
@@ -168,7 +189,7 @@ function resolveReceiverDialogContent({
               width: "100%",
             }}
           >
-            <TextListItem title={item.title} content={item.content} />
+            <TextListItem title={item.title} content={item.message} />
           </Pressable>
         )}
         cancelButton={(untoggleModal: () => void) => (
@@ -180,10 +201,14 @@ function resolveReceiverDialogContent({
           <StyledButton
             onPress={() =>
               action(async () => {
-                console.log("receive stamp start");
-                // TODO: スタンプ・手紙を受け取る処理
-                await sleep(1000);
-                console.log("receive stamp end");
+                // TODO: 通知をreadにする処理
+                await repository.put(`/notice/read/${item.id}`);
+                // TODO: 完走レターを開封する処理
+                const res = await repository.put(
+                  `/letter/visible/${item.letterId}`,
+                );
+                // 再検証
+                mutate(["/letter", undefined, true]);
               })
             }
           >
@@ -199,6 +224,7 @@ function resolveReceiverDialogContent({
       </StyledAlertDialog>
     );
   }
+
   return (
     <StyledAlertDialog
       triggerButton={(toggleModal: () => void) => (
@@ -208,7 +234,7 @@ function resolveReceiverDialogContent({
             width: "100%",
           }}
         >
-          <TextListItem title={item.title} content={item.content} />
+          <TextListItem title={item.title} content={item.message} />
         </Pressable>
       )}
       cancelButton={(untoggleModal: () => void) => (
@@ -220,23 +246,23 @@ function resolveReceiverDialogContent({
         <StyledButton
           onPress={() =>
             action(async () => {
-              console.log("receive stamp start");
-              // TODO: スタンプ・手紙を受け取る処理
-              await sleep(1000);
-              console.log("receive stamp end");
+              // TODO: 通知をreadにする処理
+              await repository.put(`/notice/read/${item.id}`);
+              // 再検証
+              mutate(["/stampcard", undefined, true]);
             })
           }
         >
           <Typography>受け取る</Typography>
         </StyledButton>
       )}
-      description={`${item.sender.username}さんから\n${item.currentDay}日目のスタンプ\nが届いています`}
+      description={`${item.sender.username}さんから\n${item.nthDay}日目のスタンプ\nが届いています`}
     >
       <YStack gap={20} alignItems="center">
         <StampWrapper stamp={item.stamp} />
         <StyledInput
           label="ひとことメッセージ"
-          defaultValue={item.content}
+          defaultValue={item.message}
           id={item.id}
           scrollEnabled
           multiline

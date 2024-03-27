@@ -3,22 +3,31 @@ import { DatePicker } from "@/components/DatePicker";
 import { StyledButton } from "@/components/StyledButton";
 import { ThemeSelector } from "@/components/ThemeSelector";
 import { Typography } from "@/components/Typography";
-import { sleep } from "@/libs/sleep";
+import { useAppSelector } from "@/libs/AsyncStorage/store";
+import { getDateStringWithZeroTime } from "@/libs/date";
+import { Repository } from "@/repository/api";
 import { StampCardFormSchema, StampCardFormType } from "@/schema/stampCard";
 import { valibotResolver } from "@hookform/resolvers/valibot";
+import { useToastController } from "@tamagui/toast";
+import { useRouter } from "expo-router";
 import { useEffect, useRef } from "react";
-import { Controller, FieldValues, useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { KeyboardAvoidingView, TextInput } from "react-native";
 import { ms, vs } from "react-native-size-matters";
+import { useSWRConfig } from "swr";
 import { Spinner, YStack } from "tamagui";
 
 export const CreateCardForm = () => {
+  const { mutate } = useSWRConfig();
+  const user = useAppSelector((state) => state.auth.user);
+  const toast = useToastController();
+  const router = useRouter();
   const titleRef = useRef<TextInput>(null);
   const {
     control,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting, isSubmitted, isValid },
+    formState: { errors, isSubmitting, isValid, isDirty },
     setValue,
     setFocus,
     watch,
@@ -27,6 +36,7 @@ export const CreateCardForm = () => {
     mode: "onChange",
     reValidateMode: "onChange",
   });
+
   useEffect(() => {
     titleRef.current?.focus();
     setFocus("title");
@@ -34,18 +44,36 @@ export const CreateCardForm = () => {
 
   const watchStartDate = watch("startDate", undefined);
 
-  const onSubmit = async (data: FieldValues) => {
-    console.log(data);
-    // save card to server
-    await sleep(1000);
-    // clear submitting state
-    reset();
-    // 作成したカード一覧へ遷移
-    // router.push("/cards");
-  };
-  const onError = (data: FieldValues) =>
-    console.error("Something went wrong:", data);
+  const onSubmit = async (data: StampCardFormType) => {
+    const saveData = {
+      ...data,
+      startDate: getDateStringWithZeroTime(data.startDate.toString()),
+      endDate: getDateStringWithZeroTime(data.endDate.toString()),
+      createdBy: user?.email,
+      ...(data.receiver ? { joinedUser: data.receiver } : {}),
+    };
 
+    // save card to server
+    // /stampcard
+    const repository = new Repository();
+    const res = await repository.post("/stampcard", JSON.stringify(saveData));
+    console.log("res:", res.val);
+
+    if (res.ok) {
+      // 再検証
+      mutate(["/stampcard", undefined, true]);
+      // clear submitting state
+      reset();
+      // 作成したカードへ遷移
+      router.push(`/home/${res.val.id}`);
+    } else {
+      if (res.err.message === "Not Found Error.") {
+        toast.show("🚫 メールアドレスのユーザは登録されていません");
+      } else {
+        toast.show("🚫 カードの作成に失敗しました");
+      }
+    }
+  };
   return (
     <YStack marginBottom={vs(100)}>
       <YStack marginBottom={vs(30)}>
@@ -134,9 +162,9 @@ export const CreateCardForm = () => {
           render={() => <ThemeSelector setValue={setValue} />}
           name="endDate"
         />
-        {errors.theme && (
+        {errors.backgroundUrl && (
           <Typography type="small" color="$text--destructive">
-            😕{errors.theme.message}
+            😕{errors.backgroundUrl.message}
           </Typography>
         )}
       </YStack>
@@ -157,14 +185,14 @@ export const CreateCardForm = () => {
       </YStack>
 
       <StyledButton
-        onPress={handleSubmit(onSubmit, onError)}
+        onPress={handleSubmit(onSubmit)}
         icon={
           isSubmitting
             ? () => <Spinner size="small" color={"$secondary--background"} />
             : undefined
         }
-        type={!isValid ? "disabled" : "primary"}
-        disabled={!isValid || isSubmitting}
+        type={!isValid || !isDirty ? "disabled" : "primary"}
+        disabled={!isValid || !isDirty || isSubmitting}
       >
         <Typography>作成</Typography>
       </StyledButton>

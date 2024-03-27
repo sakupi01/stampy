@@ -24,7 +24,7 @@ export const ThemeSelector = ({ setValue, ...props }: ThemeSelectorProps) => {
 
   const selectFromDefault = (source: string) => {
     setImage(source);
-    setValue("theme", source);
+    setValue("backgroundUrl", source);
   };
 
   return (
@@ -88,7 +88,7 @@ export const ThemeSelector = ({ setValue, ...props }: ThemeSelectorProps) => {
                 aspect: [3, 4],
                 toast,
                 setValue,
-                rfhKey: "theme",
+                rfhKey: "backgroundUrl",
               })
             }
           >

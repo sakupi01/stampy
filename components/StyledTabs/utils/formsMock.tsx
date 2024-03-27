@@ -2,8 +2,7 @@ import { StyledForm } from "@/components/StyledForm";
 import { StyledInput } from "@/components/StyledInput";
 import { Typography } from "@/components/Typography";
 import { authActions } from "@/libs/AsyncStorage/Auth/slice";
-import { signIn, signUp } from "@/libs/auth";
-import { sleep } from "@/libs/sleep";
+import { getUser, signIn, signUp } from "@/libs/auth";
 import { SignInFormSchema, SignInFormType } from "@/schema/signIn";
 import { SignUpFormSchema, SignUpFormType } from "@/schema/signUp";
 import { valibotResolver } from "@hookform/resolvers/valibot";
@@ -46,19 +45,32 @@ export function SignInForm() {
         isSubmitting={isSubmitting}
         isSubmitted={isSubmitted}
         onSubmitAction={handleSubmit(async (data: SignInFormType) => {
-          console.log("Submitted! :", data);
           dispatch(authActions.isLoading(true));
-          // authorization logic with server
-          const { sessionId, user } = await signIn(data);
-          await sleep(1000);
-          // async dispatch so need to wait
-          dispatch(authActions.authorize({ session: sessionId, user: user }));
-          dispatch(authActions.isLoading(false));
-          // clear submitting state
-          reset();
-          // Navigate after signing in. You may want to tweak this to ensure sign-in is
-          // successful before navigating.
-          router.replace("/");
+          const token = await signIn(data);
+
+          if (token.ok) {
+            dispatch(
+              authActions.setToken({
+                token: token.val,
+              }),
+            );
+            const user = await getUser();
+            if (user.ok) {
+              // set user to redux
+              dispatch(
+                authActions.setUser({
+                  user: user.val,
+                }),
+              );
+
+              dispatch(authActions.isLoading(false));
+              // clear submitting state
+              reset();
+              // Navigate after signing in. You may want to tweak this to ensure sign-in is
+              // successful before navigating.
+              router.replace("/");
+            }
+          }
         })}
       >
         <Typography type="ui" color="$text--subtle">
@@ -148,18 +160,31 @@ export function SignUpForm() {
         isSubmitting={isSubmitting}
         isSubmitted={isSubmitted}
         onSubmitAction={handleSubmit(async (data: SignUpFormType) => {
-          console.log("Submitted! :", data);
           dispatch(authActions.isLoading(true));
           // authorization logic with server
-          const { sessionId, user } = await signUp(data);
-          // async dispatch so need to wait
-          dispatch(authActions.authorize({ session: sessionId, user: user }));
-          dispatch(authActions.isLoading(false));
-          // clear submitting state
-          reset();
-          // Navigate after signing in. You may want to tweak this to ensure sign-in is
-          // successful before navigating.
-          router.replace("/");
+          const token = await signUp(data);
+          if (token.ok) {
+            dispatch(
+              authActions.setToken({
+                token: token.val,
+              }),
+            );
+            const user = await getUser();
+            if (user.ok) {
+              // set user to redux
+              dispatch(
+                authActions.setUser({
+                  user: user.val,
+                }),
+              );
+              dispatch(authActions.isLoading(false));
+              // clear submitting state
+              reset();
+              // Navigate after signing in. You may want to tweak this to ensure sign-in is
+              // successful before navigating.
+              router.replace("/");
+            }
+          }
         })}
       >
         <Typography type="ui" color="$text--subtle">

@@ -1,84 +1,122 @@
+import { Repository } from "@/repository/api";
+import { Err, Ok } from "@/repository/result";
 import { SignInFormType } from "@/schema/signIn";
 import { SignUpFormType } from "@/schema/signUp";
 import { User } from "@/types";
-import * as Crypto from "expo-crypto";
+import { hashString } from "./hash";
+
+export async function getUser(): Promise<Err<Error> | Ok<User>> {
+  // get user info
+  // /user
+  const repository = new Repository();
+  const res = await repository.get("/user");
+  return res;
+}
 
 async function registerUser({
   username,
   email,
   hashedPassword,
 }: { username: string; email: string; hashedPassword: string }): Promise<
-  { sessionId: string; user: User } | undefined
+  Err<Error> | Ok<{ token: string }>
 > {
   // register and return user from database
-  return {
-    sessionId: "123-xxxxx",
-    user: {
-      id: "1",
-      username: username,
-      email: email,
-      avatarUrl:
-        "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
-    },
-  };
+  // /signup
+  const repository = new Repository();
+  const res = await repository.post(
+    "/signup",
+    JSON.stringify({ username, email, password: hashedPassword }),
+    false,
+  );
+
+  if (!res.ok) {
+    return res;
+  }
+
+  return res;
 }
 
-async function getUser({
+async function login({
   email,
-  password,
-}: SignInFormType): Promise<{ sessionId: string; user: User } | undefined> {
+  hashedPassword,
+}: { email: string; hashedPassword: string }): Promise<
+  Err<Error> | Ok<{ token: string }>
+> {
   // get user from database
-  return {
-    sessionId: "123-xxxxx",
-    user: {
-      id: "1",
-      username: "user",
-      email: email,
-      avatarUrl:
-        "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
-    },
-  };
+  // /login
+  const repository = new Repository();
+  const res = await repository.post(
+    "/login",
+    JSON.stringify({ email, password: hashedPassword }),
+    false,
+  );
+
+  if (!res.ok) {
+    return res;
+  }
+
+  return res;
 }
 
-async function checkUser(email: string): Promise<boolean | undefined> {
+async function checkUser(
+  email: string,
+): Promise<Err<Error> | Ok<{ doesUserExist: boolean }>> {
   // get user from database
-  return;
+  // /check-user
+
+  const repository = new Repository();
+  const res = await repository.post(
+    "/check-email",
+    JSON.stringify({ email }),
+    false,
+  );
+
+  if (!res.ok) {
+    return res;
+  }
+
+  return res;
 }
 
 async function signIn(credentials: SignInFormType) {
-  try {
-    const data = await getUser(credentials);
-    if (!data) {
-      throw new Error("ユーザが登録されていません");
-    }
-    return data;
-  } catch (error: unknown) {
-    throw new Error("Internal Server Error");
+  const { email, password } = credentials;
+  const hashedPassword = await hashString(password);
+  const res = await login({ email, hashedPassword });
+  if (!res.ok) {
+    return res;
   }
+  return {
+    ok: true,
+    val: res.val.token,
+    err: null,
+  };
 }
 
 async function signUp(credentials: SignUpFormType) {
-  try {
-    const { username, email, password } = credentials;
+  const { username, email, password } = credentials;
 
-    const doesUserExist = await checkUser(username);
-    if (doesUserExist) {
-      throw new Error("このメールアドレスのユーザは既に登録されています.");
-      // -> to sign in
-    }
-
-    const hashedPassword = await Crypto.digestStringAsync(
-      Crypto.CryptoDigestAlgorithm.SHA256,
-      password,
-    );
-    const data = await registerUser({ username, email, hashedPassword });
-    if (!data) {
-      throw new Error("ユーザの登録に失敗しました");
-    }
-    return data;
-  } catch (error: unknown) {
-    throw new Error("Internal Server Error");
+  const doesUserExist = await checkUser(email);
+  if (!doesUserExist.ok) {
+    return doesUserExist;
   }
+  if (doesUserExist.val.doesUserExist) {
+    // -> to sign in
+    return {
+      ok: false,
+      val: null,
+      err: new Error("User already exists"),
+    } as Err<Error>;
+  }
+  const hashedPassword = await hashString(password);
+  const res = await registerUser({ username, email, hashedPassword });
+  if (!res.ok) {
+    return res;
+  }
+  return {
+    ok: true,
+    val: res.val.token,
+    err: null,
+  };
 }
 
 export { signIn, signUp };

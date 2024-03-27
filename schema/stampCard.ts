@@ -16,7 +16,7 @@ const StampCardFormSchema = object({
   title: stampCardTitleSchema,
   startDate: DateSchema,
   endDate: DateSchema,
-  theme: themeSchema,
+  backgroundUrl: themeSchema,
   isStampy: isStampySchema,
   receiver: optional(emailSchema),
 });

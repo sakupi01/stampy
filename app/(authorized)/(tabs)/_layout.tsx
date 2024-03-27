@@ -1,4 +1,7 @@
 import { ShadowProperties } from "@/constants/MaterialBoxshadow";
+import { useApi } from "@/libs/hooks/useApi";
+import { Letter } from "@/types/Letter";
+import { Notification } from "@/types/Notification";
 import { Bell, Home, Mail, Plus, User } from "@tamagui/lucide-icons";
 import { Tabs } from "expo-router";
 import { StatusBar, StatusBarProps } from "expo-status-bar";
@@ -13,6 +16,48 @@ const MyStatusBar = ({ backgroundColor, ...props }: StatusBarProps) => (
 );
 
 export default function Layout() {
+  const { useGet } = useApi();
+  const {
+    data: resNotice,
+    isError: isNoticeError,
+    isLoading: isNoticeLoading,
+  } = useGet<{ notice: Notification[] }>("/notice", undefined, true, {
+    refreshInterval: 5000,
+  });
+  const {
+    data: resLetter,
+    isError: isLetterError,
+    isLoading: isLetterLoading,
+  } = useGet<{ letters: Letter[] }>("/letter");
+
+  const numNotifications =
+    isNoticeLoading ||
+    resNotice === undefined ||
+    resNotice.val === null ||
+    resNotice.val.notice === null
+      ? 0
+      : resNotice.val.notice.filter((item: Notification) => {
+          return item.read === false;
+        }).length;
+
+  const numLetters =
+    isLetterLoading ||
+    resLetter === undefined ||
+    resLetter.val === null ||
+    resLetter.val.letters === null
+      ? 0
+      : resLetter.val.letters.filter((item: Letter) => {
+          return item.isVisible && item.read === false;
+        }).length;
+
+  if (isNoticeError || isLetterError) {
+    // 取得に失敗
+    return (
+      <SafeAreaView>
+        <MyStatusBar backgroundColor="white" />
+      </SafeAreaView>
+    );
+  }
   return (
     <>
       <MyStatusBar backgroundColor="transparent" />
@@ -61,7 +106,7 @@ export default function Layout() {
           options={{
             tabBarIcon: ({ color }) => <Bell color={color} />,
             tabBarShowLabel: false,
-            tabBarBadge: "1",
+            tabBarBadge: numNotifications > 0 ? numNotifications : undefined,
             tabBarBadgeStyle: {
               backgroundColor: "#EF4444",
             },
@@ -100,6 +145,10 @@ export default function Layout() {
           options={{
             tabBarIcon: ({ color }) => <Mail color={color} />,
             tabBarShowLabel: false,
+            tabBarBadge: numLetters > 0 ? numLetters : undefined,
+            tabBarBadgeStyle: {
+              backgroundColor: "#EF4444",
+            },
           }}
         />
         <Tabs.Screen

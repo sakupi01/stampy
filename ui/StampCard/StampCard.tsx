@@ -9,8 +9,9 @@ import { Typography } from "@/components/Typography/Typography";
 import { selectWordByKey } from "@/libs/AsyncStorage/Word/state";
 import { useAppSelector } from "@/libs/AsyncStorage/store";
 import DialogProvider from "@/libs/provider/dialog";
-import { sleep } from "@/libs/sleep";
+import { Repository } from "@/repository/api";
 import { StampNode } from "@/types";
+import { Link } from "expo-router";
 import React from "react";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import { s } from "react-native-size-matters";
@@ -22,6 +23,7 @@ import { getPositionedNode } from "./utils/positionedNode";
 export type StampCardProps = {
   currentDay: number;
   stampNodes: StampNode[];
+  letterId?: string;
   fixedHeight: number;
   fixedWidth: number;
   isEditable?: boolean;
@@ -37,6 +39,7 @@ const Node = ({
 export const StampCard = ({
   currentDay,
   stampNodes,
+  letterId,
   fixedHeight,
   fixedWidth,
   isEditable = false,
@@ -100,17 +103,48 @@ export const StampCard = ({
           <Path
             d={pathData}
             stroke="#E8E8E8"
-            // stroke="#D9D9D9"
-            // stroke="#BF6E55"
             strokeOpacity={0.8}
             strokeWidth={5}
           />
         </Svg>
         {nodesWithPosition.map((node, index) => {
-          const { stamp, stampId, stamped, nthDay, message } = node;
+          const isLastDay = node.nthday === stampNodes.length;
+          const { stamp, id, nthday, stamped, message } = node;
+
           // stamped node
           if (stamped) {
-            const uniqueId = `${stampId}-stamped-${index}`;
+            const uniqueId = `${id}-stamped-${index}`;
+            if (isLastDay) {
+              return (
+                <Node
+                  key={uniqueId}
+                  style={{
+                    position: "absolute",
+                    top: node.y,
+                    left: node.x,
+                  }}
+                >
+                  <Link
+                    // @ts-ignore
+                    href={{
+                      pathname: "/letter/[id]",
+                      params: {
+                        id: letterId,
+                      },
+                    }}
+                    asChild
+                  >
+                    <StyledButton
+                      circular
+                      // @ts-ignore
+                      type="accent"
+                    >
+                      <Typography>{stamp}</Typography>
+                    </StyledButton>
+                  </Link>
+                </Node>
+              );
+            }
             return (
               <Node
                 key={uniqueId}
@@ -138,7 +172,7 @@ export const StampCard = ({
                         <Typography>{closeMessage}</Typography>
                       </StyledButton>
                     )}
-                    description={nthDay + givenStampMessage}
+                    description={nthday + givenStampMessage}
                   >
                     <YStack gap={20} alignItems="center">
                       <StampWrapper stamp={stamp} />
@@ -154,9 +188,8 @@ export const StampCard = ({
               </Node>
             );
           }
-          // today's un-stamped node
-          if (currentDay === nthDay) {
-            const uniqueId = `${stampId}-currentday-${index}`;
+          if (isLastDay && currentDay >= nthday) {
+            const uniqueId = `${id}-lastday-${index}`;
             return (
               <Node
                 key={uniqueId}
@@ -190,10 +223,13 @@ export const StampCard = ({
                           type="primary"
                           onPress={() =>
                             action(async () => {
-                              console.log("claim stamp start");
-                              // TODO: スタンプをclaimする処理
-                              await sleep(1000);
-                              console.log("claim stamp end");
+                              const repository = new Repository();
+                              await repository.post(
+                                "/notice",
+                                JSON.stringify({
+                                  stampId: id,
+                                }),
+                              );
                             })
                           }
                         >
@@ -201,7 +237,63 @@ export const StampCard = ({
                         </StyledButton>
                       );
                     }}
-                    description={`${readyStampMessage}`}
+                    description={"最終日のタスクを完了しましたか？"}
+                  />
+                </DialogProvider>
+              </Node>
+            );
+          }
+          // nth's un-stamped node
+          if (currentDay >= nthday) {
+            const uniqueId = `${id}-nthday-${index}`;
+            return (
+              <Node
+                key={uniqueId}
+                style={{
+                  position: "absolute",
+                  top: node.y,
+                  left: node.x,
+                }}
+              >
+                <DialogProvider>
+                  <StyledAlertDialog
+                    triggerButton={(toggleModal: () => void) => (
+                      <StyledButton
+                        circular
+                        // @ts-ignore
+                        type="primary"
+                        onPress={toggleModal}
+                      >
+                        <Typography>{stamp}</Typography>
+                      </StyledButton>
+                    )}
+                    cancelButton={(untoggleModal: () => void) => (
+                      // @ts-ignore
+                      <StyledButton type="secondary" onPress={untoggleModal}>
+                        <Typography>{cancelMessage}</Typography>
+                      </StyledButton>
+                    )}
+                    actionButton={(action: DialogActionType) => {
+                      return (
+                        <StyledButton
+                          type="primary"
+                          onPress={() =>
+                            action(async () => {
+                              const repository = new Repository();
+                              await repository.post(
+                                "/notice",
+                                JSON.stringify({
+                                  stampId: id,
+                                }),
+                              );
+                            })
+                          }
+                        >
+                          <Typography>{yesMessage}</Typography>
+                        </StyledButton>
+                      );
+                    }}
+                    description={`${nthday}日目の${readyStampMessage}`}
                   />
                 </DialogProvider>
               </Node>
@@ -209,7 +301,7 @@ export const StampCard = ({
           }
 
           // future stamp nodes
-          const uniqueId = `${stampId}-future-${index}`;
+          const uniqueId = `${id}-future-${index}`;
           return (
             <Node
               key={uniqueId}
@@ -228,7 +320,7 @@ export const StampCard = ({
                       type="ghost"
                       onPress={toggleModal}
                     >
-                      <Typography>{stampId}</Typography>
+                      <Typography>{nthday}</Typography>
                     </StyledButton>
                   )}
                   cancelButton={(untoggleModal: () => void) => (
@@ -238,7 +330,7 @@ export const StampCard = ({
                     </StyledButton>
                   )}
                   description={`まだスタンプをもらえません\n${
-                    nthDay - currentDay
+                    nthday - currentDay
                   }日後にもらえます`}
                 />
               </DialogProvider>

@@ -6,18 +6,9 @@ import { Slot, SplashScreen } from "expo-router";
 import { getApps, initializeApp } from "firebase/app";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
+import { LogBox } from "react-native";
 
 // import { BlurView } from "expo-blur";
-
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>["name"];
-  color: string;
-}) {
-  return <FontAwesome size={22} style={{ marginBottom: -3 }} {...props} />;
-}
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -31,6 +22,9 @@ export const unstable_settings = {
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+
+//Ignore all log notifications
+LogBox.ignoreAllLogs();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({

@@ -1,5 +1,5 @@
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
-import { Link, Stack, useRouter } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
+import { Stack, useRouter } from "expo-router";
 import { Pressable } from "react-native";
 
 export default function Layout() {
@@ -33,28 +33,7 @@ export default function Layout() {
               )}
             </Pressable>
           ),
-          headerRight: () => (
-            <Link href="/letter/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color="#030A12CF"
-                    style={{
-                      marginRight: 15,
-                      opacity: pressed ? 0.5 : 1,
-                    }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
         }}
-      />
-      <Stack.Screen
-        name="modal"
-        options={{ presentation: "modal", headerShown: false }}
       />
     </Stack>
   );

@@ -1,48 +1,81 @@
-import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
-
+import { OneCardSkeleton } from "@/components/Skeleton/Skeleton";
 import { StyledCard } from "@/components/StyledCard";
 import { Typography } from "@/components/Typography";
-import { assertNonNullable } from "@/libs/assertNonNullable";
+import { calculateDaysFromToday } from "@/libs/date";
+import { useApi } from "@/libs/hooks/useApi";
+import { StampCard as StampCardType } from "@/types/StampCard";
 import { StampCard } from "@/ui/StampCard";
-import { MockStampCards } from "@/ui/StampCard/fixture/mock.data";
-import { useLocalSearchParams } from "expo-router";
+import { BadgeInfo } from "@tamagui/lucide-icons";
+import { Link, useLocalSearchParams } from "expo-router";
+import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import { s, vs } from "react-native-size-matters";
-import { YStack } from "tamagui";
+import { XStack, YStack } from "tamagui";
 
-export default function LetterScreen() {
+export default function StampCardScreen() {
   const { id } = useLocalSearchParams();
-  const card = MockStampCards.find((card) => card.cardId === id);
-  assertNonNullable(card);
+  const { useGet } = useApi();
+  const { data, isError, isLoading } = useGet<StampCardType>(
+    `/stampcard/${id}`,
+  );
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
-        <YStack alignItems="center" width="100%" height="100%">
-          <Typography
-            type="h2"
-            marginBottom={vs(30)}
-            textAlign="left"
-            width="100%"
-          >
-            {card.title}
-          </Typography>
-          <StyledCard.Card
-            margin={s(5)}
-            width={s(300)}
-            height={vs(500)}
-            maxWidth={s(300)}
-            maxHeight={vs(500)}
-            isBouncy={false}
-            imageSource={{ uri: card.backgroundUrl }}
-          >
-            <StampCard
-              currentDay={card.currentDay}
-              stampNodes={card.stampNodes}
-              fixedWidth={s(300)}
-              fixedHeight={vs(500)}
-              isEditable
-            />
-          </StyledCard.Card>
-        </YStack>
+        {!data || isLoading ? (
+          <YStack marginTop={s(5)}>
+            <OneCardSkeleton />
+          </YStack>
+        ) : isError || data.err ? (
+          <YStack marginTop={s(5)}>
+            <Typography type="h4" textAlign="center">
+              取得に失敗しました
+            </Typography>
+          </YStack>
+        ) : (
+          <YStack alignItems="center" width="100%" height="100%">
+            <XStack>
+              <Link
+                href={
+                  {
+                    pathname: "/home/[id]/modal",
+                    params: {
+                      id: data.val.id,
+                    },
+                  } as never
+                }
+              >
+                <BadgeInfo color={"$text--subtle"} size={18} />
+              </Link>
+              <Typography
+                type="h3"
+                marginBottom={vs(10)}
+                textAlign="left"
+                width="100%"
+              >
+                {data.val.title}
+              </Typography>
+            </XStack>
+            <StyledCard.Card
+              margin={s(5)}
+              width={s(300)}
+              height={vs(500)}
+              maxWidth={s(300)}
+              maxHeight={vs(500)}
+              isBouncy={false}
+              imageSource={{ uri: data.val.backgroundUrl }}
+            >
+              <StampCard
+                currentDay={calculateDaysFromToday(
+                  data.val.startDate.toString().split("T")[0],
+                )}
+                stampNodes={data.val.stampNodes}
+                fixedWidth={s(300)}
+                fixedHeight={vs(500)}
+                isEditable
+              />
+            </StyledCard.Card>
+          </YStack>
+        )}
       </ScrollView>
     </SafeAreaView>
   );

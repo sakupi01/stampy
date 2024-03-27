@@ -15,6 +15,14 @@ const config: StorybookConfig = {
     "@storybook/addon-essentials",
     "@storybook/addon-onboarding",
     "@storybook/addon-interactions",
+    "@storybook/addon-webpack5-compiler-babel",
+    {
+      name: "@storybook/addon-react-native-web",
+      // options: {
+      //   modulesToTranspile: ["react-native-vector-icons"],
+      //   babelPlugins: ["@babel/plugin-transform-react-jsx"],
+      // },
+    },
   ],
   webpackFinal: async (config) => {
     if (config.resolve) {

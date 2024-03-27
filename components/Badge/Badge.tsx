@@ -5,7 +5,10 @@ import { Typography } from "../Typography/Typography";
 
 type BadgeProps = {
   label?: string;
-  backgroundColor?: "$accent--background" | "$primary--background";
+  backgroundColor?:
+    | "$accent--background"
+    | "$primary--background"
+    | "$ghost--background";
 } & XStackProps;
 export const Badge = ({
   label,

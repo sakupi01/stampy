@@ -6,8 +6,8 @@ import { Typography } from "@/components/Typography/Typography";
 import { selectWordByKey } from "@/libs/AsyncStorage/Word/state";
 import { useAppSelector } from "@/libs/AsyncStorage/store";
 import { useDialogContext } from "@/libs/context/Dialog/useDialogContext";
+import { Repository } from "@/repository/api";
 import { MessageFormSchema, MessageFormType } from "@/schema/message";
-import { User } from "@/types";
 import { valibotResolver } from "@hookform/resolvers/valibot";
 import { useState } from "react";
 import { Controller, FieldValues, useForm } from "react-hook-form";
@@ -17,14 +17,16 @@ import { YStack } from "tamagui";
 import AnimatedView from "../../components/lotties/LottieView";
 
 export type StampFormProps = {
-  user: User;
-  currentDay: number;
+  cardId: string;
+  nthDay: number;
+  notificationId: string;
   buttonLabel?: string;
   isLastDay?: boolean;
 };
 export const StampForm = ({
-  user,
-  currentDay,
+  cardId,
+  nthDay,
+  notificationId,
   buttonLabel = "送る",
   isLastDay = false,
 }: StampFormProps) => {
@@ -107,16 +109,28 @@ export const StampForm = ({
         isSubmitted={isSubmitted}
         isValid={isValid}
         onSubmitAction={handleSubmit(async (data: FieldValues) => {
-          // データ送信処理
-          console.log("Submitted! :", data);
           // アニメーションを開始
           setAnimationStarted(true);
+          // データ送信処理
+          const sendData = {
+            ...data,
+            nthDay: nthDay,
+            cardId: cardId,
+          };
+          const repository = new Repository();
+
+          const res = isLastDay
+            ? await repository.post("/letter", JSON.stringify(sendData))
+            : await repository.put("/stamp", JSON.stringify(sendData));
+
+          // 送信完了
+          // 通知を既読に
+          await repository.put(`/notice/read/${notificationId}`);
           // clear submitting state
           reset();
           // 3.3秒後にアニメーションを終了
           setTimeout(() => {
             setAnimationStarted(false);
-            // TODO: ダイアログを閉じる
             closeDialog();
           }, 3300);
         })}

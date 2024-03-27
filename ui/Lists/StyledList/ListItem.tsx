@@ -1,45 +1,51 @@
 import { StampWrapper } from "@/components/StampWrapper/StampWrapper";
 import { Typography } from "@/components/Typography";
-import { Href } from "expo-router";
+import { LinkProps } from "expo-router";
 import { Link } from "expo-router";
 import { s } from "react-native-size-matters";
 import { XStack, YStack } from "tamagui";
 
 export const LinkListItem = ({
-  href,
   title,
   stamp,
   content,
-}: { href: Href<string>; title: string; stamp?: string; content?: string }) => (
-  <Link href={href}>
-    <XStack space={s(20)} alignItems="center" width="100%">
-      {stamp && <StampWrapper stamp={stamp} size="small" />}
-      <YStack flexShrink={1}>
-        <Typography
-          type="large"
-          whiteSpace="wrap"
-          overflow="hidden"
-          textOverflow="ellipsis"
-          numberOfLines={2}
-        >
-          {title}
-        </Typography>
-        {content ? (
+  ...props
+}: {
+  title: string;
+  stamp?: string;
+  content?: string;
+} & LinkProps<string>) => {
+  return (
+    <Link {...props}>
+      <XStack space={s(20)} alignItems="center" width="100%">
+        {stamp && <StampWrapper stamp={stamp} size="small" />}
+        <YStack flexShrink={1}>
           <Typography
-            type="ui"
+            type="large"
+            whiteSpace="wrap"
             overflow="hidden"
             textOverflow="ellipsis"
             numberOfLines={2}
           >
-            {content}
+            {title}
           </Typography>
-        ) : (
-          ""
-        )}
-      </YStack>
-    </XStack>
-  </Link>
-);
+          {content ? (
+            <Typography
+              type="ui"
+              overflow="hidden"
+              textOverflow="ellipsis"
+              numberOfLines={2}
+            >
+              {content}
+            </Typography>
+          ) : (
+            ""
+          )}
+        </YStack>
+      </XStack>
+    </Link>
+  );
+};
 
 export const TextListItem = ({
   title,

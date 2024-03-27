@@ -3,12 +3,12 @@ import { StampCard } from "@/types/StampCard";
 
 export const MockStampNodes: StampNode[] = [
   ...Array.from(Array(20)).map((_, i) => ({
-    stampId: `${i + 1}`,
+    id: `${i + 1}`,
     stamp: "🌟",
     message: "おめでとう！",
     stamped: i + 1 < 5,
     stampedAt: new Date(),
-    nthDay: i + 1,
+    nthday: i + 1,
     stampedBy: {
       id: "1",
       username: "山田太郎",
@@ -24,7 +24,7 @@ export const MockStampNodes: StampNode[] = [
 
 export const MockStampCards: StampCard[] = [
   ...Array.from(Array(20)).map((_, i) => ({
-    cardId: `${i + 1}`,
+    id: `${i + 1}`,
     title: `タイトル${i + 1}`,
     createdBy: {
       id: "1",
@@ -42,7 +42,8 @@ export const MockStampCards: StampCard[] = [
     },
     createdAt: new Date(),
     updatedAt: new Date(),
-    currentDay: 5,
+    startDate: new Date("2024-02-22 00:00:00"),
+    endDate: new Date("2024-02-28 00:00:00"),
     isCompleted: i + 1 < 8,
     isDeleted: false,
     stampNodes: MockStampNodes,

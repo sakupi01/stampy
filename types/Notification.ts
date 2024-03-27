@@ -5,10 +5,12 @@ export type Notification = {
   type: "notification";
   id: string;
   title: string;
-  content: string;
+  message: string;
   stamp: string | undefined;
-  currentDay?: number;
+  nthDay?: number;
   isLastDay?: boolean;
+  letterId?: string;
+  cardId?: string;
   hrefPrefix: string | undefined;
   sender: User;
   receiver: User;

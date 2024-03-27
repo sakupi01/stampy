@@ -23,14 +23,15 @@ export const CoWorkerSelector = ({
     if (isStampy) {
       inputRef.current?.blur(); // remove focus
       setStampy(isStampy);
-      setValue("isStampy", isStampy);
-      setValue("receiver", undefined);
+
+      setValue("isStampy", isStampy, { shouldDirty: true });
+      setValue("receiver", undefined, { shouldDirty: true });
     } else {
       inputRef.current?.focus(); // remove focus
       setStampy(isStampy);
-      setValue("isStampy", isStampy);
+      setValue("isStampy", isStampy, { shouldDirty: true });
       // メールドレスバリデーションを有効にするために空文字を入れる
-      setValue("receiver", "");
+      setValue("receiver", " ", { shouldDirty: true });
     }
   };
 
@@ -114,10 +115,10 @@ export const CoWorkerSelector = ({
               />
 
               <Typography type="small" color="$text--subtle">
-                ※スタンプカードを作成すると自動的に相手に招待リンクが送信されます
+                ※スタンプカードを作成すると自動的に相手が登録されます
               </Typography>
             </YStack>
-            <Typography type="ui">招待メールを送信</Typography>
+            <Typography type="ui">招待を送信</Typography>
           </YStack>
         ) : (
           <></>

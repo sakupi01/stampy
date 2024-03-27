@@ -1,12 +1,12 @@
 import { Letter } from "@/types/Letter";
 import { Notification } from "@/types/Notification";
-export const DATA: Array<Notification | Letter> = [
+export const DATA: Array<Notification> = [
   {
     type: "notification",
     id: "1",
     title: "テキストアイテム",
     stamp: "🌟",
-    content:
+    message:
       "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
     hrefPrefix: "/letter",
     sender: {
@@ -27,15 +27,16 @@ export const DATA: Array<Notification | Letter> = [
     createdAt: "createdAt",
     sendAt: "sendAt",
     listType: "text",
+    cardId: "1",
   },
   {
     type: "notification",
     id: "2",
     title: "最終日ダイアログ",
-    content:
+    message:
       "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
     stamp: "stamp",
-    currentDay: 10,
+    nthDay: 10,
     isLastDay: true,
     hrefPrefix: "hrefPrefix",
     sender: {
@@ -56,15 +57,16 @@ export const DATA: Array<Notification | Letter> = [
     createdAt: "createdAt",
     sendAt: "sendAt",
     listType: "sender-dialog",
+    cardId: "1",
   },
   {
     type: "notification",
     id: "3",
     title: "ダイアログアイテム",
-    content:
+    message:
       "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
     stamp: "stamp",
-    currentDay: 1,
+    nthDay: 1,
     isLastDay: false,
     hrefPrefix: "hrefPrefix",
     sender: {
@@ -85,15 +87,16 @@ export const DATA: Array<Notification | Letter> = [
     createdAt: "createdAt",
     sendAt: "sendAt",
     listType: "sender-dialog",
+    cardId: "1",
   },
   {
     type: "notification",
     id: "4",
     title: "ダイアログアイテム",
-    content:
+    message:
       "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
     stamp: "stamp",
-    currentDay: 1,
+    nthDay: 1,
     isLastDay: false,
     hrefPrefix: "hrefPrefix",
     sender: {
@@ -114,15 +117,16 @@ export const DATA: Array<Notification | Letter> = [
     createdAt: "createdAt",
     sendAt: "sendAt",
     listType: "sender-dialog",
+    cardId: "1",
   },
   {
     type: "notification",
     id: "5",
     title: "ダイアログアイテム",
-    content:
+    message:
       "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
     stamp: "stamp",
-    currentDay: 1,
+    nthDay: 1,
     isLastDay: false,
     hrefPrefix: "hrefPrefix",
     sender: {
@@ -143,14 +147,15 @@ export const DATA: Array<Notification | Letter> = [
     createdAt: "createdAt",
     sendAt: "sendAt",
     listType: "sender-dialog",
+    cardId: "1",
   },
   {
     type: "notification",
     id: "6",
     title: "スタンプが届いています",
-    content: "今日もよくがんばりました！今日もよくがんばりました！",
+    message: "今日もよくがんばりました！今日もよくがんばりました！",
     stamp: "❤️‍🔥",
-    currentDay: 1,
+    nthDay: 1,
     isLastDay: false,
     hrefPrefix: "hrefPrefix",
     sender: {
@@ -171,15 +176,16 @@ export const DATA: Array<Notification | Letter> = [
     createdAt: "createdAt",
     sendAt: "sendAt",
     listType: "receiver-dialog",
+    cardId: "1",
   },
   {
     type: "notification",
     id: "7",
     title: "完走レターが届いています",
-    content:
+    message:
       "完走レターの内容完走レターの内容完走レターの内容完走レターの内容完走レターの内容",
     stamp: "❤️‍🔥",
-    currentDay: 10,
+    nthDay: 10,
     isLastDay: true,
     hrefPrefix: "hrefPrefix",
     sender: {
@@ -200,16 +206,17 @@ export const DATA: Array<Notification | Letter> = [
     createdAt: "createdAt",
     sendAt: "sendAt",
     listType: "receiver-dialog",
+    cardId: "1",
   },
 ];
 
-export const DATA_LETTER: Array<Notification | Letter> = [
+export const DATA_LETTER: Array<Letter> = [
   {
     type: "letter",
     id: "1",
-    title: "「カードタイトル」への完走レター",
-    stamp: "🌟",
-    content:
+    title: "「ピアノの練習をする」への完走レター",
+    stamp: "🎹",
+    message:
       "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
     hrefPrefix: "/letter",
     sender: {
@@ -219,6 +226,7 @@ export const DATA_LETTER: Array<Notification | Letter> = [
       avatarUrl:
         "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
+    isVisible: true,
     receiver: {
       id: "1",
       username: "username",
@@ -234,21 +242,22 @@ export const DATA_LETTER: Array<Notification | Letter> = [
   {
     type: "letter",
     id: "2",
-    title: "「カードタイトル」への完走レター",
-    content:
-      "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
-    stamp: "🌟",
+    title: "「A11yを勉強する期間」への完走レター",
+    message:
+      "さいごまで継続してほんと偉い！\n私も達成したいことを諦めずに頑張ろうって思えました。\nありがとう。",
+    stamp: "❤️‍🔥",
     hrefPrefix: "/letter",
     sender: {
       id: "1",
-      username: "username",
+      username: "Stampy",
       email: "email",
       avatarUrl:
         "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
+    isVisible: true,
     receiver: {
       id: "1",
-      username: "username",
+      username: "saku",
       email: "email",
       avatarUrl:
         "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
@@ -261,10 +270,10 @@ export const DATA_LETTER: Array<Notification | Letter> = [
   {
     type: "letter",
     id: "3",
-    title: "「カードタイトル」への完走レター",
-    content:
+    title: "「外食しない」への完走レター",
+    message:
       "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
-    stamp: "🌟",
+    stamp: "🍜",
     hrefPrefix: "/letter",
     sender: {
       id: "1",
@@ -273,6 +282,7 @@ export const DATA_LETTER: Array<Notification | Letter> = [
       avatarUrl:
         "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
+    isVisible: true,
     receiver: {
       id: "1",
       username: "username",
@@ -288,10 +298,10 @@ export const DATA_LETTER: Array<Notification | Letter> = [
   {
     type: "letter",
     id: "4",
-    title: "「カードタイトル」への完走レター",
-    content:
+    title: "「お風呂掃除をする」への完走レター",
+    message:
       "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
-    stamp: "🌟",
+    stamp: "🛁",
     hrefPrefix: "/letter",
     sender: {
       id: "1",
@@ -300,6 +310,7 @@ export const DATA_LETTER: Array<Notification | Letter> = [
       avatarUrl:
         "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
+    isVisible: true,
     receiver: {
       id: "1",
       username: "username",
@@ -315,10 +326,10 @@ export const DATA_LETTER: Array<Notification | Letter> = [
   {
     type: "letter",
     id: "5",
-    title: "「カードタイトル」への完走レター",
-    content:
+    title: "「本を読む」への完走レター",
+    message:
       "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト",
-    stamp: "🌟",
+    stamp: "📚",
     hrefPrefix: "/letter",
     sender: {
       id: "1",
@@ -327,6 +338,7 @@ export const DATA_LETTER: Array<Notification | Letter> = [
       avatarUrl:
         "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
     },
+    isVisible: true,
     receiver: {
       id: "1",
       username: "username",

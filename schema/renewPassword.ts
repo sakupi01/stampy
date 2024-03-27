@@ -3,6 +3,7 @@ import { passwordConfirmSchema, passwordSchema } from "./schema";
 
 const RenewPasswordFormSchema = object(
   {
+    oldPassword: passwordSchema,
     password: passwordSchema,
     passwordConfirm: passwordConfirmSchema,
   },

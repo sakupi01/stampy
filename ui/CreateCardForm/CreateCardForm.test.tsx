@@ -9,6 +9,12 @@ jest.mock("@/libs/firebase/upload-image", () => {});
 
 describe("<CreateCardForm />", () => {
   test("if renders", () => {
+    const user = {
+      avatarUrl: "https://example.com",
+      id: "0",
+      username: "test",
+      email: "",
+    };
     const snapshot = renderer
       .create(
         <Providers colorScheme={"light"}>

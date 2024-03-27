@@ -38,7 +38,7 @@ export const Default: Story = {
       avatarUrl:
         "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
     },
-    currentDay: 2,
+    nthDay: 2,
     buttonLabel: "送る",
     isLastDay: false,
   },
@@ -52,7 +52,7 @@ export const 完走レター: Story = {
       avatarUrl:
         "https://images.unsplash.com/photo-1531384441138-2736e62e0919?&w=100&h=100&dpr=2&q=80",
     },
-    currentDay: 5,
+    nthDay: 5,
     buttonLabel: "送る",
     isLastDay: true,
   },
