@@ -23,7 +23,6 @@ export const StampCardList = function StampCardList({
   const user = useAppSelector((state) => state.auth.user);
   assertNonNullable(user);
 
-  // filter not isDeleted === true
   useEffect(() => {
     const extractedCards = cards
       .filter(
