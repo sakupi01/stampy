@@ -188,7 +188,7 @@ export const StampCard = ({
               </Node>
             );
           }
-          if (isLastDay) {
+          if (isLastDay && currentDay >= nthday) {
             const uniqueId = `${id}-lastday-${index}`;
             return (
               <Node

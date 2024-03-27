@@ -6,6 +6,7 @@ import { useAppSelector } from "@/libs/AsyncStorage/store";
 import { assertNonNullable } from "@/libs/assertNonNullable";
 import { useApi } from "@/libs/hooks/useApi";
 import { Repository } from "@/repository/api";
+import { StampCard } from "@/types/StampCard";
 import { FontAwesome } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { s, vs } from "react-native-size-matters";
@@ -18,7 +19,7 @@ export default function ModalScreen() {
   const { mutate } = useSWRConfig();
   const router = useRouter();
   const { useGet } = useApi();
-  const { data, isError, isLoading } = useGet(`/stampcard/${id}`);
+  const { data, isError, isLoading } = useGet<StampCard>(`/stampcard/${id}`);
   const user = useAppSelector((state) => state.auth.user);
   assertNonNullable(user);
   return (

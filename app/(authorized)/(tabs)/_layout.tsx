@@ -21,23 +21,31 @@ export default function Layout() {
     data: resNotice,
     isError: isNoticeError,
     isLoading: isNoticeLoading,
-  } = useGet("/notice", undefined, true, { refreshInterval: 5000 });
+  } = useGet<{ notice: Notification[] }>("/notice", undefined, true, {
+    refreshInterval: 5000,
+  });
   const {
     data: resLetter,
     isError: isLetterError,
     isLoading: isLetterLoading,
-  } = useGet("/letter");
+  } = useGet<{ letters: Letter[] }>("/letter");
 
   const numNotifications =
-    isNoticeLoading || resNotice === undefined || resNotice.val.notice === null
-      ? ""
+    isNoticeLoading ||
+    resNotice === undefined ||
+    resNotice.val === null ||
+    resNotice.val.notice === null
+      ? 0
       : resNotice.val.notice.filter((item: Notification) => {
           return item.read === false;
         }).length;
 
   const numLetters =
-    isLetterLoading || resLetter === undefined || resLetter.val.letters === null
-      ? ""
+    isLetterLoading ||
+    resLetter === undefined ||
+    resLetter.val === null ||
+    resLetter.val.letters === null
+      ? 0
       : resLetter.val.letters.filter((item: Letter) => {
           return item.isVisible && item.read === false;
         }).length;

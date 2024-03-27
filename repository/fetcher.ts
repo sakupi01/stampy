@@ -10,7 +10,11 @@ function isStatusCode200Series(statusCode: number) {
   return /^2\d{2}$/.test(String(statusCode));
 }
 
-const withToken = async (endpoint: string, options?: RequestInit) => {
+export type NoContent = {
+  message: "no content";
+};
+
+const withToken = async <T>(endpoint: string, options?: RequestInit) => {
   const token = await SecureStore.getItemAsync("token");
   assertNonNullable(token);
   const response = await fetch(
@@ -31,13 +35,13 @@ const withToken = async (endpoint: string, options?: RequestInit) => {
     return resultError(statusCodeToError(status));
   }
   if (response.status === 204) {
-    return resultOk({});
+    return resultOk<T>({} as T);
   }
   const data = await response.json();
-  return resultOk(data);
+  return resultOk<T>(data);
 };
 
-const withoutToken = async (endpoint: string, options?: RequestInit) => {
+const withoutToken = async <T>(endpoint: string, options?: RequestInit) => {
   const response = await fetch(
     `${process.env.EXPO_PUBLIC_API_BASE_URL}${endpoint}`,
     {
@@ -55,7 +59,7 @@ const withoutToken = async (endpoint: string, options?: RequestInit) => {
     return resultError(statusCodeToError(status));
   }
   const data = await response.json();
-  return resultOk(data);
+  return resultOk<T>(data);
 };
 
 export const fetcher = {

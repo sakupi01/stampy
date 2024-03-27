@@ -1,7 +1,7 @@
 import { Repository } from "@/repository/api";
 import useSWR from "swr";
 
-function useGet(
+function useGet<T>(
   endpoint: string,
   body?: BodyInit,
   withToken = true,
@@ -11,7 +11,8 @@ function useGet(
   const repository = new Repository();
   const { data, error, isLoading } = useSWR(
     [endpoint, body, withToken],
-    ([endpoint, body, withToken]) => repository.get(endpoint, body, withToken),
+    ([endpoint, body, withToken]) =>
+      repository.get<T>(endpoint, body, withToken),
     config,
   );
 
@@ -22,11 +23,12 @@ function useGet(
   };
 }
 
-function usePut(endpoint: string, body: BodyInit, withToken = true) {
+function usePut<T>(endpoint: string, body: BodyInit, withToken = true) {
   const repository = new Repository();
   const { data, error, isLoading } = useSWR(
     [endpoint, body, withToken],
-    ([endpoint, body, withToken]) => repository.put(endpoint, body, withToken),
+    ([endpoint, body, withToken]) =>
+      repository.put<T>(endpoint, body, withToken),
   );
 
   return {
@@ -35,11 +37,12 @@ function usePut(endpoint: string, body: BodyInit, withToken = true) {
     isLoading,
   };
 }
-function usePost(endpoint: string, body: BodyInit, withToken = true) {
+function usePost<T>(endpoint: string, body: BodyInit, withToken = true) {
   const repository = new Repository();
   const { data, error, isLoading } = useSWR(
     [endpoint, body, withToken],
-    ([endpoint, body, withToken]) => repository.post(endpoint, body, withToken),
+    ([endpoint, body, withToken]) =>
+      repository.post<T>(endpoint, body, withToken),
   );
 
   return {

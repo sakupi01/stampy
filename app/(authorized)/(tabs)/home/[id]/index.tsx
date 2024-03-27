@@ -3,6 +3,7 @@ import { StyledCard } from "@/components/StyledCard";
 import { Typography } from "@/components/Typography";
 import { calculateDaysFromToday } from "@/libs/date";
 import { useApi } from "@/libs/hooks/useApi";
+import { StampCard as StampCardType } from "@/types/StampCard";
 import { StampCard } from "@/ui/StampCard";
 import { BadgeInfo } from "@tamagui/lucide-icons";
 import { Link, useLocalSearchParams } from "expo-router";
@@ -13,7 +14,9 @@ import { XStack, YStack } from "tamagui";
 export default function StampCardScreen() {
   const { id } = useLocalSearchParams();
   const { useGet } = useApi();
-  const { data, isError, isLoading } = useGet(`/stampcard/${id}`);
+  const { data, isError, isLoading } = useGet<StampCardType>(
+    `/stampcard/${id}`,
+  );
 
   return (
     <SafeAreaView style={styles.container}>

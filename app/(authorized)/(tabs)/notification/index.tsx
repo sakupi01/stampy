@@ -2,6 +2,7 @@ import { SearchBar } from "@/components/SearchBar";
 import { ListSkeleton } from "@/components/Skeleton";
 import { Typography } from "@/components/Typography";
 import { useApi } from "@/libs/hooks/useApi";
+import { Notification } from "@/types/Notification";
 import { NotificationList } from "@/ui/Lists/NotificationList";
 import { useLocalSearchParams } from "expo-router";
 import { SafeAreaView, StyleSheet } from "react-native";
@@ -17,7 +18,9 @@ export default function NotificationScreen() {
     data: res,
     isError,
     isLoading,
-  } = useGet("/notice", undefined, true, { refreshInterval: 5000 });
+  } = useGet<{ notice: Notification[] }>("/notice", undefined, true, {
+    refreshInterval: 5000,
+  });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -37,16 +40,16 @@ export default function NotificationScreen() {
       <YStack paddingHorizontal={s(30)} paddingBottom={vs(100)}>
         {!res || isLoading ? (
           <ListSkeleton />
-        ) : res.val.notice === null || res.val.notice.length === 0 ? (
-          <Typography type="h4" textAlign="center">
-            ここはまだとても静かです。
-          </Typography>
         ) : isError || res.err ? (
           <YStack marginTop={s(5)}>
             <Typography type="h4" textAlign="center">
               取得に失敗しました。
             </Typography>
           </YStack>
+        ) : res.val.notice === null || res.val.notice.length === 0 ? (
+          <Typography type="h4" textAlign="center">
+            ここはまだとても静かです。
+          </Typography>
         ) : (
           <YStack paddingBottom={vs(80)}>
             <NotificationList query={query} notifications={res.val.notice} />

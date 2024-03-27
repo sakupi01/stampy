@@ -4,6 +4,7 @@ import { SearchBar } from "@/components/SearchBar";
 import { ListSkeleton } from "@/components/Skeleton";
 import { Typography } from "@/components/Typography";
 import { useApi } from "@/libs/hooks/useApi";
+import { Letter } from "@/types/Letter";
 import { LetterList } from "@/ui/Lists/LetterList";
 import { useLocalSearchParams } from "expo-router";
 import { s, vs } from "react-native-size-matters";
@@ -13,7 +14,11 @@ export default function LetterScreen() {
   const { query } = useLocalSearchParams<{ query?: string }>();
 
   const { useGet } = useApi();
-  const { data: res, isError, isLoading } = useGet("/letter");
+  const {
+    data: res,
+    isError,
+    isLoading,
+  } = useGet<{ letters: Letter[] }>("/letter");
 
   return (
     <SafeAreaView style={styles.container}>
@@ -29,16 +34,16 @@ export default function LetterScreen() {
       <YStack paddingHorizontal={s(30)} paddingBottom={vs(100)}>
         {!res || isLoading ? (
           <ListSkeleton />
-        ) : res.val.letters === null || res.val.letters.length === 0 ? (
-          <YStack marginTop={s(5)}>
-            <Typography type="h4" textAlign="center">
-              レターが届くのが待ち遠しいですね！
-            </Typography>
-          </YStack>
         ) : isError || res.err ? (
           <YStack marginTop={s(5)}>
             <Typography type="h4" textAlign="center">
               取得に失敗しました。
+            </Typography>
+          </YStack>
+        ) : res.val.letters === null || res.val.letters.length === 0 ? (
+          <YStack marginTop={s(5)}>
+            <Typography type="h4" textAlign="center">
+              レターが届くのが待ち遠しいですね！
             </Typography>
           </YStack>
         ) : (

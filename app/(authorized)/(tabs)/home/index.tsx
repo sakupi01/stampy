@@ -2,6 +2,7 @@ import { SearchBar } from "@/components/SearchBar";
 import { CardSkeleton } from "@/components/Skeleton/Skeleton";
 import { Typography } from "@/components/Typography";
 import { useApi } from "@/libs/hooks/useApi";
+import { StampCard } from "@/types/StampCard";
 import { useLocalSearchParams } from "expo-router";
 import { StyleSheet } from "react-native";
 import { SafeAreaView, ScrollView } from "react-native";
@@ -11,7 +12,11 @@ import { StampCardList } from "../../../../ui/Lists/StampCardList/StampCardList"
 export default function Home() {
   const { query } = useLocalSearchParams<{ query?: string }>();
   const { useGet } = useApi();
-  const { data: res, isError, isLoading } = useGet("/stampcard");
+  const {
+    data: res,
+    isError,
+    isLoading,
+  } = useGet<{ cards: StampCard[] }>("/stampcard");
 
   return (
     <SafeAreaView style={styles.container}>
@@ -32,13 +37,13 @@ export default function Home() {
               <CardSkeleton />
               <CardSkeleton />
             </YStack>
-          ) : res.val.cards === null || res.val.cards.length === 0 ? (
-            <Typography type="h4" textAlign="center">
-              スタンプカードを作ってみましょう！
-            </Typography>
           ) : isError || res.err ? (
             <Typography type="h4" textAlign="center">
               取得に失敗しました。
+            </Typography>
+          ) : res.val.cards === null || res.val.cards.length === 0 ? (
+            <Typography type="h4" textAlign="center">
+              スタンプカードを作ってみましょう！
             </Typography>
           ) : (
             <YStack paddingBottom={vs(100)}>

@@ -18,7 +18,9 @@ export default function letterScreen() {
   const { mutate } = useSWRConfig();
 
   const { useGet } = useApi();
-  const { data, isError, isLoading } = useGet(`/letter/${id}`);
+  const { data, isError, isLoading } = useGet<{ letter: Letter }>(
+    `/letter/${id}`,
+  );
   console.log("letter:", id, data);
 
   useEffect(() => {
