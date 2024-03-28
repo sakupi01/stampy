@@ -1,4 +1,3 @@
-import { ChevronRight } from "@tamagui/lucide-icons";
 import React from "react";
 import { FlatList } from "react-native";
 import { s, vs } from "react-native-size-matters";
@@ -50,7 +49,6 @@ const Item = ({ id, label, data, icon }: ListItemProps) => {
           </Typography>
         </YStack>
       </XStack>
-      <ChevronRight color={"#64748B"} />
     </XStack>
   );
 };
