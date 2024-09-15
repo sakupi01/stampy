@@ -71,7 +71,7 @@
         "swr": "^2.2.5",
         "tamagui": "1.81.4",
         "use-debounce": "^10.0.0",
-        "valibot": "^0.25.0"
+        "valibot": "^0.42.0"
     },
     "devDependencies": {
         "@babel/core": "^7.20.0",
