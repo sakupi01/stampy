@@ -88,7 +88,7 @@
         "@storybook/addon-onboarding": "^1.0.10",
         "@storybook/addon-ondevice-actions": "^6.5.7",
         "@storybook/addon-ondevice-controls": "^6.5.7",
-        "@storybook/addon-react-native-web": "^0.0.23",
+        "@storybook/addon-react-native-web": "^0.0.26",
         "@storybook/addon-webpack5-compiler-babel": "^3.0.3",
         "@storybook/blocks": "^7.6.7",
         "@storybook/react": "^7.6.7",
