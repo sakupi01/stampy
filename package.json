@@ -34,7 +34,7 @@
         "@reduxjs/toolkit": "^2.0.1",
         "@storybook/addon-ondevice-backgrounds": "^6.5.7",
         "@storybook/addon-ondevice-notes": "^6.5.7",
-        "@tamagui/config": "1.81.4",
+        "@tamagui/config": "1.116.7",
         "@tamagui/image": "1.81.4",
         "@tamagui/lucide-icons": "1.81.4",
         "@tamagui/toast": "1.81.4",
