@@ -37,7 +37,7 @@
         "@tamagui/config": "1.81.4",
         "@tamagui/image": "1.81.4",
         "@tamagui/lucide-icons": "1.81.4",
-        "@tamagui/toast": "1.81.4",
+        "@tamagui/toast": "1.116.7",
         "@types/bcrypt": "^5.0.2",
         "babel-plugin-react-require": "^4.0.2",
         "burnt": "^0.12.2",
